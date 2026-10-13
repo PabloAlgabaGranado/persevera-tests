@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Persevera Tests, dirección «Noche y menta», elegida por Blanca el 13-oct-2026. La casilla bajo la luz. 1024x1024, sin transparencia. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+<defs><linearGradient id="luzTests" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7AD8D2" stop-opacity="0.30"/><stop offset="1" stop-color="#7AD8D2" stop-opacity="0"/></linearGradient></defs>
+<rect width="1024" height="1024" fill="#0F2A31"/>
+<polygon points="324,436 700,436 1104,1024 -80,1024" fill="url(#luzTests)"/>
+<path d="M 432 162 L 592 162 L 700 432 L 324 432 Z" fill="#7AD8D2"/>
+<rect x="312" y="420" width="400" height="16" fill="#5BA899"/>
+<path d="M178,680 H282 A30,30 0 0 1 312,710 V814 A30,30 0 0 1 282,844 H178 A30,30 0 0 1 148,814 V710 A30,30 0 0 1 178,680 Z M192,716 H268 A8,8 0 0 1 276,724 V800 A8,8 0 0 1 268,808 H192 A8,8 0 0 1 184,800 V724 A8,8 0 0 1 192,716 Z" fill="#FFFFFF" fill-rule="evenodd"/>
+<path d="M366,680 H470 A30,30 0 0 1 500,710 V814 A30,30 0 0 1 470,844 H366 A30,30 0 0 1 336,814 V710 A30,30 0 0 1 366,680 Z M380,716 H456 A8,8 0 0 1 464,724 V800 A8,8 0 0 1 456,808 H380 A8,8 0 0 1 372,800 V724 A8,8 0 0 1 380,716 Z" fill="#FFFFFF" fill-rule="evenodd"/>
+<path d="M554,680 H658 A30,30 0 0 1 688,710 V814 A30,30 0 0 1 658,844 H554 A30,30 0 0 1 524,814 V710 A30,30 0 0 1 554,680 Z" fill="#7AD8D2"/>
+<path d="M 566 766 L 594 794 L 648 732" fill="none" stroke="#0F2A31" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M742,680 H846 A30,30 0 0 1 876,710 V814 A30,30 0 0 1 846,844 H742 A30,30 0 0 1 712,814 V710 A30,30 0 0 1 742,680 Z M756,716 H832 A8,8 0 0 1 840,724 V800 A8,8 0 0 1 832,808 H756 A8,8 0 0 1 748,800 V724 A8,8 0 0 1 756,716 Z" fill="#FFFFFF" fill-rule="evenodd"/>
+</svg>

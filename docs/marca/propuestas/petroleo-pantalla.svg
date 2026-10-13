@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" width="390" height="844">
+<rect width="390" height="844" fill="#F3F7F8"/>
+<text x="34" y="35" font-family="-apple-system, system-ui, sans-serif" font-size="16" font-weight="600" fill="#1B2A4A">9:41</text>
+<rect x="300" y="28" width="3" height="4" rx="1" fill="#1B2A4A"/>
+<rect x="305" y="26" width="3" height="6" rx="1" fill="#1B2A4A"/>
+<rect x="310" y="24" width="3" height="8" rx="1" fill="#1B2A4A"/>
+<rect x="315" y="22" width="3" height="10" rx="1" fill="#1B2A4A"/>
+<rect x="326" y="22.5" width="25" height="11" rx="3" fill="none" stroke="#1B2A4A" stroke-opacity="0.45" stroke-width="1"/>
+<rect x="328" y="24.5" width="17" height="7" rx="1.5" fill="#1B2A4A"/>
+<rect x="352.5" y="26" width="1.6" height="4" rx="0.8" fill="#1B2A4A" fill-opacity="0.45"/>
+<path d="M 25 69 L 39 83 M 39 69 L 25 83" stroke="#1B2A4A" stroke-width="2.2" stroke-linecap="round"/>
+<text x="195" y="81" text-anchor="middle" font-family="-apple-system, system-ui, sans-serif" font-size="16" font-weight="600" fill="#1B2A4A">Test del tema 2</text>
+<text x="370" y="81" text-anchor="end" font-family="-apple-system, system-ui, sans-serif" font-size="15" font-weight="500" fill="#56677A">12/30</text>
+<rect x="20" y="100" width="350" height="6" rx="3" fill="#D5E0E4"/>
+<rect x="20" y="100" width="140" height="6" rx="3" fill="#0E5E6F"/>
+<circle cx="25" cy="133" r="4.5" fill="#1B7D3E"/>
+<text x="35" y="138" font-family="-apple-system, system-ui, sans-serif" font-size="14" fill="#56677A"><tspan font-weight="600" fill="#1B2A4A">8</tspan> aciertos</text>
+<circle cx="122" cy="133" r="4.5" fill="#C8423C"/>
+<text x="132" y="138" font-family="-apple-system, system-ui, sans-serif" font-size="14" fill="#56677A"><tspan font-weight="600" fill="#1B2A4A">3</tspan> fallos</text>
+<rect x="20" y="160" width="160" height="28" rx="14" fill="#E2F0F3"/>
+<path d="M 36 167.5 L 41 167.5 L 44.4 176.4 L 32.6 176.4 Z" fill="#0A4553"/><rect x="32.2" y="177.3" width="12.6" height="1.7" fill="#0A4553"/>
+<text x="50" y="179" font-family="-apple-system, system-ui, sans-serif" font-size="13" font-weight="600" fill="#0A4553">Oficial, AGE 2024</text>
+<text x="20" y="224" font-family="-apple-system, system-ui, sans-serif" font-size="20" font-weight="600" fill="#1B2A4A">Según el artículo 68.4 de la</text>
+<text x="20" y="251" font-family="-apple-system, system-ui, sans-serif" font-size="20" font-weight="600" fill="#1B2A4A">Constitución, el mandato de los</text>
+<text x="20" y="278" font-family="-apple-system, system-ui, sans-serif" font-size="20" font-weight="600" fill="#1B2A4A">Diputados termina:</text>
+<rect x="20" y="298" width="350" height="76" rx="14" fill="#FBEAE9" stroke="#C8423C" stroke-width="2"/>
+<circle cx="50" cy="327" r="15" fill="#C8423C"/>
+<text x="50" y="332" text-anchor="middle" font-family="-apple-system, system-ui, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">A</text>
+<text x="78" y="332" font-family="-apple-system, system-ui, sans-serif" font-size="16" fill="#1B2A4A">A los cinco años de su elección</text>
+<text x="78" y="354" font-family="-apple-system, system-ui, sans-serif" font-size="13" font-weight="600" fill="#A12E29">Tu respuesta</text>
+<path d="M 345 321 L 357 333 M 357 321 L 345 333" stroke="#C8423C" stroke-width="3" stroke-linecap="round"/>
+<rect x="20" y="386" width="350" height="97" rx="14" fill="#E6F4EA" stroke="#1B7D3E" stroke-width="2"/>
+<circle cx="50" cy="415" r="15" fill="#1B7D3E"/>
+<text x="50" y="420" text-anchor="middle" font-family="-apple-system, system-ui, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">B</text>
+<text x="78" y="420" font-family="-apple-system, system-ui, sans-serif" font-size="16" fill="#1B2A4A">A los cuatro años de su elección</text>
+<text x="78" y="441" font-family="-apple-system, system-ui, sans-serif" font-size="16" fill="#1B2A4A">o al disolverse la Cámara</text>
+<text x="78" y="463" font-family="-apple-system, system-ui, sans-serif" font-size="13" font-weight="600" fill="#14652F">Respuesta correcta</text>
+<path d="M 342 415 L 348 421 L 359 409" fill="none" stroke="#1B7D3E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="20" y="495" width="350" height="58" rx="14" fill="#FFFFFF" stroke="#7A8E98" stroke-width="1.25"/>
+<circle cx="50" cy="524" r="15" fill="#EAF0F2"/>
+<text x="50" y="529" text-anchor="middle" font-family="-apple-system, system-ui, sans-serif" font-size="15" font-weight="700" fill="#1B2A4A">C</text>
+<text x="78" y="529" font-family="-apple-system, system-ui, sans-serif" font-size="16" fill="#1B2A4A">Al constituirse las nuevas Cortes</text>
+<rect x="20" y="565" width="350" height="58" rx="14" fill="#FFFFFF" stroke="#7A8E98" stroke-width="1.25"/>
+<circle cx="50" cy="594" r="15" fill="#EAF0F2"/>
+<text x="50" y="599" text-anchor="middle" font-family="-apple-system, system-ui, sans-serif" font-size="15" font-weight="700" fill="#1B2A4A">D</text>
+<text x="78" y="599" font-family="-apple-system, system-ui, sans-serif" font-size="16" fill="#1B2A4A">Cuando lo acuerde el Pleno</text>
+<rect x="20" y="639" width="350" height="104" rx="14" fill="#E2F0F3"/>
+<text x="36" y="665" font-family="-apple-system, system-ui, sans-serif" font-size="14" font-weight="700" fill="#0A4553">Por qué</text>
+<text x="36" y="688" font-family="-apple-system, system-ui, sans-serif" font-size="14" fill="#1B2A4A">Art. 68.4 CE: el mandato termina cuatro años</text>
+<text x="36" y="708" font-family="-apple-system, system-ui, sans-serif" font-size="14" fill="#1B2A4A">después de la elección o el día en que se</text>
+<text x="36" y="728" font-family="-apple-system, system-ui, sans-serif" font-size="14" fill="#1B2A4A">disuelve la Cámara.</text>
+<rect x="20" y="760" width="350" height="54" rx="14" fill="#0E5E6F"/>
+<text x="195" y="793" text-anchor="middle" font-family="-apple-system, system-ui, sans-serif" font-size="17" font-weight="600" fill="#FFFFFF">Siguiente</text>
+<rect x="128" y="830" width="134" height="5" rx="2.5" fill="#1B2A4A"/>
+</svg>

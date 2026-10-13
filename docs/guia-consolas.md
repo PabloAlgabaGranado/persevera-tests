@@ -1,7 +1,7 @@
 # Persevera Tests: las consolas de Álvaro
 
 > **Estado al 13-oct-2026**
-> - **Ya hecho desde el hilo el 13-oct-2026**, con el visto bueno de Blanca y el conector de RevenueCat: el proyecto «Persevera Tests» (`proj0fca9795`, dueño `hola@brooksoo.com`, el mismo que Persevera y Eroodite), sus apps de App Store (`app6974824c52`) y Play Store (`app3585b5c72c`), el entitlement `acceso` con los seis productos de la tabla, y las ofertas `default` (la actual) y `sin_prueba`, cada una con sus tres paquetes. En los bloques 4, 10, 11 y 12, lo marcado «Ya hecho» no se repite. En el proyecto Persevera no se tocó nada. Ninguna otra tarea tuya está hecha. El conector de Stripe solo ve la cuenta «Persevera Oposiciones» (`acct_1TXmFMRzkoCyGZtc`). Si el repositorio `PabloAlgabaGranado/persevera-tests` existe ya, no lo he podido mirar desde aquí: lo miras en el bloque 1.
+> - **Ya hecho desde el hilo el 13-oct-2026**, con el visto bueno de Blanca y el conector de RevenueCat: el proyecto «Persevera Tests» (`proj0fca9795`, dueño `hola@brooksoo.com`, el mismo que Persevera y Eroodite), sus apps de App Store (`app6974824c52`) y Play Store (`app3585b5c72c`), el entitlement `acceso` con los seis productos de la tabla, y las ofertas `default` (la actual) y `sin_prueba`, cada una con sus tres paquetes. En los bloques 4, 10, 11 y 12, lo marcado «Ya hecho» no se repite. En el proyecto Persevera no se tocó nada. Ninguna otra tarea tuya está hecha. Más tarde, ese mismo día: Blanca creó el repositorio privado `PabloAlgabaGranado/persevera-tests` (ya tiene T1 subido) y la cuenta de Stripe «Persevera Tests» (`acct_1UQA9NDBHlndqjVo`), separada y fuera de cualquier organización, con Radar en «Lite». Con su visto bueno, desde el hilo se puso Stripe Tax en esa cuenta (13.1, pasos 1 a 3). La cuenta de Persevera no se tocó.
 > - Blanca decidió el 13-oct-2026 que empiezas ya con todo lo de Tests, a la par del día D de Persevera. La referencia del día D es el martes 27-oct, y puede moverse. El día D va primero.
 > - El correo de soporte de Tests es `hola@perseveraoposiciones.com`, elegido por Blanca el 13-oct-2026. Se redirige a `hola@brooksoo.com`, el buzón que ya contesta lo de Persevera.
 > - Esta guía es la T9 de la hoja de ruta. Las líneas que cita de la hoja son las de su versión del 13-oct-2026.
@@ -530,6 +530,8 @@ Stripe pide una cuenta aparte para cada negocio que funciona por su cuenta. La m
 - **Si Persevera no está en ninguna organización:** «New account» y crea `Persevera Tests` fuera de ninguna organización [Stripe varias cuentas]. **No crees una organización para meter a Persevera:** eso cambia la cuenta de Persevera (su equipo y su acceso pasan a la organización) [Stripe organizaciones]. Rellena los datos a mano.
 
 Antes de seguir, mira arriba que estás en **Persevera Tests**.
+
+> **Ya hecho el 13-oct-2026 por Blanca:** 3.1. La cuenta es `acct_1UQA9NDBHlndqjVo`, separada, fuera de cualquier organización; Persevera tampoco está en ninguna. En el alta eligió «Elige lo que necesitas» (Stripe Tax y Radar, sin Managed Payments) y Radar «Lite», el incluido. El panel decía «Ya estás en tu cuenta activa». En 3.2 y 3.3 solo mira que la verificación está enviada y que los datos públicos son los de abajo; completa lo que falte.
 
 ### 3.2 La verificación (20 min, más la espera)
 
@@ -1550,6 +1552,8 @@ Fecha:
 2. En RevenueCat, mira si la configuración web ya existe (si en el bloque 7 fuiste por el camino del modo de prueba).
 
 ### 13.1 Stripe Tax (10 min)
+
+> **Ya hecho el 13-oct-2026 desde el hilo**, con el visto bueno de Blanca y el conector de Stripe: los pasos 1 a 3. La sede dice «Calle Doctor Fleming 21», 41210 Guillena, SE; impuestos incluidos y `txcd_10000000`; registro en España, estándar, como pequeño vendedor (`taxreg_1UQAONDBHlndqjVoj0sbwN9r`). Stripe Tax sale «active». Empieza en el paso 4.
 
 En la cuenta Persevera Tests, en la configuración de impuestos («Configuración», «Impuestos», `https://dashboard.stripe.com/settings/tax`; el registro, en la pestaña «Ubicaciones» (Locations)) [Stripe Tax alta], [Stripe impuestos UE]:
 1. Sede: la dirección de Brooks & Oo, S.L., con «Doctor».

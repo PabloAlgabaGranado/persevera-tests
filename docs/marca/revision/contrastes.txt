@@ -1,0 +1,159 @@
+PERSEVERA TESTS: NOCHE Y MENTA. Contrastes y distancias.
+Fórmula WCAG 2 y ΔE2000 de color.py (daltonismo: Machado 2009, severidad 1).
+Estados: OK llega al umbral. NO se usa así y no llega.
+veto: se mide para fijar una regla y no llega, así que paleta.md prohíbe ese uso.
+deco: decorativo, no tiene que llegar.
+
+-- Texto (AA: 4,5:1)
+  OK     14,15:1  #F1FAF7 sobre #0F2A31  texto sobre fondo (enunciado, cabecera)
+  OK     12,11:1  #F1FAF7 sobre #16363E  texto de opción sobre superficie
+  OK      9,46:1  #F1FAF7 sobre #1F4A35  texto de la opción correcta
+  OK     12,36:1  #F1FAF7 sobre #3E2B33  texto de la opción fallada
+  OK      7,25:1  #9DBAB5 sobre #0F2A31  secundario sobre fondo (contador, tiempo, «Tema 1»)
+  OK      6,21:1  #9DBAB5 sobre #16363E  secundario sobre superficie (explicación, letras A y C)
+  OK      5,50:1  #9DBAB5 sobre #1C3F43  secundario sobre la etiqueta de origen
+  OK      9,01:1  #7AD8D2 sobre #0F2A31  marca como texto sobre fondo («Tests»)
+  OK      7,71:1  #7AD8D2 sobre #16363E  marca como texto sobre superficie (título de la explicación)
+  OK      6,83:1  #7AD8D2 sobre #1C3F43  etiqueta de origen «Oficial, AGE 2024»
+  OK      9,01:1  #0F2A31 sobre #7AD8D2  «Siguiente» (texto #0F2A31 sobre menta)
+  OK      5,38:1  #0F2A31 sobre #5BA899  «Siguiente» pulsado
+  OK      5,73:1  #7FD873 sobre #1F4A35  «Respuesta correcta»
+  OK      6,24:1  #F59A9A sobre #3E2B33  «Tu respuesta»
+  OK      6,92:1  #0F2A31 sobre #5DC650  letra D en el círculo de acierto
+  OK      4,97:1  #0F2A31 sobre #EF6A6A  letra B en el círculo de fallo
+  OK      5,66:1  #E8863A sobre #0F2A31  aviso como texto sobre fondo
+  OK      4,84:1  #E8863A sobre #16363E  aviso como texto sobre superficie
+  veto    4,29:1  #E8863A sobre #1C3F43  aviso como texto sobre la etiqueta de origen
+  veto    3,78:1  #E8863A sobre #1F4A35  aviso como texto sobre el relleno de acierto
+  OK      4,94:1  #E8863A sobre #3E2B33  aviso como texto sobre el relleno de fallo
+  OK      5,66:1  #0F2A31 sobre #E8863A  texto #0F2A31 sobre relleno naranja
+  veto    2,50:1  #F1FAF7 sobre #E8863A  texto #F1FAF7 sobre relleno naranja
+  OK      5,38:1  #5BA899 sobre #0F2A31  marca heredada como texto sobre fondo
+  OK      4,60:1  #5BA899 sobre #16363E  marca heredada como texto sobre superficie
+
+-- Interfaz y gráficos (3:1)
+  OK      4,62:1  #5DC650 sobre #1F4A35  borde y tic de acierto contra su relleno
+  OK      6,92:1  #5DC650 sobre #0F2A31  borde de acierto contra el fondo
+  OK      4,34:1  #EF6A6A sobre #3E2B33  borde y aspa de fallo contra su relleno
+  OK      4,97:1  #EF6A6A sobre #0F2A31  borde de fallo contra el fondo
+  OK      3,17:1  #5A858C sobre #16363E  borde de opción neutra contra la tarjeta
+  OK      3,70:1  #5A858C sobre #0F2A31  borde de opción neutra contra el fondo
+  OK      6,21:1  #9DBAB5 sobre #16363E  aro de la letra e iconos de cabecera
+  OK      4,96:1  #7AD8D2 sobre #2E545C  progreso contra el carril
+  OK      9,01:1  #7AD8D2 sobre #0F2A31  botón y progreso contra el fondo
+  OK      7,71:1  #7AD8D2 sobre #16363E  barra de la caja de explicación contra la superficie
+  OK      5,38:1  #5BA899 sobre #0F2A31  botón pulsado contra el fondo
+  OK      5,66:1  #E8863A sobre #0F2A31  icono de aviso sobre fondo
+  OK      4,84:1  #E8863A sobre #16363E  icono de aviso sobre superficie
+  OK      4,29:1  #E8863A sobre #1C3F43  icono de aviso sobre la etiqueta de origen
+  OK      3,78:1  #E8863A sobre #1F4A35  icono de aviso sobre el relleno de acierto
+  OK      4,94:1  #E8863A sobre #3E2B33  icono de aviso sobre el relleno de fallo
+  veto    1,56:1  #2E545C sobre #16363E  estructural contra la superficie (¿sirve de borde?)
+  veto    1,82:1  #2E545C sobre #0F2A31  estructural contra el fondo (¿sirve de borde?)
+  OK      3,79:1  #4A8A8A sobre #0F2A31  contorno de la etiqueta de origen (menta al 55 %) contra el fondo
+  deco    1,17:1  #16363E sobre #0F2A31  tarjeta contra el fondo (el borde la separa)
+
+-- Icono (3:1)
+  OK      9,01:1  #7AD8D2 sobre #0F2A31  pantalla del flexo contra el fondo
+  OK      5,38:1  #5BA899 sobre #0F2A31  barra del flexo contra el fondo
+  deco    1,68:1  #5BA899 sobre #7AD8D2  barra del flexo contra la pantalla
+  OK     15,04:1  #FFFFFF sobre #0F2A31  casillas vacías contra el fondo
+  OK      9,87:1  #FFFFFF sobre #22494D  casillas vacías contra el cono a su altura (luz al 18 %)
+  OK      5,91:1  #7AD8D2 sobre #22494D  casilla marcada contra el cono a su altura
+  OK      9,01:1  #0F2A31 sobre #7AD8D2  tic contra la casilla marcada
+  deco    1,67:1  #7AD8D2 sobre #FFFFFF  casilla marcada contra las vacías (se distingue por estar llena y por el tic)
+  deco    2,07:1  #2F5E61 sobre #0F2A31  cono de luz bajo la barra (30 %) contra el fondo
+
+   cono a la altura de las casillas: #22494D (luz al 17,55 %); bajo la barra: #2F5E61; contorno de la etiqueta sobre el fondo: #4A8A8A
+
+-- Distancias ΔE2000 (normal / deuteranopía / protanopía), tono HSL y contraste de luminancia
+  marca frente a acierto: #7AD8D2 (176°) frente a #5DC650 (113°): ΔE 26,19 / 32,10 / 28,15   contraste 1,30:1
+  marca frente a acierto texto: #7AD8D2 (176°) frente a #7FD873 (113°): ΔE 23,55 / 29,50 / 25,46   contraste 1,05:1
+  marca frente a fallo: #7AD8D2 (176°) frente a #EF6A6A (0°): ΔE 55,38 / 29,24 / 25,88   contraste 1,81:1
+  acierto frente a fallo: #5DC650 (113°) frente a #EF6A6A (0°): ΔE 68,23 / 6,40 / 22,75   contraste 1,39:1
+  acierto texto frente a fallo texto: #7FD873 (113°) frente a #F59A9A (0°): ΔE 57,28 / 8,60 / 20,19   contraste 1,20:1
+  marca heredada frente a menta: #5BA899 (168°) frente a #7AD8D2 (176°): ΔE 13,43 / 13,83 / 13,99   contraste 1,68:1
+  marca heredada frente a acierto: #5BA899 (168°) frente a #5DC650 (113°): ΔE 22,23 / 25,24 / 23,26   contraste 1,29:1
+  fondo frente a Persevera (marca e icono, #0D7C66): #0F2A31 (192°) frente a #0D7C66 (168°): ΔE 30,17 / 24,76 / 28,51   contraste 2,93:1
+  fondo frente a Persevera (fondo de la app, #F6F9F6): #0F2A31 (192°) frente a #F6F9F6 (120°): ΔE 76,76 / 77,62 / 74,70   contraste 14,18:1
+  fondo frente a Oral (fondo, #1B2A4A): #0F2A31 (192°) frente a #1B2A4A (221°): ΔE 15,39 / 8,33 / 9,71   contraste 1,06:1
+  menta frente a la marca de Persevera: #7AD8D2 (176°) frente a #0D7C66 (168°): ΔE 29,71 / 30,52 / 29,62   contraste 3,07:1
+  menta frente a la pantalla dorada de Oral: #7AD8D2 (176°) frente a #E8B84B (42°): ΔE 37,04 / 34,70 / 28,53   contraste 1,10:1
+  acierto frente a aviso: #5DC650 (113°) frente a #E8863A (26°): ΔE 49,66 / 3,95 / 11,06   contraste 1,22:1
+  acierto texto frente a aviso: #7FD873 (113°) frente a #E8863A (26°): ΔE 48,62 / 9,28 / 15,98   contraste 1,52:1
+  fallo frente a aviso: #EF6A6A (0°) frente a #E8863A (26°): ΔE 21,73 / 8,99 / 15,43   contraste 1,14:1
+  fallo texto frente a aviso: #F59A9A (0°) frente a #E8863A (26°): ΔE 22,52 / 15,21 / 20,12   contraste 1,26:1
+
+-- Matriz ΔE2000 entre los colores que significan algo, de más cerca a más lejos (normal)
+   Columnas: normal / deuteranopía / protanopía. «mismo» = mismo significado.
+    5,83 /   6,01 /   5,88  mismo     acierto frente a acierto texto
+   11,37 /   9,77 /  13,05  mismo     fallo frente a fallo texto
+   13,43 /  13,83 /  13,99  mismo     menta frente a marca heredada
+   21,73 /   8,99 /  15,43  distinto  fallo frente a aviso
+   22,23 /  25,24 /  23,26  distinto  marca heredada frente a acierto
+   22,52 /  15,21 /  20,12  distinto  fallo texto frente a aviso
+   22,53 /  25,38 /  23,18  distinto  marca heredada frente a acierto texto
+   23,55 /  29,50 /  25,46  distinto  menta frente a acierto texto
+   26,19 /  32,10 /  28,15  distinto  menta frente a acierto
+   43,29 /  27,48 /  21,43  distinto  marca heredada frente a aviso
+   46,03 /  35,03 /  31,26  distinto  menta frente a aviso
+   48,07 /  18,34 /   3,56  distinto  marca heredada frente a fallo texto
+   48,10 /  21,98 /  13,37  distinto  menta frente a fallo texto
+   48,62 /   9,28 /  15,98  distinto  acierto texto frente a aviso
+   49,66 /   3,95 /  11,06  distinto  acierto frente a aviso
+   53,26 /  20,62 /  12,24  distinto  marca heredada frente a fallo
+   55,38 /  29,24 /  25,88  distinto  menta frente a fallo
+   57,28 /   8,60 /  20,19  distinto  acierto texto frente a fallo texto
+   59,77 /  11,53 /  20,77  distinto  acierto frente a fallo texto
+   66,23 /   9,69 /  25,01  distinto  acierto texto frente a fallo
+   68,23 /   6,40 /  22,75  distinto  acierto frente a fallo
+
+-- Matriz ΔE2000 entre los colores que significan algo, de más cerca a más lejos (deuteranopía)
+   Columnas: normal / deuteranopía / protanopía. «mismo» = mismo significado.
+   49,66 /   3,95 /  11,06  distinto  acierto frente a aviso
+    5,83 /   6,01 /   5,88  mismo     acierto frente a acierto texto
+   68,23 /   6,40 /  22,75  distinto  acierto frente a fallo
+   57,28 /   8,60 /  20,19  distinto  acierto texto frente a fallo texto
+   21,73 /   8,99 /  15,43  distinto  fallo frente a aviso
+   48,62 /   9,28 /  15,98  distinto  acierto texto frente a aviso
+   66,23 /   9,69 /  25,01  distinto  acierto texto frente a fallo
+   11,37 /   9,77 /  13,05  mismo     fallo frente a fallo texto
+   59,77 /  11,53 /  20,77  distinto  acierto frente a fallo texto
+   13,43 /  13,83 /  13,99  mismo     menta frente a marca heredada
+   22,52 /  15,21 /  20,12  distinto  fallo texto frente a aviso
+   48,07 /  18,34 /   3,56  distinto  marca heredada frente a fallo texto
+   53,26 /  20,62 /  12,24  distinto  marca heredada frente a fallo
+   48,10 /  21,98 /  13,37  distinto  menta frente a fallo texto
+   22,23 /  25,24 /  23,26  distinto  marca heredada frente a acierto
+   22,53 /  25,38 /  23,18  distinto  marca heredada frente a acierto texto
+   43,29 /  27,48 /  21,43  distinto  marca heredada frente a aviso
+   55,38 /  29,24 /  25,88  distinto  menta frente a fallo
+   23,55 /  29,50 /  25,46  distinto  menta frente a acierto texto
+   26,19 /  32,10 /  28,15  distinto  menta frente a acierto
+   46,03 /  35,03 /  31,26  distinto  menta frente a aviso
+
+-- Matriz ΔE2000 entre los colores que significan algo, de más cerca a más lejos (protanopía)
+   Columnas: normal / deuteranopía / protanopía. «mismo» = mismo significado.
+   48,07 /  18,34 /   3,56  distinto  marca heredada frente a fallo texto
+    5,83 /   6,01 /   5,88  mismo     acierto frente a acierto texto
+   49,66 /   3,95 /  11,06  distinto  acierto frente a aviso
+   53,26 /  20,62 /  12,24  distinto  marca heredada frente a fallo
+   11,37 /   9,77 /  13,05  mismo     fallo frente a fallo texto
+   48,10 /  21,98 /  13,37  distinto  menta frente a fallo texto
+   13,43 /  13,83 /  13,99  mismo     menta frente a marca heredada
+   21,73 /   8,99 /  15,43  distinto  fallo frente a aviso
+   48,62 /   9,28 /  15,98  distinto  acierto texto frente a aviso
+   22,52 /  15,21 /  20,12  distinto  fallo texto frente a aviso
+   57,28 /   8,60 /  20,19  distinto  acierto texto frente a fallo texto
+   59,77 /  11,53 /  20,77  distinto  acierto frente a fallo texto
+   43,29 /  27,48 /  21,43  distinto  marca heredada frente a aviso
+   68,23 /   6,40 /  22,75  distinto  acierto frente a fallo
+   22,53 /  25,38 /  23,18  distinto  marca heredada frente a acierto texto
+   22,23 /  25,24 /  23,26  distinto  marca heredada frente a acierto
+   66,23 /   9,69 /  25,01  distinto  acierto texto frente a fallo
+   23,55 /  29,50 /  25,46  distinto  menta frente a acierto texto
+   55,38 /  29,24 /  25,88  distinto  menta frente a fallo
+   26,19 /  32,10 /  28,15  distinto  menta frente a acierto
+   46,03 /  35,03 /  31,26  distinto  menta frente a aviso
+
+Pares en uso que no llegan: ninguno
