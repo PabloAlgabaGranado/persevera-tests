@@ -1,6 +1,9 @@
 -- A3 sin la contraseña de la base (docs/guia-consolas.md, bloque 2): lo mismo que datos/a3.sh, pero
 -- desde el editor SQL del panel de Supabase de Persevera. Pega este fichero entero y pulsa «Run».
 -- Solo lee: es una sola SELECT sobre el catálogo, sin ninguna fila de las tablas.
+-- El panel avisa de que «crea una tabla sin RLS» porque el texto que monta lleva escrito «CREATE TABLE».
+-- Se pulsa «Run without RLS», que la ejecuta tal cual. Nunca «Run and enable RLS»: eso sí cambiaría Persevera.
+-- El resultado se guarda con «bash datos/a3-desde-editor.sh», que lo toma del portapapeles.
 -- Devuelve una fila con una columna, «esquema»: la estructura de las 21 tablas y las 2 vistas de A3
 -- (columnas, restricciones, índices, RLS, políticas, disparadores y permisos), el texto de las
 -- funciones de las que dependen (también las que llaman por dentro), los enum y la lista de
