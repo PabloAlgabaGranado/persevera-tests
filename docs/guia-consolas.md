@@ -531,7 +531,7 @@ Stripe pide una cuenta aparte para cada negocio que funciona por su cuenta. La m
 
 Antes de seguir, mira arriba que estás en **Persevera Tests**.
 
-> **Ya hecho el 13-oct-2026 por Blanca:** 3.1. La cuenta es `acct_1UQA9NDBHlndqjVo`, separada, fuera de cualquier organización; Persevera tampoco está en ninguna. En el alta eligió «Elige lo que necesitas» (Stripe Tax y Radar, sin Managed Payments) y Radar «Lite», el incluido. El panel decía «Ya estás en tu cuenta activa». En 3.2 y 3.3 solo mira que la verificación está enviada y que los datos públicos son los de abajo; completa lo que falte.
+> **Ya hecho el 13-oct-2026 por Blanca:** 3.1. La cuenta es `acct_1UQA9NDBHlndqjVo`, separada, fuera de cualquier organización; Persevera tampoco está en ninguna. En el alta eligió «Elige lo que necesitas» (Stripe Tax y Radar, sin Managed Payments) y Radar «Lite», el incluido. El panel decía «Ya estás en tu cuenta activa». En 3.2 y 3.3 solo mira que la verificación está enviada y que los datos públicos son los de abajo; completa lo que falte. Terminado el 13-oct-2026 por Álvaro: verificada, con los datos públicos y la descripción de Tests, la verificación en dos pasos ya puesta y modo de prueba además de los entornos de prueba.
 
 ### 3.2 La verificación (20 min, más la espera)
 
@@ -605,7 +605,7 @@ En el proyecto **Persevera** (solo mirar):
 
 ### 4.1 El proyecto (10 min)
 
-> **Ya hecho el 13-oct-2026 desde el hilo:** los pasos 1 a 7. El proyecto es `proj0fca9795`. Se creó por la API, sin asistente: no preguntó la plataforma, no creó ninguna oferta de la «Test Store» y el entitlement `acceso` se creó a mano. RevenueCat añadió sola una app «Test Store» (`app08e19f50f4`), que no estorba. De este bloque solo te queda mirar 4.0 y apuntar su «Devuelve».
+> **Ya hecho el 13-oct-2026 desde el hilo:** los pasos 1 a 7. El proyecto es `proj0fca9795`. Se creó por la API, sin asistente: no preguntó la plataforma, no creó ninguna oferta de la «Test Store» y el entitlement `acceso` se creó a mano. RevenueCat añadió sola una app «Test Store» (`app08e19f50f4`), que no estorba. De este bloque solo te queda mirar 4.0 y apuntar su «Devuelve». 4.0 lo miró Álvaro el mismo día (hoja, A13).
 
 1. En RevenueCat, crea un proyecto nuevo: `Persevera Tests`. Es la misma cuenta que Persevera y Eroodite: Tests será el tercer proyecto.
 2. Si pregunta la plataforma, elige Capacitor, como Persevera (`TRAMITE_APPSTORE.md`, línea 36) (sin verificar que lo pregunte).
