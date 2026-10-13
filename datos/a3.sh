@@ -19,6 +19,7 @@ VERSION_MINIMA=17  # Persevera tiene Postgres 17.6, y pg_dump no vuelca un servi
 
 cd "$(dirname "$0")/.."
 SALIDA=datos
+# Las 21 tablas y las 2 vistas de A3 (las mismas que en a3-dependencias.sql y a3-comprobar.sh).
 TABLAS="oposiciones bloques temas epigrafes tema_epigrafe preguntas minicasos minicaso_preguntas
 supuestos_originales supuesto_original_preguntas supuestos_oficiales supuesto_oficial_preguntas
 marcado_items marcado_unidades psico_items_graficos usuario_oposicion respuestas_usuario
@@ -85,21 +86,13 @@ DEPENDENCIAS="$SALIDA/esquema-persevera-dependencias.txt"
 { cabecera '--'; cat "$TMP/funciones.sql"; } > "$FUNCIONES"
 { cabecera '#'; cat "$TMP/dependencias.txt"; } > "$DEPENDENCIAS"
 
-# 2.5.1: las 21 tablas y las 2 vistas.
-FALTAN=""
-for t in $TABLAS; do grep -q "^CREATE TABLE public\.$t (" "$ESQUEMA" || FALTAN="$FALTAN $t"; done
-for v in $VISTAS; do grep -q "^CREATE VIEW public\.$v " "$ESQUEMA" || FALTAN="$FALTAN $v"; done
-# 2.5.2: cada disparador tiene su función.
-SIN_FUNCION=""
-for f in $(grep -o 'EXECUTE FUNCTION public\.[a-z0-9_]*' "$ESQUEMA" | sed 's/EXECUTE FUNCTION public\.//' | sort -u); do
-  grep -q "FUNCTION public\.$f(" "$FUNCIONES" || SIN_FUNCION="$SIN_FUNCION $f"
-done
-# 2.5.3: la función que rellena simulacros desde study_activity_log.
-RELLENA=$(awk '/^-- public\.[a-z0-9_]+\(/ { n = $2; sub(/\(.*/, "", n) }
-               tolower($0) ~ /insert into (public\.)?simulacros/ && n != "" { print n }' "$FUNCIONES" | sort -u | tr '\n' ' ')
-# 2.5.4: sin secretos. Solo se enseña fichero y línea, nunca el valor.
-SECRETOS=$(grep -n -E 'sb_secret_|sk_live|sk_test|rk_live|whsec_|eyJhbGci|Bearer [A-Za-z0-9]|(^|[^A-Za-z0-9_])re_[A-Za-z0-9_]{20,}|password' \
-             "$ESQUEMA" "$FUNCIONES" "$DEPENDENCIAS" | cut -d: -f1,2 | tr '\n' ' ' || true)
+# 2.5: las comprobaciones, en su propio script para que sirvan también al camino del editor SQL.
+COMPROBADO=0
+COMPROBACIONES=$(bash "$SALIDA/a3-comprobar.sh" "$ESQUEMA" "$FUNCIONES" "$DEPENDENCIAS") || COMPROBADO=$?
+if [ "$COMPROBADO" -ne 0 ] && [ "$COMPROBADO" -ne 2 ]; then
+  echo "Las comprobaciones han fallado (salida $COMPROBADO). Pega en la conversación lo que haya salido arriba."
+  exit 1
+fi
 
 echo
 echo "Hecho. Copia esto y pégalo en la conversación:"
@@ -108,14 +101,11 @@ echo "A3, EL ESQUEMA REAL"
 echo "Commit en persevera-tests: (el que salga al subirlo)"
 echo "Versión de pg_dump: $VPGDUMP (servidor: Postgres $SERVIDOR)"
 echo "Host del pooler de Persevera: $PGHOST"
-echo "Paso 2.5.1, tablas y vistas: ${FALTAN:+faltan:}${FALTAN:-todo ok}"
-echo "Paso 2.5.2, funciones de los disparadores: ${SIN_FUNCION:+faltan:}${SIN_FUNCION:-todo ok}"
-echo "Paso 2.5.3, la función que rellena simulacros: ${RELLENA:-ninguna}"
+echo "$COMPROBACIONES"
 echo "¿La consulta de los enum dio error?: no"
-echo "Grep de secretos: ${SECRETOS:+salió algo en }${SECRETOS:-vacío}"
 echo "Fecha y hora: $FECHA"
 echo
-if [ -n "$SECRETOS" ]; then
+if [ "$COMPROBADO" -eq 2 ]; then
   echo "NO LO SUBAS: ha salido algo en el grep de secretos. Di en la conversación el fichero y la línea, sin el valor."
 else
   echo "Para subirlo:"
