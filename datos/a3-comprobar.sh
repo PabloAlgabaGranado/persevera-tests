@@ -12,6 +12,13 @@ if [ "$#" -eq 0 ]; then echo "Uso: bash datos/a3-comprobar.sh fichero [fichero�
 TODO=$(mktemp)
 trap 'rm -f "$TODO"' EXIT
 cat "$@" > "$TODO"
+# Si empieza por «esquema», sigue con el formato CSV con el que lo copia el panel y no es SQL.
+for f in "$@"; do
+  if head -n 1 "$f" | tr -d '\r' | grep -q '^esquema$'; then
+    echo "$f sigue con el formato del panel (empieza por «esquema»). Guárdalo con: bash datos/a3-desde-editor.sh $f"
+    exit 1
+  fi
+done
 # El del editor se copia a mano: si le falta la última línea, se ha cortado al copiarlo.
 if grep -q 'desde el editor SQL' "$TODO" && ! grep -q '^-- FIN del esquema de A3\.' "$TODO"; then
   echo "El fichero está cortado: le falta la última línea, «-- FIN del esquema de A3.». Vuelve a copiar la celda entera."

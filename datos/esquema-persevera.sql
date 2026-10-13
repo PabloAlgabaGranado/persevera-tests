@@ -1,28 +1,9 @@
-esquema
-"-- Sacado de Persevera, producción (rljfcmjvulmjooxoxzxo), el 13-10-2026 23:11 (hora de Madrid), desde el editor SQL del panel
+-- Sacado de Persevera, producción (rljfcmjvulmjooxoxzxo), el 13-10-2026 23:11 (hora de Madrid), desde el editor SQL del panel
 -- con datos/a3-editor.sql: solo el catálogo, sin ninguna fila. Postgres 17.6.
 -- Tablas y vistas de A3 encontradas: 23 de 23.
+-- Arreglado en el repo el 13-10-2026: sin el formato CSV del panel, y con preguntas_aleatorias después de las
+-- vistas porque devuelve filas de preguntas, que es como lo ordena ahora a3-editor.sql. Carga en un Postgres vacío.
 set check_function_bodies = off;
-
--- public.preguntas_aleatorias(p_epigrafes uuid[], p_excluir uuid[], p_n integer, p_incluir_oficiales boolean) (SECURITY INVOKER, de postgres)
--- permisos: {=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
-CREATE OR REPLACE FUNCTION public.preguntas_aleatorias(p_epigrafes uuid[], p_excluir uuid[] DEFAULT '{}'::uuid[], p_n integer DEFAULT 20, p_incluir_oficiales boolean DEFAULT false)
- RETURNS SETOF preguntas
- LANGUAGE sql
- STABLE
-AS $function$
-  select p.*
-    from public.preguntas p
-   where p.estado = 'verificada'
-     and (p_epigrafes is null or array_length(p_epigrafes, 1) is null
-          or p.epigrafe_id = any(p_epigrafes))
-     and (p_excluir is null or array_length(p_excluir, 1) is null
-          or p.id <> all(p_excluir))
-     and (p_incluir_oficiales or p.fuente <> 'conv_real')
-   order by random()
-   limit greatest(p_n, 0);
-$function$
-;
 
 -- public.set_respuesta_oposicion_id() (SECURITY DEFINER, de postgres)
 -- permisos: {=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
@@ -123,7 +104,7 @@ CREATE TABLE public.minicasos (
     normas text,
     enunciado text NOT NULL,
     fecha_verificacion_boe date,
-    orden integer GENERATED ALWAYS AS ((""substring""(id_caso, 'CP-MC-(\d+)'::text))::integer) STORED,
+    orden integer GENERATED ALWAYS AS (("substring"(id_caso, 'CP-MC-(\d+)'::text))::integer) STORED,
     created_at timestamp with time zone DEFAULT now(),
     oposicion_id uuid
 );
@@ -351,7 +332,7 @@ CREATE TABLE public.supuestos_originales (
     enunciado text NOT NULL,
     dificultad integer,
     convocatoria text,
-    orden integer GENERATED ALWAYS AS ((""substring""(id_caso, 'CP-SIM-(\d+)'::text))::integer) STORED,
+    orden integer GENERATED ALWAYS AS (("substring"(id_caso, 'CP-SIM-(\d+)'::text))::integer) STORED,
     created_at timestamp with time zone DEFAULT now(),
     oposicion_id uuid
 );
@@ -480,6 +461,26 @@ CREATE VIEW public.v_estado_pregunta_usuario WITH (security_invoker=on) AS
      JOIN historico h USING (user_id, pregunta_id)
      LEFT JOIN preguntas p ON p.id = u.pregunta_id
      LEFT JOIN tema_stats ts ON ts.user_id = u.user_id AND ts.tema_id = p.tema_id;
+
+-- public.preguntas_aleatorias(p_epigrafes uuid[], p_excluir uuid[], p_n integer, p_incluir_oficiales boolean) (SECURITY INVOKER, de postgres)
+-- permisos: {=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
+CREATE OR REPLACE FUNCTION public.preguntas_aleatorias(p_epigrafes uuid[], p_excluir uuid[] DEFAULT '{}'::uuid[], p_n integer DEFAULT 20, p_incluir_oficiales boolean DEFAULT false)
+ RETURNS SETOF preguntas
+ LANGUAGE sql
+ STABLE
+AS $function$
+  select p.*
+    from public.preguntas p
+   where p.estado = 'verificada'
+     and (p_epigrafes is null or array_length(p_epigrafes, 1) is null
+          or p.epigrafe_id = any(p_epigrafes))
+     and (p_excluir is null or array_length(p_excluir, 1) is null
+          or p.id <> all(p_excluir))
+     and (p_incluir_oficiales or p.fuente <> 'conv_real')
+   order by random()
+   limit greatest(p_n, 0);
+$function$
+;
 
 ALTER TABLE ONLY public.bloques ADD CONSTRAINT bloques_pkey PRIMARY KEY (id);
 
@@ -826,7 +827,7 @@ ALTER TABLE public.usuario_oposicion ENABLE ROW LEVEL SECURITY;
 CREATE POLICY read_authenticated ON public.bloques AS PERMISSIVE FOR SELECT TO public
   USING ((auth.role() = 'authenticated'::text));
 
-CREATE POLICY ""Epigrafes legibles por todos"" ON public.epigrafes AS PERMISSIVE FOR SELECT TO public
+CREATE POLICY "Epigrafes legibles por todos" ON public.epigrafes AS PERMISSIVE FOR SELECT TO public
   USING (true);
 
 CREATE POLICY marcado_items_read ON public.marcado_items AS PERMISSIVE FOR SELECT TO authenticated
@@ -835,10 +836,10 @@ CREATE POLICY marcado_items_read ON public.marcado_items AS PERMISSIVE FOR SELEC
 CREATE POLICY marcado_unidades_read ON public.marcado_unidades AS PERMISSIVE FOR SELECT TO authenticated
   USING (true);
 
-CREATE POLICY ""Lectura pública minicaso_preg"" ON public.minicaso_preguntas AS PERMISSIVE FOR SELECT TO public
+CREATE POLICY "Lectura pública minicaso_preg" ON public.minicaso_preguntas AS PERMISSIVE FOR SELECT TO public
   USING (true);
 
-CREATE POLICY ""Lectura pública minicasos"" ON public.minicasos AS PERMISSIVE FOR SELECT TO public
+CREATE POLICY "Lectura pública minicasos" ON public.minicasos AS PERMISSIVE FOR SELECT TO public
   USING (true);
 
 CREATE POLICY read_authenticated ON public.oposiciones AS PERMISSIVE FOR SELECT TO public
@@ -880,16 +881,16 @@ CREATE POLICY sal_insert_own ON public.study_activity_log AS PERMISSIVE FOR INSE
 CREATE POLICY sal_select_own ON public.study_activity_log AS PERMISSIVE FOR SELECT TO public
   USING ((auth.uid() = user_id));
 
-CREATE POLICY ""Lectura pública real_preg"" ON public.supuesto_oficial_preguntas AS PERMISSIVE FOR SELECT TO public
+CREATE POLICY "Lectura pública real_preg" ON public.supuesto_oficial_preguntas AS PERMISSIVE FOR SELECT TO public
   USING (true);
 
-CREATE POLICY ""Lectura pública sim_preg"" ON public.supuesto_original_preguntas AS PERMISSIVE FOR SELECT TO public
+CREATE POLICY "Lectura pública sim_preg" ON public.supuesto_original_preguntas AS PERMISSIVE FOR SELECT TO public
   USING (true);
 
-CREATE POLICY ""Lectura pública real"" ON public.supuestos_oficiales AS PERMISSIVE FOR SELECT TO public
+CREATE POLICY "Lectura pública real" ON public.supuestos_oficiales AS PERMISSIVE FOR SELECT TO public
   USING (true);
 
-CREATE POLICY ""Lectura pública sim"" ON public.supuestos_originales AS PERMISSIVE FOR SELECT TO public
+CREATE POLICY "Lectura pública sim" ON public.supuestos_originales AS PERMISSIVE FOR SELECT TO public
   USING (true);
 
 CREATE POLICY read_authenticated ON public.tema_epigrafe AS PERMISSIVE FOR SELECT TO authenticated
@@ -1076,4 +1077,3 @@ GRANT DELETE, INSERT, MAINTAIN, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE ON
 -- dependencia: public.usuario_oposicion | política usuario_oposicion_update_own | auth.uid() | 
 
 -- FIN del esquema de A3.
-"

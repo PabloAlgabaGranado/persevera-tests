@@ -103,8 +103,14 @@ piezas(orden, clave, texto) as (
   select 3, o.nombre::text, format(E'CREATE TABLE public.%I (\n%s\n);', o.nombre, c.def)
     from objetivo o join columnas c on c.rel = o.rel
   union all
-  -- 2. Las funciones (las de extensiones, solo nombradas). Van antes que las tablas.
-  select 2, p.proname || '(' || pg_get_function_identity_arguments(p.oid) || ')',
+  -- 2. Las funciones (las de extensiones, solo nombradas). Van antes que las tablas, salvo las que
+  -- devuelven o reciben las filas de una tabla o vista (RETURNS SETOF preguntas): esas, después de las vistas.
+  select case when exists (select 1 from pg_type t left join pg_type el on el.oid = t.typelem
+                            where t.oid = any (array[p.prorettype] || p.proargtypes::oid[]
+                                               || coalesce(p.proallargtypes, '{}'::oid[]))
+                              and (t.typrelid <> 0 or el.typrelid <> 0))
+              then 4.5 else 2 end,
+         p.proname || '(' || pg_get_function_identity_arguments(p.oid) || ')',
          case when exists (select 1 from pg_depend e
                             where e.classid = 'pg_proc'::regclass and e.objid = p.oid and e.deptype = 'e')
               then format('-- FUNCTION public.%I(%s) es de la extensión %s: no se copia, se instala la extensión.',

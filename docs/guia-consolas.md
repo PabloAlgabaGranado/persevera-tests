@@ -505,7 +505,7 @@ Grep de secretos: vacío / salió algo (fichero y línea, sin el valor)
 Fecha y hora:
 ```
 
-**Hecho (A3)** cuando `datos/esquema-persevera.sql` está en el repo (hoja, línea 355). Después del día D se repite, en cinco minutos (ver «Lo que no se hace todavía»).
+**Hecho (A3)** cuando `datos/esquema-persevera.sql` está en el repo (hoja, línea 355). Después del día D se repite, en cinco minutos (ver «Lo que no se hace todavía»). Hecho el 13-oct-2026, por el editor SQL (`6439257`).
 
 ---
 
