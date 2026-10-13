@@ -389,12 +389,12 @@ Son las consolas, las cuentas, las migraciones, los despliegues y los builds, en
 
 - [ ] **A9. El primer build de Android.** `npx cap add android`, con un keystore nuevo para Tests guardado fuera del repo. La app en Play Console y un AAB mínimo en la pista interna: la pantalla de T1, con el SDK de RevenueCat ya dentro. Google pide un AAB subido antes de crear suscripciones (`TRAMITE_GOOGLEPLAY.md`, línea 40), y no hace falta esperar a la app entera. `@capacitor/android` no viene en el `package.json` de Oral: se instala aquí con la versión de Persevera. Espera a: A1 y T1. Bloquea: A11. Hecho cuando el AAB está en la pista interna.
 
-- [ ] **A10. Apple.** No necesita build.
+- [ ] **A10. Apple.** No necesita build. Empezado el 13-oct-2026 por Álvaro (bloque 5 de la guía): el App ID `com.persevera.tests` con In-App Purchase; la app «Persevera Tests» en App Store Connect, con Apple ID 6822481702 y SKU `persevera-tests`; tres cuentas de sandbox con su Gmail (Tests QA se quedó con la dirección sin «+», y sirve igual); y dos claves nuevas para RevenueCat, la In-App Purchase y la de la API de App Store Connect con acceso App Manager, guardadas por él (Issuer ID `f41cf5d9-62f8-4377-96a1-13cdf6d42ae1`). Falta el grupo de suscripción con sus productos y las URL de RevenueCat (bloque 10).
   - El App ID `com.persevera.tests` en la misma cuenta, y la app en App Store Connect.
   - Un grupo de suscripción, «Persevera Tests», con tres productos (mensual, semestral y anual). Cada uno lleva una semana gratis como oferta de introducción y va sin compras multilicencia, como en el día D.
   - Las dos URL de RevenueCat para las notificaciones del servidor, la de producción y la de sandbox (`claude/dia-d`, `docs/dia-d/guia-consolas.md`, línea 580). Sin la de sandbox, Apple manda los avisos de las compras de prueba a la de producción. RevenueCat pone las dos con un botón (`guia-consolas.md`, 10.8).
   - Cuentas de sandbox.
-  - Comprobar si la cuenta está en el Small Business Program. Con él, Apple se queda el 15 %; sin él, el 26 % el primer año en la UE.
+  - Comprobar si la cuenta está en el Small Business Program. Con él, Apple se queda el 15 %; sin él, el 26 % el primer año en la UE. Está dentro: lo confirmó Álvaro el 13-oct-2026.
 
   Las URL de RevenueCat esperan a su proyecto, el primer paso de A13, y los identificadores de los productos salen de la guía (T9). Bloquea: A13. Hecho cuando los tres productos están listos para enviar con la primera versión. Hasta que exista el paywall (T14), la captura de la pantalla de compra de cada producto es provisional. La buena se pone en P7.
 

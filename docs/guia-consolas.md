@@ -705,7 +705,7 @@ La categoría, la edad, la privacidad y la ficha van en P7 y P8.
 
 3. El correo no puede ser ya un Apple ID. El nombre, el correo y la contraseña no se cambian después. Las direcciones con «+» valen [Apple sandbox]. La contraseña, a tu gestor.
 
-Las cuentas de sandbox son de toda la cuenta de App Store Connect, no de una app [Apple sandbox]. Las de Persevera también sirven, porque la oferta de introducción se cuenta por grupo [Apple oferta intro].
+Las cuentas de sandbox son de toda la cuenta de App Store Connect, no de una app [Apple sandbox]. Las de Persevera también sirven, porque la oferta de introducción se cuenta por grupo [Apple oferta intro]. El 13-oct-2026 la única que había era una de Eroodite: Persevera no tenía ninguna. Ese día Álvaro creó las tres de Tests.
 
 ### 5.4 Las claves para RevenueCat (10 min)
 
@@ -718,7 +718,7 @@ RevenueCat necesita una clave In-App Purchase, que es obligatoria, y una de la A
 
 ### 5.5 El Small Business Program (5 min)
 
-Con el programa, Apple se queda el 15 %; sin él, el 26 % el primer año en la UE (guía de decisiones, línea 91). Es de la cuenta de desarrollador: si Persevera está dentro, Tests también. Apple no dice en qué pantalla se ve [Apple SBP]. De la forma más rápida a la más segura:
+Con el programa, Apple se queda el 15 %; sin él, el 26 % el primer año en la UE (guía de decisiones, línea 91). Es de la cuenta de desarrollador: si Persevera está dentro, Tests también. Apple no dice en qué pantalla se ve [Apple SBP]. De la forma más rápida a la más segura: Está dentro: lo confirmó Álvaro el 13-oct-2026, y con eso queda hecho el bloque 5.
 1. Busca en el correo del titular el de Apple que confirma el alta en el programa.
 2. En «Pagos e informes financieros» (Payments and Financial Reports), mira lo que Apple paga por una suscripción de Persevera vendida en España: con el programa, lo que queda tras el IVA menos un 15 % (sin verificar que el informe lo deje ver así; lo sugiere un desarrollador [mjtsai]).
 3. Pregunta a Apple Developer Support.
