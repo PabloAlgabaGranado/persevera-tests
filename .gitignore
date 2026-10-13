@@ -1,0 +1,15 @@
+# Dependencias y build
+node_modules
+dist
+
+# Secretos: nunca al repositorio
+.env.local
+.env*.local
+
+# Copias web que Capacitor mete en los nativos al sincronizar
+ios/App/App/public
+android/app/src/main/assets/public
+
+# macOS
+.DS_Store
+supabase/.temp/

@@ -1,0 +1,43 @@
+{
+  "name": "persevera-tests",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5320 --strictPort",
+    "build": "tsc -b && vite build && node scripts/comprobar-tamano-dist.mjs",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@capacitor-community/in-app-review": "^8.0.0",
+    "@capacitor/app": "^8.0.1",
+    "@capacitor/browser": "^8.0.2",
+    "@capacitor/core": "^8.2.0",
+    "@capacitor/haptics": "^8.0.1",
+    "@phosphor-icons/react": "^2.1.10",
+    "@revenuecat/purchases-capacitor": "^13.1.7",
+    "@revenuecat/purchases-js": "^1.70.0",
+    "@supabase/supabase-js": "^2.99.2",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.2.0",
+    "@electric-sql/pglite": "^0.5.8",
+    "@eslint/js": "^9.39.4",
+    "@types/node": "^24.12.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.0",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.4.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.56.1",
+    "vite": "^8.0.0",
+    "vitest": "^4.1.7"
+  }
+}

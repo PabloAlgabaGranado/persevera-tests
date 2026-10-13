@@ -1,0 +1,37 @@
+# Copiado de Persevera (public/_headers) el 13-oct-2026, rama claude/dia-d en
+# 54e448e. Copiar, nunca mover: el original sigue en Persevera. Tal cual; las
+# fechas y los tamaños de los comentarios son los de Persevera.
+#
+# Cabeceras de caché para Cloudflare Pages.
+#
+# EL HTML NO SE CACHEA (no-store): el navegador SIEMPRE pide el index.html fresco
+# y coge el último deploy al instante. Evita el bucle "no carga / Failed to load
+# module script (text/html)" que aparece cuando un index.html viejo cacheado pide
+# un chunk con hash que ya no existe. Reglas SIN solape (no usamos /*, que
+# contaminaría a los assets con no-store y redescargaría el bundle cada vez).
+/
+  Cache-Control: no-store
+
+/index.html
+  Cache-Control: no-store
+
+# ⚠️ LOS ASSETS NO LLEVAN `immutable`, Y ES A PROPÓSITO. NO LO REPONGAS.
+#
+# Llevan hash en el nombre, así que `immutable, max-age=1 año` parece lo obvio
+# —y lo estuvo, hasta que tiró la app en producción el 2026-08-04—. El problema
+# es que se combina fatal con el comodín SPA de _redirects: si alguien pide un
+# asset con hash durante la ventana en la que el deploy aún no ha propagado, el
+# comodín le devuelve el index.html (200, text/html) BAJO LA URL DEL .js. Con
+# `immutable` esa respuesta se queda clavada UN AÑO en el navegador y en el edge
+# de Cloudflare: app en blanco con "Failed to load module script ... MIME type
+# text/html", y recargar no la arregla porque `immutable` significa literalmente
+# "no vuelvas a preguntar". Pasó dos veces seguidas el mismo día, así que la
+# ventana no es teórica.
+#
+# Con `max-age=300, must-revalidate` el mismo accidente dura 5 minutos y se cura
+# solo. El coste es una revalidación por asset a partir de los 5 min, que al
+# llevar hash en el nombre se resuelve con un 304 de unos pocos bytes: el bundle
+# de 13 MB no se vuelve a descargar. Barato comparado con dejar usuarios
+# bloqueados sin forma de arreglarlo desde su lado.
+/assets/*
+  Cache-Control: public, max-age=300, must-revalidate

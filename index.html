@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- viewport-fit=cover: sin esto, en iOS env(safe-area-inset-*) devuelve 0
+         y los márgenes del notch se quedan cortos. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0F2A31" />
+    <title>Persevera Tests</title>
+    <!-- Cormorant Garamond: SOLO para el nombre «Persevera Tests». -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap" />
+    <!-- El fondo de la paleta desde el primer instante, antes de que React monte. -->
+    <style>html, body { background: #0F2A31; margin: 0; padding: 0; }</style>
+    <!-- La red de seguridad que sigue está copiada de Persevera (index.html,
+         claude/dia-d en 54e448e, 13-oct-2026). Copiar, nunca mover. Cambiado
+         aquí: los colores del aviso (los de la paleta de Tests), sus nombres
+         (pt_ en vez de pv_) y la parte del comentario que hablaba de
+         `immutable`. La lógica es la de allí, tal cual. -->
+    <!-- ============ RED DE SEGURIDAD DE CACHÉ (leer antes de tocar) ============
+         Si un asset con hash se pide JUSTO mientras se publica un deploy nuevo,
+         Cloudflare Pages aplica el fallback SPA (`/* -> /index.html 200`) y
+         devuelve el HTML bajo la URL del .js. El navegador (y el edge) guardan
+         ESE HTML bajo la URL del bundle: la app se queda en blanco con "Failed
+         to load module script ... MIME type text/html". Con el `max-age=300` de
+         `public/_headers` se cura solo en 5 minutos (con el `immutable` que
+         Persevera tuvo hasta el 4-ago-2026 duraba un año); esta red lo arregla
+         al momento.
+
+         Este script tiene que vivir INLINE aquí, no en el bundle: las guardas de
+         src/main.tsx (vite:preloadError, comprobarVersionNueva) están DENTRO de
+         lo que se rompe, así que nunca llegan a ejecutarse. index.html se sirve
+         con `no-store`, así que esta red siempre llega fresca al usuario.
+
+         Cómo repara: `fetch(url, { cache: 'reload' })` ignora Y SOBRESCRIBE la
+         entrada envenenada de la caché HTTP; después recarga. Máx. 2 intentos
+         cada 10 min; si aun así falla, pinta un aviso en vez de dejar el blanco.
+         ===================================================================== -->
+    <script>
+      (function () {
+        var K = 'pt_reparar_cache'   // "intentos|timestamp del primero"
+
+        function intentosRecientes() {
+          try {
+            var v = String(sessionStorage.getItem(K) || '').split('|')
+            var n = Number(v[0]) || 0
+            var t = Number(v[1]) || 0
+            return (Date.now() - t > 600000) ? 0 : n   // >10 min: empezamos de cero
+          } catch (e) { return 0 }
+        }
+
+        function anotarIntento(n) {
+          try {
+            var v = String(sessionStorage.getItem(K) || '').split('|')
+            var t = (n === 1 || !Number(v[1])) ? Date.now() : Number(v[1])
+            sessionStorage.setItem(K, n + '|' + t)
+          } catch (e) { /* modo privado sin storage: seguimos igualmente */ }
+        }
+
+        // Todo lo que la página ha pedido bajo /assets/: las etiquetas del HTML
+        // más los chunks cargados en diferido (que ya no están en el DOM).
+        function assetsPedidos() {
+          var urls = {}, i, u
+          var nodos = document.querySelectorAll('script[src], link[href]')
+          for (i = 0; i < nodos.length; i++) {
+            u = nodos[i].src || nodos[i].href
+            if (u && u.indexOf('/assets/') !== -1) urls[u] = 1
+          }
+          try {
+            var recursos = performance.getEntriesByType('resource')
+            for (i = 0; i < recursos.length; i++) {
+              if (recursos[i].name.indexOf('/assets/') !== -1) urls[recursos[i].name] = 1
+            }
+          } catch (e) { /* sin Performance API: nos vale con el DOM */ }
+          var lista = [], k
+          for (k in urls) if (urls.hasOwnProperty(k)) lista.push(k)
+          return lista
+        }
+
+        var reparando = false
+        function reparar() {
+          if (reparando) return
+          reparando = true
+
+          var n = intentosRecientes() + 1
+          if (n > 2) { avisar(); return }
+          anotarIntento(n)
+
+          var urls = assetsPedidos()
+          if (!window.fetch || !urls.length) { location.reload(); return }
+
+          var pendientes = urls.length
+          var listo = function () { if (--pendientes === 0) location.reload() }
+          for (var i = 0; i < urls.length; i++) {
+            try { fetch(urls[i], { cache: 'reload' }).then(listo, listo) }
+            catch (e) { listo() }
+          }
+        }
+
+        function avisar() {
+          var root = document.getElementById('root')
+          if (!root) return
+          // Fondo propio: aquí no sabemos si index.css llegó a cargar, y sin él
+          // el texto claro quedaría sobre un fondo que no es el suyo.
+          root.innerHTML =
+            '<div style="position:fixed;inset:0;z-index:99999;background:#0F2A31;' +
+            'display:flex;flex-direction:column;' +
+            'align-items:center;justify-content:center;gap:14px;padding:32px;' +
+            'font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;' +
+            'color:#F1FAF7;text-align:center;line-height:1.5">' +
+            '<div style="font-size:17px;font-weight:700">No hemos podido cargar la app</div>' +
+            '<div style="font-size:14px;color:#9DBAB5;max-width:320px">Suele ser una copia ' +
+            'antigua guardada en el navegador. Pulsa para reintentar.</div>' +
+            '<button id="pt-reintentar" style="margin-top:6px;padding:12px 22px;' +
+            'border:none;border-radius:12px;background:#7AD8D2;color:#0F2A31;' +
+            'font-size:15px;font-weight:800">Reintentar</button></div>'
+          var b = document.getElementById('pt-reintentar')
+          if (b) b.onclick = function () {
+            try { sessionStorage.removeItem(K) } catch (e) {}
+            location.reload()
+          }
+        }
+
+        // Los errores de carga de <script>/<link> no burbujean: hay que
+        // escucharlos en fase de captura sobre window.
+        window.addEventListener('error', function (ev) {
+          var el = ev.target
+          if (!el || el === window) return
+          var u = el.src || el.href
+          if (!u || String(u).indexOf('/assets/') === -1) return
+          reparar()
+        }, true)
+
+        // Chunks en diferido: Vite avisa por su cuenta cuando falla un preload.
+        window.addEventListener('vite:preloadError', reparar)
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

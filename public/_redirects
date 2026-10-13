@@ -1,0 +1,27 @@
+# Copiado de Persevera (public/_redirects) el 13-oct-2026, rama claude/dia-d en
+# 54e448e. Copiar, nunca mover. Cambiado aquí: la parte del comentario que
+# hablaba de `immutable` y el nombre del sello de src/main.tsx. La regla es la
+# de allí, tal cual.
+#
+# App de una sola página (SPA): cualquier ruta sirve index.html y el router
+# del cliente decide qué pintar. Necesario en Cloudflare Pages / Netlify para
+# que recargar una sub-ruta (o el callback de auth) no dé 404.
+#
+# EFECTO SECUNDARIO QUE HAY QUE CONOCER: este comodín también atrapa a
+# /assets/*. Si alguien pide un fichero con hash que todavía no está publicado
+# —una petición que pilla el deploy a medias—, recibe este index.html con
+# status 200 y content-type text/html BAJO LA URL DEL .js, y esa respuesta se
+# queda guardada en el navegador Y en el edge de Cloudflare: la app se ve en
+# blanco con "Failed to load module script ... MIME type text/html". Con el
+# `max-age=300` de _headers dura 5 minutos (con el `immutable` que Persevera
+# tuvo hasta el 4-ago-2026 duraba un año).
+#
+# NO se puede excluir /assets/ de aquí: se probó `/assets/* /x.txt 404` y
+# Cloudflare Pages ignora la línea (no admite el estado 404 en _redirects,
+# a diferencia de Netlify), así que el comodín seguía ganando.
+#
+# La defensa real es la red de seguridad INLINE de index.html, que re-pide los
+# assets con `cache: 'reload'` y sobrescribe la copia envenenada. Si además se
+# envenena el EDGE, hay que quemar el hash: cambia __PERSEVERA_TESTS_BUILD__
+# en src/main.tsx y vuelve a desplegar.
+/*    /index.html   200
