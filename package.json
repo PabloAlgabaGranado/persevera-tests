@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build && node scripts/comprobar-tamano-dist.mjs",
     "lint": "eslint .",
     "test": "vitest run",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "probar:esquema": "node scripts/probar-esquema.mjs"
   },
   "dependencies": {
     "@capacitor-community/in-app-review": "^8.0.0",

@@ -454,7 +454,7 @@ psql "$PERSEVERA" -X -q -v ON_ERROR_STOP=1 -f datos/a3-funciones.sql -o datos/es
    grep -o 'EXECUTE FUNCTION public\.[a-z0-9_]*' datos/esquema-persevera.sql | sed 's/EXECUTE FUNCTION public\.//' | sort -u |
    while read f; do grep -q "FUNCTION public\.$f(" datos/esquema-persevera-funciones.sql && echo "ok     $f" || echo "FALTA  $f"; done
    ```
-3. Está la función que rellena `simulacros` desde `study_activity_log` (hoja, línea 345):
+3. **Que no salga** una función que rellene `simulacros` desde `study_activity_log`. La hoja la daba por hecha (línea 345), pero T2 comprobó el 13-oct-2026 que en Persevera nunca existió. Si sale algo, dilo en la conversación, porque cambia T2:
    ```bash
    grep -n 'simulacros' datos/esquema-persevera-funciones.sql
    ```
@@ -3005,3 +3005,33 @@ Consultadas el 13-oct-2026. La fecha entre paréntesis es la de la página, cuan
    - un dominio propio para el Supabase de Tests, 10 $ al mes con plan de pago, para que los enlaces de los correos no enseñen `<ref>.supabase.co`, que en Persevera «se lee como una estafa» (`claude/dia-d`, `docs/dominio-propio-supabase.md`, líneas 77 y 533);
    - los nombres visibles y la descripción de los productos, que son propuestos.
 9. **Para Blanca:** Stripe Tax se lleva 0,45 € de cada cobro web: un 4,5 % del mensual, frente al 1 % del semestral y el 0,6 % del anual (4.2).
+
+---
+
+# Lo que deja T2 para A6
+
+T2 (13-oct-2026) dejó el esquema de Tests en `supabase/migrations/`, probado solo en local con `npm run probar:esquema`. No está aplicado en ningún Supabase. Esto es lo suyo en A6; el resto de A6 lo añade T10.
+
+1. **No subas las migraciones antes de T10.** Van todas juntas con las de T10 en el mismo `supabase db push` de A6. Las tablas del contenido llevan RLS sin políticas, y la app no vería ninguna pregunta hasta que T10 ponga las suyas.
+2. **El catálogo, después de la primera copia buena.** `catalogo_tests` dice qué oposiciones ofrece Tests y en qué orden, y su clave ajena pide que la oposición ya exista. En el SQL Editor de Tests (el orden es una propuesta, Blanca puede cambiarlo):
+   ```sql
+   insert into public.catalogo_tests (oposicion_id, orden) values
+     ('1fd3dcce-78b1-423c-bbcb-3c0649eda113', 1),  -- Administrativo del Estado
+     ('bed5cc28-f50a-44fb-9229-a347030dcd56', 2),  -- Administrativo de la Seguridad Social
+     ('1a415277-3259-468b-9e2f-df5ff59aa562', 3),  -- Agente de Hacienda
+     ('d1da10aa-7671-4684-9445-727504e7baf1', 4),  -- Auxiliar Administrativo del Estado
+     ('693d45f5-e110-416f-9c9f-72d58b5778c9', 5);  -- Guardia Civil
+   select c.orden, o.nombre from public.catalogo_tests c join public.oposiciones o on o.id = c.oposicion_id order by 1;
+   ```
+   Tienen que salir los cinco nombres. Si alguno falta, la copia no trajo esa oposición: no sigas y dilo en la conversación.
+3. **La versión mínima** arranca en 0.0.0 en iOS y Android, así que no obliga a nadie. No hay que hacer nada.
+4. **Los términos, cuando P1 los publique.** Hasta entonces, `registrar_aceptacion` no apunta nada y da error. Con la versión que diga P1:
+   ```sql
+   insert into public.version_terminos (version) values ('<versión de P1>');
+   ```
+5. **Las cuentas de prueba, cuando T12 las cree.** Solo ellas cuentan las compras de sandbox. Con el id de cada una (en Authentication del panel de Tests):
+   ```sql
+   insert into public.cuentas_de_prueba (user_id, tipo, nota, caduca_at) values
+     ('<id>', 'revisor', 'revisor de Apple', '<fecha de fin de la revisión>');  -- o 'qa', sin caduca_at
+   ```
+   Después, el ajuste de RevenueCat a «Allowed App User IDs only» con esos mismos ids (12.3).

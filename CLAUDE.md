@@ -11,6 +11,7 @@ npm run dev     # http://localhost:5320 (puerto fijo)
 npm run build   # tsc -b, vite build y el guardián del tope de Cloudflare Pages
 npm run lint
 npm run test    # vitest, solo src/**/*.test.ts(x)
+npm run probar:esquema   # las migraciones de supabase/migrations en PGlite, con y sin los GRANT automáticos
 ```
 
 Cuando se añada `ios/`, el build lleva también `xattr -cr dist && xattr -cr ios/App/App/public`, como en Persevera: Xcode falla si `public/` trae atributos extendidos de macOS.

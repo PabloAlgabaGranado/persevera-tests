@@ -1,0 +1,9 @@
+# Copiado de persevera-oral/supabase/.gitignore (rama main, commit b8e151a), el 13-oct-2026, sin cambios.
+# Supabase
+.branches
+.temp
+
+# dotenvx
+.env.keys
+.env.local
+.env.*.local
