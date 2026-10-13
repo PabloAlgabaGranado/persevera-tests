@@ -257,7 +257,7 @@ Fecha:
 ## Bloque 2. El esquema real del contenido (A3, unos 40 min)
 
 - **Espera a:** A1, porque los ficheros van al repositorio de Tests.
-- **Desbloquea:** A4, y cerrar T2 y T10 (hoja, línea 355).
+- **Desbloquea:** A4, y cerrar T2 y T10 (hoja, línea 355). Desde el 13-oct-2026, los pasos 2.2 a 2.5 los hace de una vez `bash datos/a3.sh <host del pooler>`, que pide la contraseña una sola vez, comprueba lo de 2.5 y escribe el «Devuelve»; la cabecera de 2.6 también la pone él.
 
 Muchas tablas de Persevera se crearon fuera de sus migraciones, y su definición solo está en la base de producción (hoja, líneas 341-345). Aquí se saca con `pg_dump --schema-only`, que **solo lee**: abre su transacción en modo `REPEATABLE READ, READ ONLY` [pg_dump código] y no saca ninguna fila [pg_dump].
 
