@@ -863,7 +863,7 @@ Según lo que viste en 3.4 [RC conectar Stripe], [RC pruebas web]:
 - **Solo con sandboxes:** crea una configuración aparte para el sandbox, `Persevera Tests (Web sandbox)`, con el sandbox de Stripe de Tests. La real se hace en el bloque 13. T14 tendrá que saber que hay dos.
 
 ### 7.3 Un producto y su paquete (5 min)
-
+> **Ya hecho el 13-oct-2026 desde el hilo**, con el conector de RevenueCat y el sí desde la cuenta de Blanca en una tarjeta: `tests_una_mensual` (`prod8eac5411ab`) en `Persevera Tests (Web)` (`app9dc4cffa75`), 1 mes, 9,99 EUR, prueba de una semana con la elegibilidad `never_subscribed` («Didn't have any subscription yet»; la API la llama `P1W` y no tiene `P7D` para las pruebas web), y en el paquete `$rc_monthly` de `default` (paso 8). El conector no pone el periodo de gracia: el paso 5 sigue siendo tuyo. Empieza en 7.4.
 1. «Product catalog», «Products», «+ New», en la configuración web de 7.2 [RC productos web].
 2. Identificador `tests_una_mensual`, nombre `Persevera Tests mensual`, descripción `Los tests de tu oposición`.
 3. Suscripción con renovación automática, 1 mes, **9,99 EUR**. Revisa el precio antes de guardar: después no se puede cambiar [RC productos web].
@@ -1596,7 +1596,7 @@ Si en el bloque 7 fuiste por el modo de prueba, la configuración ya existe: rev
 
 ### 13.6 Los productos web (15 min)
 
-«Product catalog», «Products», «+ New», en la configuración web real [RC productos web]. Con cada fila. Si `tests_una_mensual` ya está, del bloque 7 por el camino del modo de prueba, no lo crees otra vez, pero mira que su periodo de gracia y sus cambios de suscripción son los de abajo:
+**Ya hecho el 13-oct-2026 desde el hilo** (conector de RevenueCat, con el sí desde la cuenta de Blanca): los seis productos de la tabla en `Persevera Tests (Web)`, con su precio, su duración y, en los tres primeros, la prueba de una semana para `never_subscribed`. Los tres «sinprueba» llevan «sin prueba» en el nombre interno de RevenueCat; el cliente ve el de la tabla. Te queda el periodo de gracia de cada uno, que el conector no pone: 7 días en los mensuales y semestrales y 14 en los anuales, los de Persevera en Google (conector, 13-oct). «Product catalog», «Products», «+ New», en la configuración web real [RC productos web]. Con cada fila. Si `tests_una_mensual` ya está, del bloque 7 por el camino del modo de prueba, no lo crees otra vez, pero mira que su periodo de gracia y sus cambios de suscripción son los de abajo:
 
 | Identificador | Nombre | Duración | Precio | Prueba |
 |---|---|---|---|---|
@@ -1619,7 +1619,7 @@ Los seis se crean siempre. En RevenueCat Billing la prueba va en el producto: en
 Si fuiste por los sandboxes, crea los mismos seis en la configuración `Persevera Tests (Web sandbox)` (el mensual ya está, del bloque 7). En 13.7, al elegir producto saldrán dos de cada uno, uno por configuración: se distinguen por el nombre de su configuración.
 
 ### 13.7 La web en las ofertas y el entitlement (5 min)
-
+> **Ya hecho el 13-oct-2026 desde el hilo:** los pasos 1 a 3. Cada paquete de `default` y `sin_prueba` tiene su producto web, el de App Store y el de Play Store, y `acceso` tiene los doce (comprobado con el conector).
 1. En `default`, en cada paquete, el producto web de `Persevera Tests (Web)`: `tests_una_mensual`, `tests_una_semestral` y `tests_una_anual`.
 2. En `sin_prueba`, en cada paquete, `tests_una_sinprueba_mensual`, `tests_una_sinprueba_semestral` y `tests_una_sinprueba_anual`, también de `Persevera Tests (Web)`.
 3. En `acceso`, adjunta los seis productos web.
