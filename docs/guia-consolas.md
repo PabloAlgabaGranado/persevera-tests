@@ -873,7 +873,7 @@ Según lo que viste en 3.4 [RC conectar Stripe], [RC pruebas web]:
 8. En «Product catalog», «Offerings», abre `default` (o créala con el identificador `default` si no existe) y añade el paquete «Monthly» (`$rc_monthly`) con este producto en la web. Es su sitio definitivo.
 
 ### 7.4 La compra de prueba (10 min)
-> **Hecho el 14-oct-2026.** El enlace «Prueba huella (borrar)» se creó la noche del 13 sobre `default`, con los términos en https://perseveraoposiciones.com/terminos (la dirección de Tests aún no existe y RevenueCat la rechazó) y «Show the success page» si se repite la compra. **El enlace sigue vivo: hay que borrarlo ya (7.5, paso 4).** Hubo tres tropiezos. Uno: sin la sede en los impuestos del **modo de prueba** de Stripe, la compra de sandbox falla con «Invalid tax origin address». El modo de prueba tiene su propia configuración de impuestos: estaba vacía aunque la real estaba completa (visto el 14-oct-2026; la ayuda lo dice de los sandboxes [Stripe Tax pruebas]). Se le puso lo mismo que en la real: la sede, `txcd_10000000` y los precios con el IVA dentro. No tiene registro, así que no calcula IVA en las compras de prueba. Dos: la segunda compra, abierta en el mismo navegador, dijo que ya estaba hecha y no creó `huella-prueba-2`. En una ventana privada, con la dirección acabada en `/huella-prueba-2`, funcionó. Puede que el navegador recordara la primera o que se abriera otra vez el enlace de la primera, que con «Show the success page» enseña esa página (sin verificar). Tres: los enlaces de compra salen en inglés y su idioma no se puede cambiar [RC localización]. En sandbox, la semana de prueba dura 5 minutos y la suscripción se renueva sola: `huella-prueba-1` se renovó seis veces y se paró.
+> **Hecho el 14-oct-2026.** El enlace «Prueba huella (borrar)» se creó la noche del 13 sobre `default`, con los términos en https://perseveraoposiciones.com/terminos (la dirección de Tests aún no existe y RevenueCat la rechazó) y «Show the success page» si se repite la compra. **RevenueCat no deja borrar el enlace** (7.5, paso 4). Hubo tres tropiezos. Uno: sin la sede en los impuestos del **modo de prueba** de Stripe, la compra de sandbox falla con «Invalid tax origin address». El modo de prueba tiene su propia configuración de impuestos: estaba vacía aunque la real estaba completa (visto el 14-oct-2026; la ayuda lo dice de los sandboxes [Stripe Tax pruebas]). Se le puso lo mismo que en la real: la sede, `txcd_10000000` y los precios con el IVA dentro. No tiene registro, así que no calcula IVA en las compras de prueba. Dos: la segunda compra, abierta en el mismo navegador, dijo que ya estaba hecha y no creó `huella-prueba-2`. En una ventana privada, con la dirección acabada en `/huella-prueba-2`, funcionó. Puede que el navegador recordara la primera o que se abriera otra vez el enlace de la primera, que con «Show the success page» enseña esa página (sin verificar). Tres: los enlaces de compra salen en inglés y su idioma no se puede cambiar [RC localización]. En sandbox, la semana de prueba dura 5 minutos y la suscripción se renueva sola: `huella-prueba-1` se renovó seis veces y se paró.
 
 1. En el proyecto Persevera Tests, «Funnels», sección «Purchase Links», crea un enlace de compra nuevo (Web Purchase Link) de la oferta `default`, con «Show the default package selection page». Sin paywall: esta guía no crea ninguno [RC enlaces de compra].
 2. Selecciona el enlace en «Purchase Links» y pulsa «Share URL». Salen dos URL, la de Production y la de Sandbox; por el camino de los sandboxes solo sale la de Sandbox [RC pruebas web]. Copia la de **Sandbox**. No la compartas: con ella cualquiera se suscribe [RC enlaces de compra].
@@ -891,7 +891,7 @@ Según lo que viste en 3.4 [RC conectar Stripe], [RC pruebas web]:
    - qué metadatos lleva (por ejemplo, un id de RevenueCat).
 2. En RevenueCat, «Customers», busca `huella-prueba-1` y después `huella-prueba-2`. En cada uno, abre el evento `INITIAL_PURCHASE` del historial y apunta `store`, `transaction_id`, `original_transaction_id` y `period_type`.
 3. Si puedes ver el cuerpo entero del evento, guárdalo en un fichero de tu Mac. Antes de pasarlo a la conversación de T13, cambia tu correo por uno inventado. Es su evento de prueba de la web.
-4. **Al acabar, borra el enlace de compra** en «Funnels», «Purchase Links». Si sigue vivo, en cuanto Stripe esté verificado su URL de Production deja hacer una compra real de Tests antes de los términos (P1), los textos del cobro (P4) y la publicación (P13). La ayuda no dice si se borra o se desactiva (sin verificar): si no deja borrarlo, apúntalo y avisa.
+4. **Al acabar, borra el enlace de compra** en «Funnels», «Purchase Links». Si sigue vivo, en cuanto Stripe esté verificado su URL de Production deja hacer una compra real de Tests antes de los términos (P1), los textos del cobro (P4) y la publicación (P13). La ayuda no dice si se borra o se desactiva (sin verificar): si no deja borrarlo, apúntalo y avisa. El 14-oct-2026 no se pudo: el menú «⋯» de la lista solo tiene «Edit», «Copy link template», «Open config settings» y «Edit appearance», y la pantalla de editar solo «Update». El enlace sigue vivo, y su URL de Production no se copia ni se comparte. Antes de P13 se pide al soporte de RevenueCat que lo quite.
 
 ### 7.6 Qué se decide con lo que salga
 
@@ -903,13 +903,13 @@ Según lo que viste en 3.4 [RC conectar Stripe], [RC pruebas web]:
 ### Comprueba que (huella)
 
 1. En RevenueCat salen los clientes `huella-prueba-1` y `huella-prueba-2`, cada uno con su compra de sandbox.
-2. El enlace de compra ya no está en «Purchase Links».
+2. El enlace de compra ya no está en «Purchase Links» (no se pudo: ver 7.5, paso 4).
 3. El Stripe de Persevera sigue sin la app de RevenueCat.
 
 > **PELIGRO (huella)**
 > - Solo en sandbox o en modo de prueba. Ninguna compra real.
 > - La URL de sandbox del enlace de compra no se comparte.
-> - Al acabar, el enlace de compra se borra (7.5.4).
+> - Al acabar, el enlace de compra se borra (7.5.4). Si no se puede, su URL de Production no se copia ni se comparte.
 > - En el Stripe de Persevera, nada.
 
 ### Devuelve (A13, la huella)
@@ -918,7 +918,7 @@ Según lo que viste en 3.4 [RC conectar Stripe], [RC pruebas web]:
 A13, LA HUELLA
 Camino: modo de prueba (una configuración)
 App User IDs de las dos compras: huella-prueba-1 y huella-prueba-2
-Enlace de compra borrado al acabar: pendiente
+Enlace de compra borrado al acabar: no se pudo; RevenueCat no tiene la opción, el enlace sigue vivo y su URL de Production no se comparte
 Id de la configuración web (app…), y la de sandbox si hay dos: app9dc4cffa75
 ¿Dejó crear la configuración con Stripe sin verificar?: no hizo falta, ya estaba verificado
 Cliente en Stripe con cada correo: sí
