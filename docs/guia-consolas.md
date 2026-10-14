@@ -39,7 +39,7 @@ Sigue la forma de la guía de consolas del día D de Persevera (`claude/dia-d`, 
 9. **Puedes parar al final de cualquier bloque.**
 
 > **PELIGRO (siempre)**
-> - **De Persevera no se toca nada.** Solo hay dos excepciones: A3, que solo lee su base (`pg_dump --schema-only`, bloque 2), y A4, una migración de Persevera que escribe una conversación de Persevera y aplicas tú después del día D, nunca la noche de una fase (bloque 15).
+> - **De Persevera no se toca nada.** Solo hay tres excepciones: A3, que solo lee su base (`pg_dump --schema-only`, bloque 2); A4, una migración de Persevera que escribe una conversación de Persevera y aplicas tú después del día D, nunca la noche de una fase (bloque 15); y el «Browser Cache TTL» de la zona, que cambiaste el 14-oct-2026 para toda la zona, también para la web y la app de Persevera (8.3).
 > - **Las cuentas son las de Persevera.** Apple, Google Play, RevenueCat, Cloudflare y GitHub son las mismas. Antes de crear algo, mira arriba que estás en Persevera Tests y no en Persevera ni en Eroodite.
 > - **Nada de Tests apunta a Persevera:** ni al proyecto de Supabase `rljfcmjvulmjooxoxzxo`, ni a sus claves, ni a su Stripe, ni a su Resend, ni a `app.perseveraoposiciones.com`.
 > - **Ningún secreto en el repositorio ni en una conversación.** Son secretos: las claves `sb_secret_`, las contraseñas de las bases y las cadenas de conexión que las llevan, los ficheros `.p8` de Apple, el JSON de la cuenta de servicio de Google, el keystore (`.jks`) y sus contraseñas, las claves de Stripe (`sk_`, `rk_`, `whsec_`), las claves secretas de RevenueCat (`sk_`), la clave de Resend (`re_`), el secreto del webhook y las contraseñas de las cuentas de prueba. Van a `.env.local` (que nunca se sube), a los secretos de Supabase o a los de GitHub, y una copia a tu gestor de contraseñas.
@@ -542,7 +542,7 @@ Ten a mano [Stripe alta]:
 - Brooks & Oo, S.L., NIF B26969022, Calle **Doctor** Fleming, 21, 41210 Guillena (Sevilla), España (`persevera-web/src/data/legal.ts`, líneas 30-32). En el Stripe de Persevera la dirección pone «Doctro»: aquí escríbela bien. La de Persevera no se arregla desde aquí; solo la apuntas.
 - El representante y los titulares que pida Stripe, con su documento.
 - La cuenta del banco para los cobros. Puede ser la misma que la de Persevera [Stripe varias cuentas].
-- La web: `https://tests.perseveraoposiciones.com`. Aún no carga (eso es A8, bloque 8). Si Stripe la exige cargada para terminar, termina lo demás, apúntalo y vuelve después del bloque 8 (sin verificar que la pida).
+- La web: `https://tests.perseveraoposiciones.com`. Carga desde el 14-oct-2026 (A8, bloque 8). Stripe aceptó la verificación el 13-oct-2026, antes de que cargara (3.1).
 
 ### 3.3 Los datos públicos (5 min)
 
@@ -958,6 +958,8 @@ dig +short CAA perseveraoposiciones.com
 3. La tercera salió vacía el 26-ago-2026 (misma página, línea 47). Si ahora hay CAA, tiene que permitir las autoridades que usa Cloudflare, o el certificado no sale [CF dominios].
 4. Apunta en qué cuenta de Cloudflare está el proyecto `persevera-app`, la app web de Persevera (`claude/dia-d`, `docs/dominio-propio-supabase.md`, línea 446). Solo mirar.
 
+> **Hecho el 14-oct-2026.** Los NS son `adel` y `eugene.ns.cloudflare.com`, `tests.` estaba libre y no hay CAA. `persevera-app` está en la cuenta de tu hermano, la de la zona. Ojo: en 8.3, `curl` falló con «Could not resolve host» aunque el CNAME ya estaba en la zona, y `dig +short tests.perseveraoposiciones.com @1.1.1.1` tampoco dio nada. Lo más probable es que algún DNS entre tu Mac y Cloudflare recordara que `tests.` no existía, quizá por el segundo `dig` de aquí (deducción). Ese recuerdo dura como mucho una hora, el último número de la línea SOA de la zona (3600; deducción). Para no esperar, `curl` pregunta directamente al DNS de Cloudflare con `--doh-url https://cloudflare-dns.com/dns-query`.
+
 ### 8.1 El proyecto y el primer despliegue (15 min)
 
 Propuesto: subida directa con `wrangler` desde el Mac, como la app web de Persevera. Así el build usa tu `.env.local` y los guardianes de `npm run build`, y un push a `main` no publica nada solo, que importa porque cada conversación sube a `main`. Ojo: un proyecto de subida directa no se puede pasar después a la conexión con GitHub [CF subida directa].
@@ -980,6 +982,8 @@ npx wrangler pages deploy dist --project-name persevera-tests --branch main
 - Si `persevera-tests.pages.dev` está cogido, Cloudflare le pondrá otro nombre (sin verificar). Apúntalo: es el destino del CNAME.
 - Abre `https://persevera-tests.pages.dev`: tiene que salir la pantalla de T1.
 
+> **Hecho el 14-oct-2026** con `e248ba4`, en la cuenta de la zona (deducción: el CNAME salió solo, como en el caso 1 de 8.2; no se miró con `npx wrangler whoami`). La dirección es `persevera-tests.pages.dev`. La última orden se pegó como `--branchmain`, sin espacio, y salió bien igual: `npx wrangler pages deployment list --project-name persevera-tests` da el despliegue como «Production», rama `main`. Recién creado, el proyecto no salió a la primera en «Workers y Pages», y poco después sí. No se apuntó qué lo arregló; si te pasa, prueba a recargar la página.
+
 ### 8.2 El dominio propio (10 min, más el DNS)
 
 **Caso 1, el más probable: el proyecto está en la misma cuenta de Cloudflare que la zona.**
@@ -994,6 +998,8 @@ npx wrangler pages deploy dist --project-name persevera-tests --branch main
 3. El orden importa: con el CNAME puesto antes de asociar el dominio, sale un error 522 [CF dominios]. La ayuda no dice si entre dos cuentas de Cloudflare va con proxy o sin él (sin verificar); la nube gris es el caso que sí explica, el del DNS de fuera.
 
 **Caso 3: la zona ya no está en Cloudflare.** Como el caso 2, en el panel de quien lleve el DNS [CF dominios].
+
+> **Hecho el 14-oct-2026, caso 1.** En la exportación de la zona sale el CNAME `tests` hacia `persevera-tests.pages.dev`, con nube naranja. Lo puso Cloudflare solo, como dice el paso 3 (deducción: no se apuntó quién lo creó). El resto de la zona siguió igual. El dominio pasó de «Inicializando» a «Activo», con SSL, en menos de cinco minutos.
 
 ### 8.3 Comprobar (5 min)
 
@@ -1010,6 +1016,10 @@ curl -sI https://tests.perseveraoposiciones.com/assets/no-existe.js
 3. La cuarta: tipo JavaScript y `cache-control: public, max-age=300, must-revalidate` (`public/_headers`, líneas 32-33).
 4. La quinta también da 200 y `text/html`, porque el comodín atrapa `/assets/*` (`public/_redirects`, líneas 5-12). Demuestra que la cuarta mira un fichero de verdad.
 
+> **Hecho el 14-oct-2026,** con `--doh-url` (ver 8.0). Todo salió como se esperaba salvo una cosa: los `.js` llegaban con `max-age=14400` (4 horas), no con el `max-age=300` de `_headers`. Era el ajuste de la zona «Browser Cache TTL», que viene en 4 horas: si la web manda menos, Cloudflare pone el valor más alto [CF Cache-Control], [CF caché navegador], y con la nube naranja los ajustes de la zona valen también para Pages [CF Pages zona]. No tocaba las páginas, solo los ficheros que Cloudflare guarda por su extensión (visto con `curl`; la ayuda no lo dice así). La app de Persevera tenía lo mismo, así que la defensa del 4-ago-2026 de su `_headers` duraba 4 horas en el navegador, no 5 minutos.
+>
+> Ese día decidiste cambiarlo para toda la zona, a «Respetar encabezados existentes» (Respect Existing Headers). La ruta que se te dio fue la zona `perseveraoposiciones.com`, «Almacenamiento en caché» (Caching), «Configuración» (Configuration) y «Browser Cache TTL»; los rótulos en español, sin verificar, y qué pulsaste no se apuntó. Antes estaba en 4 horas, por el `14400` (deducción: el valor del panel no se apuntó). Lo comprobaste con `curl` antes y después: los `.js` de la app de Persevera y de Tests pasaron a `max-age=300`, y las páginas de la web de Persevera (`max-age=0`) y de Tests (`no-store`) siguieron igual. Ese `curl` no distingue esa opción de un valor de 5 minutos o menos, porque Cloudflare pone el más alto [CF Cache-Control]. Tampoco se volvió a probar `/assets/no-existe.js`, que es justo el caso del 4-ago-2026. Se deshace volviendo a poner 4 horas. Vale para todos los nombres de la zona con nube naranja, también los de Persevera.
+
 ### Comprueba que (web)
 
 1. `https://tests.perseveraoposiciones.com` carga la pantalla de T1, con candado.
@@ -1022,22 +1032,24 @@ curl -sI https://tests.perseveraoposiciones.com/assets/no-existe.js
 > - No conectes el proyecto a GitHub: cada commit de `main` saldría publicado.
 > - No despliegues con cambios sin subir.
 > - No quites el comodín de `_redirects` ni pongas `immutable` en `_headers`: ya tumbó la app de Persevera el 4-ago-2026 (`public/_headers`, líneas 14-31).
+> - Los ajustes de la zona, como «Browser Cache TTL», valen también para la web y la app de Persevera. No se cambian sin contar con eso, como se hizo el 14-oct-2026 (8.3).
 
 ### Devuelve (A8)
 
 ```
-A8, LA WEB
-NS (lo que dio dig):
-¿tests. estaba libre?: sí/no
-CAA (lo que dio dig, o «nada»):
-Cuenta de Cloudflare de persevera-app:
-Cuenta de Cloudflare de persevera-tests:
-Dirección .pages.dev:
-Caso de 8.2: 1/2/3
-CNAME tests: lo puso Cloudflare solo / mi hermano / yo; proxy naranja/gris
-Primeras líneas de curl -sI https://tests.perseveraoposiciones.com/:
-Commit desplegado:
-Fecha:
+A8, LA WEB (hecho el 14-oct-2026)
+NS (lo que dio dig): adel.ns.cloudflare.com y eugene.ns.cloudflare.com
+¿tests. estaba libre?: sí
+CAA (lo que dio dig, o «nada»): nada
+Cuenta de Cloudflare de persevera-app: la de mi hermano, la de la zona
+Cuenta de Cloudflare de persevera-tests: la misma (deducción: el CNAME salió solo, caso 1)
+Dirección .pages.dev: persevera-tests.pages.dev
+Caso de 8.2: 1
+CNAME tests: lo puso Cloudflare solo (deducción: no se apuntó); proxy naranja
+Primeras líneas de curl -sI https://tests.perseveraoposiciones.com/: HTTP/2 200, content-type: text/html; charset=utf-8, cache-control: no-store
+Commit desplegado: e248ba4
+Fecha: 14-oct-2026
+Browser Cache TTL de la zona: de 4 horas (deducción, por el 14400) a «Respetar encabezados existentes» (Respect Existing Headers), para toda la zona
 ```
 
 **Hecho (A8)** cuando la dirección carga la app (hoja, línea 388).
@@ -2782,7 +2794,7 @@ Si se crean los productos de Apple sin prueba (10.9), APPLE tiene que admitir ta
   - para Stripe Tax, el SDK web 1.4.3 o posterior [RC impuestos];
   - «Gestionar suscripción» en la web es el enlace de un solo uso de la API v2, que se pide desde el servidor con la clave v2 [RC API v2 suscripción];
   - el botón de pago no se rotula; `selectedLocale: 'es'` existe [RC localización]. Los enlaces de compra salen en inglés y su idioma no se puede cambiar (visto el 14-oct-2026 en el bloque 7);
-  - los colores del pago web van en la configuración web, «Appearance», «Open Editor»: fondos, botones, acento, error y formas (la ayuda no habla de logo ni de letra, sin verificar). Valen para los enlaces de compra y el pago del SDK web [RC apariencia], y los correos de RevenueCat solo toman el fondo de la página y el botón principal [RC correos]. Álvaro puso Noche y menta el 14-oct-2026, con los valores que dio el hilo: fondo de la página y del producto `#0F2A31`, formulario `#16363E`, botones y acento `#7AD8D2`, error `#EF6A6A`, formas redondeadas y la descripción del producto a la vista. Falta el icono de Tests en «App info», «App icon» (`docs/marca/icono-1024.png`), que sale en el pago, los correos y los recibos;
+  - los colores del pago web van en la configuración web, «Appearance», «Open Editor»: fondos, botones, acento, error y formas (la ayuda no habla de logo ni de letra, sin verificar). Valen para los enlaces de compra y el pago del SDK web [RC apariencia], y los correos de RevenueCat solo toman el fondo de la página y el botón principal [RC correos]. Álvaro puso Noche y menta el 14-oct-2026, con los valores que dio el hilo: fondo de la página y del producto `#0F2A31`, formulario `#16363E`, botones y acento `#7AD8D2`, error `#EF6A6A`, formas redondeadas y la descripción del producto a la vista. El icono de Tests (`docs/marca/icono-1024.png`) se subió ese mismo día en «App info», «App icon», y sale en el pago, los correos y los recibos;
   - en Android, quien ya gastó la prueba compra el plan base sin la oferta `prueba-7d` (hoja, línea 249).
 - **T20:** RevenueCat Billing manda sus propios correos de alta y de prueba en las compras web [RC correos]. Hay que decidir si conviven con el de la Ley 10/2025 de Tests (hoja, línea 314). El aviso de renovación de RevenueCat es solo del anual: el de Tests sigue haciendo falta para el semestral.
 - **T21:** al borrar la cuenta, la suscripción web se cancela con `actions/cancel`, que la deja hasta el final del periodo; cortarla al momento sería con un reembolso. Borrar el cliente de RevenueCat (clave v2) es asíncrono, y la ayuda no dice qué pasa con sus suscripciones vivas (sin verificar) [RC API v2 cliente].
@@ -2937,6 +2949,9 @@ Consultadas el 13-oct-2026. La fecha entre paréntesis es la de la página, cuan
 - [CF dominios] https://developers.cloudflare.com/pages/configuration/custom-domains/ (21-abr-2026)
 - [CF subida directa] https://developers.cloudflare.com/pages/get-started/direct-upload/ (21-abr-2026)
 - [wrangler pages] https://developers.cloudflare.com/workers/wrangler/commands/pages/ (23-abr-2026)
+- [CF Cache-Control] https://developers.cloudflare.com/cache/concepts/cache-control/, consultada el 14-oct-2026
+- [CF caché navegador] https://developers.cloudflare.com/cache/how-to/edge-browser-cache-ttl/, consultada el 14-oct-2026
+- [CF Pages zona] https://developers.cloudflare.com/pages/configuration/debugging-pages/, consultada el 14-oct-2026
 - [RFC 1034] https://datatracker.ietf.org/doc/html/rfc1034#section-3.6.2
 - [RFC 7489] https://datatracker.ietf.org/doc/html/rfc7489#section-6.6.3
 
@@ -2973,14 +2988,14 @@ Consultadas el 13-oct-2026. La fecha entre paréntesis es la de la página, cuan
    - la ruta de `keytool` dentro de Android Studio y los valores de `versionCode` y `versionName` que pone `npx cap add android`;
    - los rótulos en español de Apple, Google Play y RevenueCat.
 5. **De la web y el correo:**
-   - el DNS de hoy: los NS, si `tests.` está libre, los CAA y el DMARC de la raíz (6.0 y 8.0; la raíz no tiene DMARC y los NS son `adel` y `eugene.ns.cloudflare.com`, vistos el 14-oct-2026);
-   - en qué cuenta de Cloudflare está `persevera-app`, si puedes editar el DNS de la zona, y si el CNAME entre dos cuentas va con proxy o sin él;
-   - si `persevera-tests.pages.dev` está libre;
+   - el DNS de hoy: los NS, si `tests.` está libre, los CAA y el DMARC de la raíz (resuelto el 14-oct-2026, 6.0 y 8.0: los NS son `adel` y `eugene.ns.cloudflare.com`, `tests.` estaba libre, no hay CAA y la raíz no tiene DMARC);
+   - en qué cuenta de Cloudflare está `persevera-app`, si puedes editar el DNS de la zona, y si el CNAME entre dos cuentas va con proxy o sin él (resuelto el 14-oct-2026: `persevera-app` está en la cuenta de la zona; `persevera-tests` también, y el CNAME lo puso Cloudflare solo, las dos cosas por deducción, 8.1 y 8.2);
+   - si `persevera-tests.pages.dev` está libre (lo estaba, 14-oct-2026);
    - si Resend deja a otro equipo añadir un subdominio de un dominio que está en el equipo de Persevera (ya no hace falta: Tests va en el mismo equipo, 14-oct-2026);
    - quién es el dueño del Resend de Persevera y desde qué región envía (el dueño es hola@brooksoo.com, visto el 14-oct-2026; la región, sin mirar);
    - si el SMTP de Resend acepta una clave de solo enviar, y si la pantalla de SMTP de Supabase tiene un campo para las respuestas;
    - si el seguimiento de clics de Resend rompe los enlaces de Auth (deducción; ya no hace falta: Tests no tiene subdominio de seguimiento, así que no hay seguimiento, 14-oct-2026);
-   - si Stripe acepta la verificación antes de que cargue `tests.perseveraoposiciones.com`.
+   - si Stripe acepta la verificación antes de que cargue `tests.perseveraoposiciones.com` (sí: la aceptó el 13-oct-2026, un día antes de que cargara la web; 3.1 y 8.3).
 6. **De la base y la copia:**
    - si tienes la contraseña de la base de Persevera: sin ella, A3 se para (2.0);
    - si la búsqueda en el catálogo de 15.0 saca los dos Database Webhooks con su secreto, y qué se hace entonces: guardarlo de otra forma en Persevera o aceptar el riesgo por escrito;
