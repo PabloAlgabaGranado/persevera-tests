@@ -760,7 +760,7 @@ Fecha:
 - **Espera a:** nada (hoja, línea 386).
 - **Desbloquea:** el correo de las cuentas en Supabase (bloque 16), el remitente de T12, T19 y T20, y el aviso de la copia (bloque 18).
 
-**Hecho casi entero el 14-oct-2026.** Recuperaste la cuenta de Resend de Persevera y Eroodite (hola@brooksoo.com) y añadiste allí `tests.perseveraoposiciones.com`, en Irlanda. Tu hermano puso los registros en Cloudflare. Falta lo de 6.4.
+**Hecho el 14-oct-2026.** Recuperaste la cuenta de Resend de Persevera y Eroodite (hola@brooksoo.com) y añadiste allí `tests.perseveraoposiciones.com`, en Irlanda. Los registros se pusieron en Cloudflare, y Resend dio el dominio por verificado a las 11:55. El DMARC de `_dmarc.tests` responde y no hay seguimiento de aperturas ni clics. Sigue en el bloque 7.
 
 **Lo importante:** Tests va en el mismo equipo que Persevera y Eroodite (`brooksoo`), no en uno propio. Crear un equipo nuevo obliga a pagar otro plan, y no quisiste (decidido el 14-oct-2026). El equipo ya es Pro, así que Tests no paga nada aparte. Lo que se acepta a cambio: el límite de envíos del equipo se comparte, y si Tests tiene muchos rebotes o quejas de spam, Resend puede frenar los envíos de todo el equipo, Persevera incluida. Persevera manda desde `hola@` y `avisos@perseveraoposiciones.com` (`claude/dia-d`, `supabase/functions/_shared/cobro/aplicar.ts`, línea 552, y `alertas.ts`, línea 101), con la raíz en ese mismo equipo. **Tests usa solo su subdominio, `tests.perseveraoposiciones.com`, con claves restringidas a él, y nunca toca la raíz.**
 
@@ -784,9 +784,9 @@ Como la web de Tests va a ocupar `tests.perseveraoposiciones.com` con un CNAME (
 4. **Si Resend dice que el dominio ya está en uso, o te propone reclamarlo, para y avisa.** No lo reclames. El 14-oct-2026 no avisó de nada.
 5. No actives la recepción («Enable Receiving»).
 
-### 6.3 Los registros (hecho el 14-oct-2026, los puso tu hermano)
+### 6.3 Los registros (hecho el 14-oct-2026)
 
-La zona `perseveraoposiciones.com` está en Cloudflare, en la cuenta de tu hermano (`claude/dia-d`, `docs/dominio-propio-supabase.md`, líneas 41-54, comprobado el 26-ago-2026). En Cloudflare: el dominio, «DNS», «Records» y «Add record». El nombre se escribe sin la raíz [Resend Cloudflare]. Los valores salen en la página del dominio en Resend y no son secretos. Los del 14-oct-2026:
+La zona `perseveraoposiciones.com` está en Cloudflare, en la cuenta de tu hermano (`claude/dia-d`, `docs/dominio-propio-supabase.md`, líneas 41-54, comprobado el 26-ago-2026). El 14-oct-2026 tú también entrabas en la zona. En Cloudflare: el dominio, «DNS», «Records» y «Add record». El nombre se escribe sin la raíz [Resend Cloudflare]. Los valores salen en la página del dominio en Resend y no son secretos. Los del 14-oct-2026:
 
 | Tipo | Nombre | Contenido | Proxy |
 |---|---|---|---|
@@ -798,9 +798,9 @@ La zona `perseveraoposiciones.com` está en Cloudflare, en la cuenta de tu herma
 - Resend enseña el DMARC con el nombre `_dmarc`. En Cloudflare tiene que ser `_dmarc.tests`: con `_dmarc` a secas valdría para la raíz, es decir, para todo Persevera. Resend recomienda empezar con `p=none` [Resend DMARC].
 - Ninguno de estos nombres toca los de Persevera: la raíz, `send`, `resend._domainkey`, `app`, `www`, `api`, ni las reglas de Email Routing.
 
-### 6.4 Verificar (2 min, más la espera)
+### 6.4 Verificar (hecho el 14-oct-2026)
 
-1. En Resend, «I've already added the records». Puede tardar hasta 72 horas, normalmente mucho menos [Resend Cloudflare]. El 14-oct-2026, `send.tests` salió verificado enseguida, y el DKIM y `rsend.tests` se quedaron en «Pending».
+1. En Resend, «I've already added the records». Puede tardar hasta 72 horas, normalmente mucho menos [Resend Cloudflare]. El 14-oct-2026, `send.tests` salió verificado enseguida, y el DKIM y `rsend.tests` se quedaron en «Pending». A las 11:55 salió todo «Verified».
 2. Desde el Mac, cada una tiene que devolver lo que puso tu hermano:
    ```bash
    dig +short TXT resend._domainkey.tests.perseveraoposiciones.com
@@ -809,7 +809,7 @@ La zona `perseveraoposiciones.com` está en Cloudflare, en la cuenta de tu herma
    dig +short TXT _dmarc.tests.perseveraoposiciones.com
    ```
    Si alguna sale vacía, lo habitual es: el CNAME tiene la nube naranja, al TXT del DKIM le falta un trozo, o el DMARC se llama `_dmarc`.
-3. En la pestaña «Configuration» del dominio, apaga «Click tracking» y «Open tracking» [Resend dominios]. Con el de clics encendido, reescribiría los enlaces de los correos de la cuenta (deducción).
+3. En la pestaña «Configuration» del dominio, mira que no hay subdominio de seguimiento: en «Enable tracking metrics» solo sale el botón «Configure». Resend solo sigue aperturas y clics con ese subdominio, así que sin él no hay seguimiento. No lo crees: su formulario trae marcado «Enable click tracking», y si pulsas «Add domain» lo crea y pide otro registro. Con el de clics encendido, Resend reescribiría los enlaces de los correos de la cuenta (deducción). El TLS, en «Opportunistic», el que trae.
 
 Las claves de Resend no se crean ahora: cada una se crea justo antes de usarla (bloques 16 y 18), restringida a `tests.perseveraoposiciones.com`. Así no queda ninguna sin uso y ninguna puede mandar en nombre de Persevera.
 
@@ -828,15 +828,15 @@ Las claves de Resend no se crean ahora: cada una se crea justo antes de usarla (
 ### Devuelve (A7, Resend)
 
 ```
-A7, RESEND
+A7, RESEND (hecho el 14-oct-2026)
 Equipo: brooksoo (hola@brooksoo.com), plan Pro
 Dominio: tests.perseveraoposiciones.com, región: Irlanda (eu-west-1)
 ¿Avisó de que el dominio estaba en uso?: no
 DMARC de la raíz: nada
-¿Se añadió _dmarc.tests?: sí/no
-Registros puestos por: mi hermano
-Verificado el:
-Seguimiento de aperturas y clics: apagado sí/no
+¿Se añadió _dmarc.tests?: sí, dig devuelve "v=DMARC1; p=none;"
+Registros puestos en: Cloudflare, zona perseveraoposiciones.com
+Verificado el: 14-oct-2026, 11:55
+Seguimiento de aperturas y clics: apagado (sin subdominio de seguimiento)
 ```
 
 ---
@@ -2968,13 +2968,13 @@ Consultadas el 13-oct-2026. La fecha entre paréntesis es la de la página, cuan
    - la ruta de `keytool` dentro de Android Studio y los valores de `versionCode` y `versionName` que pone `npx cap add android`;
    - los rótulos en español de Apple, Google Play y RevenueCat.
 5. **De la web y el correo:**
-   - el DNS de hoy: los NS, si `tests.` está libre, los CAA y el DMARC de la raíz (6.0 y 8.0);
+   - el DNS de hoy: los NS, si `tests.` está libre, los CAA y el DMARC de la raíz (6.0 y 8.0; la raíz no tiene DMARC y los NS son `adel` y `eugene.ns.cloudflare.com`, vistos el 14-oct-2026);
    - en qué cuenta de Cloudflare está `persevera-app`, si puedes editar el DNS de la zona, y si el CNAME entre dos cuentas va con proxy o sin él;
    - si `persevera-tests.pages.dev` está libre;
    - si Resend deja a otro equipo añadir un subdominio de un dominio que está en el equipo de Persevera (ya no hace falta: Tests va en el mismo equipo, 14-oct-2026);
    - quién es el dueño del Resend de Persevera y desde qué región envía (el dueño es hola@brooksoo.com, visto el 14-oct-2026; la región, sin mirar);
    - si el SMTP de Resend acepta una clave de solo enviar, y si la pantalla de SMTP de Supabase tiene un campo para las respuestas;
-   - si el seguimiento de clics de Resend rompe los enlaces de Auth (deducción);
+   - si el seguimiento de clics de Resend rompe los enlaces de Auth (deducción; ya no hace falta: Tests no tiene subdominio de seguimiento, así que no hay seguimiento, 14-oct-2026);
    - si Stripe acepta la verificación antes de que cargue `tests.perseveraoposiciones.com`.
 6. **De la base y la copia:**
    - si tienes la contraseña de la base de Persevera: sin ella, A3 se para (2.0);
