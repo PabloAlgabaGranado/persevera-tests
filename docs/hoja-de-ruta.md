@@ -379,7 +379,7 @@ Son las consolas, las cuentas, las migraciones, los despliegues y los builds, en
   Espera a: A2, A3, A4, A5, T2 y T10. Bloquea: C1, P5 y la muestra con datos reales. Hecho cuando hay dos copias nocturnas seguidas con las huellas iguales y la medida está apuntada, antes de P5.
 
 - [ ] **A7. El correo de Tests.**
-  - Una cuenta o un dominio de Resend propios de Tests, con sus registros SPF y DKIM, y mirar los límites del plan. Las funciones de Persevera usan la clave de Resend de Persevera (`notify-reporte-psico/index.ts`, línea 12), y esa no se toca.
+  - Una cuenta o un dominio de Resend propios de Tests, con sus registros SPF y DKIM, y mirar los límites del plan. Las funciones de Persevera usan la clave de Resend de Persevera (`notify-reporte-psico/index.ts`, línea 12), y esa no se toca. Empezado el 14-oct-2026 (bloque 6 de la guía): el dominio `tests.perseveraoposiciones.com`, en Irlanda, va en el equipo de Resend de Persevera y Eroodite (`brooksoo`, plan Pro, cuenta hola@brooksoo.com) y no en uno propio, porque uno nuevo obliga a pagar; las claves de Tests irán restringidas a ese dominio. El hermano de Álvaro puso los registros en Cloudflare (el DKIM, `send.tests`, `rsend.tests` y `_dmarc.tests`, porque la raíz no tiene DMARC). Falta que Resend lo dé por verificado y apagar el seguimiento de aperturas y clics.
   - El SMTP de Supabase Auth, con las plantillas de T12.
   - La dirección de vuelta, tests.perseveraoposiciones.com, en Authentication. El esquema de la app, solo para A16.
 

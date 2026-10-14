@@ -109,7 +109,7 @@ Esta semana son unas 3 h 45 min. Desde T1, unas 6 h 30 min. A4, 40 min. Noviembr
 | Proyecto de Google Cloud | `persevera-tests` | propuesto |
 | Keystore de Android | `~/claves/persevera-tests/persevera-tests-upload.jks`, alias `upload` | propuesto |
 | Proyecto de Supabase | `Persevera Tests`, `project_id = "persevera-tests"`, región West EU (Ireland), `eu-west-1` | propuesto |
-| Equipo y dominio de Resend | equipo `Persevera Tests`, dominio `tests.perseveraoposiciones.com` en Irlanda (`eu-west-1`) | propuesto |
+| Equipo y dominio de Resend | equipo `brooksoo`, el de Persevera y Eroodite, porque uno nuevo obliga a pagar; dominio `tests.perseveraoposiciones.com` en Irlanda (`eu-west-1`) | decidido el 14-oct-2026 |
 | Remitente de los correos | `Persevera Tests <avisos@tests.perseveraoposiciones.com>` | propuesto |
 | Correo de soporte y de respuesta | `hola@perseveraoposiciones.com` (se redirige a `hola@brooksoo.com`) | decidido por Blanca el 13-oct-2026 |
 | Rol de lectura en Persevera | `lector_tests` | decidido (hoja, A4) |
@@ -760,82 +760,81 @@ Fecha:
 - **Espera a:** nada (hoja, línea 386).
 - **Desbloquea:** el correo de las cuentas en Supabase (bloque 16), el remitente de T12, T19 y T20, y el aviso de la copia (bloque 18).
 
-**Lo importante:** en Resend, un dominio solo puede estar activo en un equipo. Si otro equipo lo reclama («claim») y lo completa, Resend lo quita del equipo que lo tenía [Resend claim]. Persevera ya manda desde `hola@` y `avisos@perseveraoposiciones.com` (`claude/dia-d`, `supabase/functions/_shared/cobro/aplicar.ts`, línea 552, y `alertas.ts`, línea 101), así que la raíz está en el Resend de Persevera. **Tests usa su propio subdominio, `tests.perseveraoposiciones.com`, en un equipo propio, y nunca reclama nada.**
+**Hecho casi entero el 14-oct-2026.** Recuperaste la cuenta de Resend de Persevera y Eroodite (hola@brooksoo.com) y añadiste allí `tests.perseveraoposiciones.com`, en Irlanda. Tu hermano puso los registros en Cloudflare. Falta lo de 6.4.
 
-Como la web de Tests va a ocupar `tests.perseveraoposiciones.com` con un CNAME (bloque 8), ese nombre no puede tener buzón: un CNAME no convive con otros registros en el mismo nombre [RFC 1034]. Se envía desde `avisos@tests.perseveraoposiciones.com` sin buzón, y las respuestas van al correo de soporte.
+**Lo importante:** Tests va en el mismo equipo que Persevera y Eroodite (`brooksoo`), no en uno propio. Crear un equipo nuevo obliga a pagar otro plan, y no quisiste (decidido el 14-oct-2026). El equipo ya es Pro, así que Tests no paga nada aparte. Lo que se acepta a cambio: el límite de envíos del equipo se comparte, y si Tests tiene muchos rebotes o quejas de spam, Resend puede frenar los envíos de todo el equipo, Persevera incluida. Persevera manda desde `hola@` y `avisos@perseveraoposiciones.com` (`claude/dia-d`, `supabase/functions/_shared/cobro/aplicar.ts`, línea 552, y `alertas.ts`, línea 101), con la raíz en ese mismo equipo. **Tests usa solo su subdominio, `tests.perseveraoposiciones.com`, con claves restringidas a él, y nunca toca la raíz.**
 
-### 6.0 Mira y anota, sin cambiar nada (3 min)
+Como la web de Tests va a ocupar `tests.perseveraoposiciones.com` con un CNAME (bloque 8), ese nombre no puede tener buzón: un CNAME no convive con otros registros en el mismo nombre [RFC 1034]. Se envía desde `avisos@tests.perseveraoposiciones.com` sin buzón, y las respuestas van al correo de soporte. Los registros de Resend van en otros nombres (6.3), así que no chocan con la web.
 
-1. Apunta con qué cuenta entras en el Resend de Persevera y en qué equipo está su dominio. Solo mirar.
-2. Desde el Mac, mira si la raíz tiene DMARC:
-   ```bash
-   dig +short TXT _dmarc.perseveraoposiciones.com
-   ```
-   Apunta lo que salga, o «nada».
+### 6.0 Mira y anota, sin cambiar nada (hecho el 14-oct-2026)
 
-### 6.1 El equipo (5 min)
+1. El Resend de Persevera es la cuenta hola@brooksoo.com, equipo `brooksoo`, plan Pro, con Persevera y Eroodite.
+2. La raíz no tiene DMARC: `dig +short TXT _dmarc.perseveraoposiciones.com` no devolvió nada. Por eso Tests pone el suyo en 6.3. A Persevera le convendría tener el suyo, pero no es cosa de Tests.
 
-1. Entra en resend.com con la cuenta que prefieras: la de Persevera u otra nueva.
-2. Crea un equipo nuevo: `Persevera Tests`. Cada equipo tiene sus claves, su facturación y su consumo, y se cambia de equipo pulsando su nombre, arriba a la izquierda [Resend equipos]. El rótulo de «crear equipo» no lo he visto (sin verificar).
-3. Plan gratuito mientras se construye (propuesto). Da 100 correos al día y 3.000 al mes [Resend precios]. Antes de publicar se pasa a Pro, 20 $ al mes (ver «Lo que no se hace todavía»).
-4. Mira arriba a la izquierda que estás en `Persevera Tests`.
+### 6.1 El equipo (hecho el 14-oct-2026)
 
-### 6.2 El dominio (5 min)
+1. Entra en resend.com con hola@brooksoo.com.
+2. Mira arriba a la izquierda que estás en el equipo `brooksoo`. No crees un equipo nuevo.
 
-1. En el equipo `Persevera Tests`, «Domains» y «Add domain» (sin verificar el rótulo).
-2. Dominio: `tests.perseveraoposiciones.com`.
-3. Región: Irlanda (`eu-west-1`) (propuesto). Para cambiarla después hay que borrar el dominio y crearlo otra vez [Resend regiones]. Ojo: Resend guarda los datos de la cuenta en EE. UU. aunque envíe desde Irlanda [Resend regiones]. Va a P2.
-4. **Si Resend dice que el dominio ya está en uso, o te propone reclamarlo, para y avisa.** No lo reclames. Con un subdominio no debería pasar, pero la ayuda no habla de subdominios (sin verificar).
-5. Resend enseña tres registros: un MX y un TXT en `send` y un TXT en `resend._domainkey` [Resend Cloudflare]. Copia los valores tal como salen. No son secretos. No actives la recepción.
+### 6.2 El dominio (hecho el 14-oct-2026)
 
-### 6.3 Los registros (10 min, los pone tu hermano)
+1. «Domains» y «Add domain».
+2. Dominio: `tests.perseveraoposiciones.com`. Región: Irlanda (`eu-west-1`). Para cambiarla después hay que borrar el dominio y crearlo otra vez [Resend regiones]. Ojo: Resend guarda los datos de la cuenta en EE. UU. aunque envíe desde Irlanda [Resend regiones]. Va a P2.
+3. «Manual setup», no «Auto configure». El automático necesita entrar en el Cloudflare de tu hermano (deducción).
+4. **Si Resend dice que el dominio ya está en uso, o te propone reclamarlo, para y avisa.** No lo reclames. El 14-oct-2026 no avisó de nada.
+5. No actives la recepción («Enable Receiving»).
 
-La zona `perseveraoposiciones.com` está en Cloudflare, en la cuenta de tu hermano, y los registros los mete él (`claude/dia-d`, `docs/dominio-propio-supabase.md`, líneas 41-54, comprobado el 26-ago-2026). En Cloudflare se escribe el nombre sin la raíz [Resend Cloudflare]:
+### 6.3 Los registros (hecho el 14-oct-2026, los puso tu hermano)
 
-| Tipo | Nombre | Contenido | Prioridad | Proxy |
-|---|---|---|---|---|
-| MX | `send.tests` | el de Resend | 10 | no aplica |
-| TXT | `send.tests` | el de Resend (empieza por `v=spf1`) | | no aplica |
-| TXT | `resend._domainkey.tests` | el de Resend (empieza por `p=`) | | Solo DNS |
+La zona `perseveraoposiciones.com` está en Cloudflare, en la cuenta de tu hermano (`claude/dia-d`, `docs/dominio-propio-supabase.md`, líneas 41-54, comprobado el 26-ago-2026). En Cloudflare: el dominio, «DNS», «Records» y «Add record». El nombre se escribe sin la raíz [Resend Cloudflare]. Los valores salen en la página del dominio en Resend y no son secretos. Los del 14-oct-2026:
 
-- **DMARC:** si en 6.0 salió algo que empieza por `v=DMARC1`, no hagas nada: el subdominio usa el de la raíz [RFC 7489]. Si salió «nada», que tu hermano añada un TXT en `_dmarc.tests` con `v=DMARC1; p=none;`. Resend recomienda empezar con `p=none` [Resend DMARC].
+| Tipo | Nombre | Contenido | Proxy |
+|---|---|---|---|
+| TXT | `resend._domainkey.tests` | el de Resend, entero (empieza por `p=`) | no aplica |
+| CNAME | `rsend.tests` | `rsend-euw1.forge.rmta.net` | Solo DNS (nube gris) |
+| CNAME | `send.tests` | `send.forge.rmta.net` | Solo DNS (nube gris) |
+| TXT | `_dmarc.tests` | `v=DMARC1; p=none;` | no aplica |
+
+- Resend enseña el DMARC con el nombre `_dmarc`. En Cloudflare tiene que ser `_dmarc.tests`: con `_dmarc` a secas valdría para la raíz, es decir, para todo Persevera. Resend recomienda empezar con `p=none` [Resend DMARC].
 - Ninguno de estos nombres toca los de Persevera: la raíz, `send`, `resend._domainkey`, `app`, `www`, `api`, ni las reglas de Email Routing.
 
 ### 6.4 Verificar (2 min, más la espera)
 
-1. En Resend, pulsa verificar el dominio (sin verificar el rótulo). Puede tardar hasta 72 horas, normalmente mucho menos [Resend Cloudflare].
+1. En Resend, «I've already added the records». Puede tardar hasta 72 horas, normalmente mucho menos [Resend Cloudflare]. El 14-oct-2026, `send.tests` salió verificado enseguida, y el DKIM y `rsend.tests` se quedaron en «Pending».
 2. Desde el Mac, cada una tiene que devolver lo que puso tu hermano:
    ```bash
-   dig +short MX send.tests.perseveraoposiciones.com
-   dig +short TXT send.tests.perseveraoposiciones.com
    dig +short TXT resend._domainkey.tests.perseveraoposiciones.com
+   dig +short CNAME rsend.tests.perseveraoposiciones.com
+   dig +short CNAME send.tests.perseveraoposiciones.com
+   dig +short TXT _dmarc.tests.perseveraoposiciones.com
    ```
-3. En los ajustes del dominio, apaga el seguimiento de aperturas y de clics. Resend deja elegirlo por dominio [Resend dominios]. Con el de clics encendido, reescribiría los enlaces de los correos de la cuenta (deducción).
+   Si alguna sale vacía, lo habitual es: el CNAME tiene la nube naranja, al TXT del DKIM le falta un trozo, o el DMARC se llama `_dmarc`.
+3. En la pestaña «Configuration» del dominio, apaga «Click tracking» y «Open tracking» [Resend dominios]. Con el de clics encendido, reescribiría los enlaces de los correos de la cuenta (deducción).
 
-Las claves de Resend no se crean ahora: cada una se crea justo antes de usarla (bloques 16 y 18), para que no quede ninguna sin uso.
+Las claves de Resend no se crean ahora: cada una se crea justo antes de usarla (bloques 16 y 18), restringida a `tests.perseveraoposiciones.com`. Así no queda ninguna sin uso y ninguna puede mandar en nombre de Persevera.
 
 ### Comprueba que (Resend)
 
-1. `tests.perseveraoposiciones.com` sale verificado en el equipo `Persevera Tests`.
-2. El equipo de Persevera sigue con su dominio, sin avisos.
-3. Los tres `dig` devuelven su valor.
+1. `tests.perseveraoposiciones.com` sale «Verified» en el equipo `brooksoo`.
+2. Los dominios de Persevera y Eroodite siguen verificados, sin avisos.
+3. Los cuatro `dig` devuelven su valor.
 
 > **PELIGRO (Resend)**
-> - Nunca añadas `perseveraoposiciones.com` (la raíz) al equipo de Tests ni reclames ningún dominio. Persevera se quedaría sin correo.
-> - No toques el equipo de Persevera, sus dominios ni sus claves. La clave de Resend de Persevera no se usa en Tests (hoja, línea 382).
+> - La raíz `perseveraoposiciones.com` ya está en este equipo para Persevera: no la toques, no la borres y no la añadas otra vez. Tampoco reclames ningún dominio.
+> - No toques los dominios de Persevera ni de Eroodite, ni sus claves. La clave de Resend de Persevera no se usa en Tests (hoja, línea 382).
+> - Las claves de Tests van siempre restringidas a `tests.perseveraoposiciones.com`. Una sin restringir podría mandar en nombre de Persevera.
 > - Tu hermano solo añade nombres que acaban en `.tests`.
 
 ### Devuelve (A7, Resend)
 
 ```
 A7, RESEND
-Equipo: Persevera Tests (con la cuenta de Persevera / con una cuenta nueva)
-Plan:
-Dominio: tests.perseveraoposiciones.com, región:
-¿Avisó de que el dominio estaba en uso?: sí/no
-DMARC de la raíz (lo que dio dig, o «nada»):
+Equipo: brooksoo (hola@brooksoo.com), plan Pro
+Dominio: tests.perseveraoposiciones.com, región: Irlanda (eu-west-1)
+¿Avisó de que el dominio estaba en uso?: no
+DMARC de la raíz: nada
 ¿Se añadió _dmarc.tests?: sí/no
-Registros puestos por: mi hermano / yo
+Registros puestos por: mi hermano
 Verificado el:
 Seguimiento de aperturas y clics: apagado sí/no
 ```
@@ -2136,7 +2135,7 @@ En el Supabase de Tests, «Database», «Backups»: tiene que salir la primera c
 
 El SMTP es de A7 y espera a las plantillas de T12 (hoja, línea 386). Si lo adelantas, los correos de prueba salen con la plantilla de Supabase. Necesita el dominio de Resend verificado (bloque 6).
 
-1. **La clave** (3 min). En Resend, equipo `Persevera Tests`, «API Keys», crea una (sin verificar el rótulo): nombre `supabase-auth-smtp`, permiso «Sending access», restringida al dominio `tests.perseveraoposiciones.com` [Resend claves API]. Empieza por `re_` y no se vuelve a ver [Resend claves]: a tu gestor. Que el SMTP acepte una clave de solo enviar no lo dice la ayuda (sin verificar). Si en el paso 4 falla la autenticación, avisa antes de crear una de acceso completo.
+1. **La clave** (3 min). En Resend, equipo `brooksoo`, «API Keys», crea una (sin verificar el rótulo): nombre `supabase-auth-smtp`, permiso «Sending access», restringida al dominio `tests.perseveraoposiciones.com` [Resend claves API]. Empieza por `re_` y no se vuelve a ver [Resend claves]: a tu gestor. Que el SMTP acepte una clave de solo enviar no lo dice la ayuda (sin verificar). Si en el paso 4 falla la autenticación, avisa antes de crear una de acceso completo.
 2. **El SMTP** (10 min). En el Supabase de **Tests**, «Authentication», «Notifications», «Email», «SMTP Settings» [Resend con Supabase], [Supabase SMTP]. Enciende el SMTP propio y rellena:
    - Sender email: `avisos@tests.perseveraoposiciones.com`
    - Sender name: `Persevera Tests`
@@ -2233,7 +2232,7 @@ Fecha:
 
 ### 18.1 La clave de Resend para la copia (2 min)
 
-En Resend, equipo `Persevera Tests`, «API Keys», una nueva (propuesto): nombre `copia-banco`, «Sending access», restringida a `tests.perseveraoposiciones.com` [Resend claves API]. Es otra que la de Supabase Auth: así se puede revocar una sin tumbar la otra. Empieza por `re_` y no se vuelve a ver [Resend claves]: a tu gestor.
+En Resend, equipo `brooksoo`, «API Keys», una nueva (propuesto): nombre `copia-banco`, «Sending access», restringida a `tests.perseveraoposiciones.com` [Resend claves API]. Es otra que la de Supabase Auth: así se puede revocar una sin tumbar la otra. Empieza por `re_` y no se vuelve a ver [Resend claves]: a tu gestor.
 
 ### 18.2 Los secretos en GitHub (5 min)
 
@@ -2301,7 +2300,7 @@ Lo apuntado en los bloques para más adelante, con su momento. La tarea de cada 
 | Después de A15 | El evento de prueba del webhook | Bloque 17 |
 | Cuando existan las cuentas de `cuentas_de_prueba`, antes de P5 y de enviar nada a revisión | «Allow testing entitlements and in-app currency for» de «Nobody» a «Allowed App User IDs only», con sus ids | 12.3 |
 | En P7 | La captura buena de la pantalla de compra de cada producto de Apple y las notas de revisión definitivas (hoja, línea 399) | 10.4 |
-| Antes de P13 | Resend a Pro, 20 $ al mes. Subir «Rate Limits» de Supabase Auth, que empieza en 30 correos por hora | 6.1 y 16.7 |
+| Antes de P13 | Subir «Rate Limits» de Supabase Auth, que empieza en 30 correos por hora. Resend ya es Pro: Tests va en el equipo de Persevera | 6.1 y 16.7 |
 | En P13 | Añadir los tres productos de Apple a la primera versión que se envía, y enviar a revisión | 10.4 |
 | En A16, si entra | «Sign In with Apple» en el App ID, los clientes OAuth y el registro de los remitentes en Apple para el relé de correo privado | 5.1; T12 añade los pasos |
 | Lo añaden sus tareas | A6 (T10), el resto de A7 (T12), A14 (T23 y A14), A15 (T13, T19, T20 y T21) y A16 (T12) | «Qué cubre y qué no» |
@@ -2774,7 +2773,7 @@ Si se crean los productos de Apple sin prueba (10.9), APPLE tiene que admitir ta
   - un reembolso web llega como `CANCELLATION` con `cancel_reason: CUSTOMER_SUPPORT`;
   - `sincronizar-compra` tiene que mirar también las compras web en `GET /v1/subscribers/{uid}` (con qué nombre de tienda salen ahí, sin verificar);
   - la cabecera `Authorization` igual a `REVENUECAT_WEBHOOK_SECRET`; la firma HMAC, si se encendió en el bloque 17;
-  - lo copiado de Persevera manda desde `Persevera <hola@perseveraoposiciones.com>` por defecto (`claude/dia-d`, `supabase/functions/_shared/cobro/aplicar.ts`, línea 552, y `avisar-renovacion/index.ts`, línea 200). En Tests, `Persevera Tests <avisos@tests.perseveraoposiciones.com>` con `reply_to` al correo de soporte, porque la raíz está en el Resend de Persevera.
+  - lo copiado de Persevera manda desde `Persevera <hola@perseveraoposiciones.com>` por defecto (`claude/dia-d`, `supabase/functions/_shared/cobro/aplicar.ts`, línea 552, y `avisar-renovacion/index.ts`, línea 200). En Tests, `Persevera Tests <avisos@tests.perseveraoposiciones.com>` con `reply_to` al correo de soporte: aunque la raíz está en el mismo equipo de Resend, Tests no manda nunca en nombre de Persevera.
 - **T14:**
   - en la web hay dos claves públicas, la real y la de sandbox; los nombres propuestos son `VITE_REVENUECAT_WEB_KEY` y `VITE_REVENUECAT_WEB_SANDBOX_KEY`, y T14 los fija;
   - las ofertas se piden por id: `offerings.all["default"]` y `offerings.all["sin_prueba"]` [RC SDK web];
@@ -2972,8 +2971,8 @@ Consultadas el 13-oct-2026. La fecha entre paréntesis es la de la página, cuan
    - el DNS de hoy: los NS, si `tests.` está libre, los CAA y el DMARC de la raíz (6.0 y 8.0);
    - en qué cuenta de Cloudflare está `persevera-app`, si puedes editar el DNS de la zona, y si el CNAME entre dos cuentas va con proxy o sin él;
    - si `persevera-tests.pages.dev` está libre;
-   - si Resend deja a otro equipo añadir un subdominio de un dominio que está en el equipo de Persevera;
-   - quién es el dueño del Resend de Persevera y desde qué región envía;
+   - si Resend deja a otro equipo añadir un subdominio de un dominio que está en el equipo de Persevera (ya no hace falta: Tests va en el mismo equipo, 14-oct-2026);
+   - quién es el dueño del Resend de Persevera y desde qué región envía (el dueño es hola@brooksoo.com, visto el 14-oct-2026; la región, sin mirar);
    - si el SMTP de Resend acepta una clave de solo enviar, y si la pantalla de SMTP de Supabase tiene un campo para las respuestas;
    - si el seguimiento de clics de Resend rompe los enlaces de Auth (deducción);
    - si Stripe acepta la verificación antes de que cargue `tests.perseveraoposiciones.com`.
