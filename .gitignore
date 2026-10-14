@@ -13,3 +13,15 @@ android/app/src/main/assets/public
 # macOS
 .DS_Store
 supabase/.temp/
+
+# Android: lo que genera Gradle y Android Studio (como en Persevera)
+android/build/
+android/.gradle/
+android/local.properties
+android/app/build/
+android/app/release/
+
+# La llave de subida de Android: nunca al repositorio (fuera, en ~/claves)
+*.jks
+*.keystore
+keystore.properties

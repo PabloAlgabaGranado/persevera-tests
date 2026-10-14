@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Persevera Tests</string>
+    <string name="title_activity_main">Persevera Tests</string>
+    <string name="package_name">com.persevera.tests</string>
+    <string name="custom_url_scheme">com.persevera.tests</string>
+</resources>

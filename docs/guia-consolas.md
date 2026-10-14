@@ -1111,6 +1111,19 @@ La ficha de la tienda es P7: no se rellena ahora.
 
 ### 9.3 La plataforma Android y el paquete (40 min)
 
+> **La primera parte ya está hecha, el 14-oct-2026, desde la conversación:** `@capacitor/android` 8.5.3, la misma versión que `@capacitor/core`; `npx cap add android`; y las líneas de `.gitignore`. Capacitor ya deja `applicationId "com.persevera.tests"`, `versionCode 1`, `versionName "1.0"` y `targetSdkVersion = 36`, así que no hay que tocarlos. En tu Mac, en vez de las órdenes de abajo, trae eso y prepara la carpeta para Android Studio:
+
+```bash
+cd ~/Developer/persevera-tests
+git pull
+git status
+npm ci
+npm run build
+npx cap sync android
+```
+
+Después sigue en «En Android Studio». Lo de abajo, hasta ahí, queda como registro de lo que se hizo.
+
 ```bash
 cd "/Users/alvaroalgaba/Developer/persevera-tests"
 git switch main

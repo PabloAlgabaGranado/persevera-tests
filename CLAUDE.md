@@ -4,7 +4,7 @@
 
 **Persevera Tests** es una app de tests para opositores: elige una oposición y practica con preguntas de examen, tests por tema, exámenes oficiales, supuestos y simulacros. Sale con las cinco oposiciones que ya están en Persevera. Es una app **separada de Persevera**, como Persevera Oral: repositorio, base de datos Supabase, RevenueCat, Stripe y claves propios. El banco de preguntas es una copia del de Persevera, que se actualiza sola cada noche y en un solo sentido.
 
-React 19 + TypeScript + Vite 8, empaquetada con Capacitor 8 (`com.persevera.tests`). Las plataformas nativas (`ios/`, `android/`) aún no se han añadido.
+React 19 + TypeScript + Vite 8, empaquetada con Capacitor 8 (`com.persevera.tests`). `android/` se añadió el 14-oct-2026 (A9); `ios/` aún no.
 
 ```bash
 npm run dev     # http://localhost:5320 (puerto fijo)
