@@ -873,6 +873,7 @@ Según lo que viste en 3.4 [RC conectar Stripe], [RC pruebas web]:
 8. En «Product catalog», «Offerings», abre `default` (o créala con el identificador `default` si no existe) y añade el paquete «Monthly» (`$rc_monthly`) con este producto en la web. Es su sitio definitivo.
 
 ### 7.4 La compra de prueba (10 min)
+> **Hecho el 14-oct-2026.** El enlace «Prueba huella (borrar)» se creó la noche del 13 sobre `default`, con los términos en https://perseveraoposiciones.com/terminos (la dirección de Tests aún no existe y RevenueCat la rechazó) y «Show the success page» si se repite la compra. Hubo tres tropiezos. Uno: sin la sede en los impuestos del **modo de prueba** de Stripe, la compra de sandbox falla con «Invalid tax origin address». Stripe Tax tiene en pruebas una configuración aparte de la real [Stripe Tax pruebas], y se le puso lo mismo que en real (la sede, `txcd_10000000` y los precios con IVA), sin registro, así que las compras de prueba salen sin IVA. Dos: la segunda compra hay que abrirla en una ventana privada, porque el navegador recuerda la primera y dice que ya está hecha. Tres: los enlaces de compra salen en inglés y no se puede cambiar [RC localización]. En sandbox, la semana de prueba dura 5 minutos y la suscripción se renueva sola: `huella-prueba-1` se renovó seis veces y se paró.
 
 1. En el proyecto Persevera Tests, «Funnels», sección «Purchase Links», crea un enlace de compra nuevo (Web Purchase Link) de la oferta `default`, con «Show the default package selection page». Sin paywall: esta guía no crea ninguno [RC enlaces de compra].
 2. Selecciona el enlace en «Purchase Links» y pulsa «Share URL». Salen dos URL, la de Production y la de Sandbox; por el camino de los sandboxes solo sale la de Sandbox [RC pruebas web]. Copia la de **Sandbox**. No la compartas: con ella cualquiera se suscribe [RC enlaces de compra].
@@ -881,6 +882,7 @@ Según lo que viste en 3.4 [RC conectar Stripe], [RC pruebas web]:
 5. Repite con la misma URL acabada en `/huella-prueba-2`, la misma tarjeta y otro correo tuyo (por ejemplo, con `+tests-huella2`).
 
 ### 7.5 Lo que se mira (5 min)
+> **Resultado del 14-oct-2026:** en el modo de prueba de Stripe hay un cliente por compra, con `rc_customer_id` (el App User ID) y `rc_billing_generated` en sus metadatos. La tarjeta queda guardada al empezar la prueba, sin cobrar, con una SetupIntent (`seti_…`), y su huella sale en el detalle del método de pago, «Huella dactilar»: `BQTeEXLMSSqkTM5Z` en los dos clientes. Cada cobro lleva en sus metadatos `rc_product_identifier` y `tax_calculation`. En RevenueCat (conector), las dos suscripciones son `rc_billing`, de sandbox, con la oferta `default` y en prueba (`trialing`) al empezar. El historial de eventos de la API v2 sale vacío para los dos, así que no se guardó el cuerpo del `INITIAL_PURCHASE`: T13 lo saca del webhook de sandbox. Es el primer caso de 7.6.
 
 1. En el Stripe de Tests, en el modo de prueba o el sandbox, apunta:
    - si hay un cliente con cada correo;
@@ -914,20 +916,20 @@ Según lo que viste en 3.4 [RC conectar Stripe], [RC pruebas web]:
 
 ```
 A13, LA HUELLA
-Camino: modo de prueba (una configuración) / sandboxes (dos)
+Camino: modo de prueba (una configuración)
 App User IDs de las dos compras: huella-prueba-1 y huella-prueba-2
-Enlace de compra borrado al acabar: sí / no se pudo (qué dejó hacer)
-Id de la configuración web (app…), y la de sandbox si hay dos:
-¿Dejó crear la configuración con Stripe sin verificar?: sí/no
-Cliente en Stripe con cada correo: sí/no
-Pago o SetupIntent con método de pago: sí/no
-Huella visible: sí/no; ¿la misma en las dos compras?: sí/no
-Metadatos del objeto de Stripe (solo los nombres de las claves):
-Id que casa el evento con Stripe: cuál, o ninguno
-Del evento INITIAL_PURCHASE: store / period_type:
-¿Guardé el cuerpo del evento?: sí/no
-La prueba salió como «7 días» o «1 semana»:
-Fecha:
+Enlace de compra borrado al acabar: pendiente
+Id de la configuración web (app…), y la de sandbox si hay dos: app9dc4cffa75
+¿Dejó crear la configuración con Stripe sin verificar?: no hizo falta, ya estaba verificado
+Cliente en Stripe con cada correo: sí
+Pago o SetupIntent con método de pago: sí, SetupIntent al empezar la prueba y cobros en las renovaciones
+Huella visible: sí; ¿la misma en las dos compras?: sí
+Metadatos del objeto de Stripe (solo los nombres de las claves): cliente rc_billing_generated y rc_customer_id; cobro rc_billing_generated, rc_product_identifier y tax_calculation
+Id que casa el evento con Stripe: rc_customer_id (el App User ID)
+Del evento INITIAL_PURCHASE: el historial de la API v2 salió vacío; la suscripción dice rc_billing / trialing
+¿Guardé el cuerpo del evento?: no
+La prueba salió como «7 días» o «1 semana»: «Try free for 1 week» (P1W)
+Fecha: 14-oct-2026
 ```
 
 ---
@@ -2779,7 +2781,8 @@ Si se crean los productos de Apple sin prueba (10.9), APPLE tiene que admitir ta
   - las ofertas se piden por id: `offerings.all["default"]` y `offerings.all["sin_prueba"]` [RC SDK web];
   - para Stripe Tax, el SDK web 1.4.3 o posterior [RC impuestos];
   - «Gestionar suscripción» en la web es el enlace de un solo uso de la API v2, que se pide desde el servidor con la clave v2 [RC API v2 suscripción];
-  - el botón de pago no se rotula; `selectedLocale: 'es'` existe [RC localización];
+  - el botón de pago no se rotula; `selectedLocale: 'es'` existe [RC localización]. Los enlaces de compra salen en inglés y no se pueden cambiar (visto el 14-oct-2026 en el bloque 7);
+  - los colores del pago web van en la configuración web, «Appearance», «Open Editor»: fondos, botones, acento, error y formas, sin logo ni letra; valen para los enlaces de compra, el pago del SDK web y los correos de RevenueCat [RC apariencia].;
   - en Android, quien ya gastó la prueba compra el plan base sin la oferta `prueba-7d` (hoja, línea 249).
 - **T20:** RevenueCat Billing manda sus propios correos de alta y de prueba en las compras web [RC correos]. Hay que decidir si conviven con el de la Ley 10/2025 de Tests (hoja, línea 314). El aviso de renovación de RevenueCat es solo del anual: el de Tests sigue haciendo falta para el semestral.
 - **T21:** al borrar la cuenta, la suscripción web se cancela con `actions/cancel`, que la deja hasta el final del periodo; cortarla al momento sería con un reembolso. Borrar el cliente de RevenueCat (clave v2) es asíncrono, y la ayuda no dice qué pasa con sus suscripciones vivas (sin verificar) [RC API v2 cliente].
@@ -2843,6 +2846,7 @@ Consultadas el 13-oct-2026. La fecha entre paréntesis es la de la página, cuan
 - [RC impuestos] https://www.revenuecat.com/docs/web/web-billing/tax
 - [RC checkout] https://www.revenuecat.com/docs/web/web-billing/checkout
 - [RC localización] https://www.revenuecat.com/docs/web/web-billing/localization
+- [RC apariencia] https://www.revenuecat.com/docs/web/customization
 - [RC correos] https://www.revenuecat.com/docs/web/web-billing/lifecycle-emails
 - [RC conectar Stripe] https://www.revenuecat.com/docs/web/connect-stripe-account
 - [RC medios de pago] https://www.revenuecat.com/docs/web/web-billing/payment-methods
@@ -2876,6 +2880,7 @@ Consultadas el 13-oct-2026. La fecha entre paréntesis es la de la página, cuan
 - [Stripe precios] https://stripe.com/es/pricing
 - [Stripe Tax precios] https://stripe.com/es/tax/pricing
 - [Stripe Tax alta] https://docs.stripe.com/tax/set-up
+- [Stripe Tax pruebas] https://docs.stripe.com/tax/testing
 - [Stripe recibos] https://docs.stripe.com/receipts
 
 **Supabase**
