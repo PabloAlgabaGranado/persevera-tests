@@ -623,3 +623,73 @@ Es una estimación, no un compromiso. Blanca decidió el 13-oct-2026 que Álvaro
 - 13-oct-2026, al final del día: Blanca eligió hola@perseveraoposiciones.com como correo de soporte de Tests (P12).
 - 13-oct-2026, con la guía de consolas: el borrador de T9 está en `guia-consolas.md`. Lo que comprobó (la web pública en Cloudflare Pages, las URL de sandbox de Apple, los permisos de Google, las respuestas de A13, el botón de pago de P4, el secreto de escritura de la copia en A6, los UNIQUE parciales de T2 y la rúbrica de C2) se ha apuntado en sus tareas sin mover ninguna línea, para que las citas de la guía sigan valiendo.
 - 13-oct-2026, cambio de estética: Blanca cambió de opinión y eligió «Noche y menta», icono incluido, en lugar de «Petróleo». La app pasa a ser oscura, así que el paso de tema de T23 convierte también los fondos claros y el texto oscuro del motor, y el modo claro queda por diseñar. Petróleo pasa a `marca/propuestas/`. Se cambiaron T23 y lo tomado por defecto sin mover ninguna línea.
+
+## Maquetas de las pantallas
+
+15-oct-2026: hay una maqueta de cada pantalla, 49 en total, con Noche y menta y lo que dice esta hoja: entrar, elegir oposición y plan, Practicar, Simulacros, Mis fallos y progreso, hacer un test y Tu cuenta. Está en https://claude.ai/artifact/9fcJ6B6M2BcZACFzpcSXaP, y sus fuentes en la carpeta del proyecto, `persevera-tests/maquetas/`, con un `LEEME.md`. Es para repasarla con Blanca antes de construir, y las tareas que hacen estas pantallas pueden partir de ella. Lo que Blanca cambie se apunta aquí, con la fecha, y en la tarea que lo construye.
+
+### Para decidir en el repaso
+
+Para dibujar las pantallas hizo falta elegir 17 cosas que esta hoja no fija. Si Blanca no dice otra cosa, se quedan así. El número es el de la pantalla en la maqueta, y entre paréntesis va la tarea que la construye.
+
+- **1.2 (T12).** ¿«Entrar» o «Iniciar sesión»? Puesto: «Entrar», como Oral, de donde se copia. Persevera y `public/confirmado.html` dicen «Iniciar sesión»; si se queda «Entrar», se cambia también allí.
+- **1.3 (T12).** Al crear la cuenta, ¿basta la frase de los términos o se pide además una casilla? Puesto: la frase sola, como Persevera.
+- **1.5 (T12).** Los errores de los formularios, ¿en naranja o en rojo? Puesto: naranja con su icono, porque el rojo es el de las respuestas falladas. Oral los pone en rojo.
+- **2.2 (T14).** ¿Qué plan sale marcado de entrada y en qué orden van? Puesto: el mensual, el primero.
+- **3.2 (T11 y T16).** Quien no paga, ¿ve Supuestos y Simulacros con candado o no los ve? Puesto: con candado, y el candado abre los planes.
+- **3.3 (T5).** ¿«Examen real», como Persevera, o «Examen oficial», como la etiqueta de las preguntas? Puesto: «Examen oficial».
+- **4.1 (T8).** El simulacro generado, ¿dice «banco PERSEVERA» o «Preguntas originales»? Puesto: «Preguntas originales», como la etiqueta «Original» de T18.
+- **4.6 (T8).** ¿Se dice en los simulacros de Hacienda que el 2.º ejercicio no se hace en la app? Puesto: sí, en una nota, con dónde están sus supuestos adaptados a test.
+- **5.1 (T7).** Los colores de Mis fallos. Puesto: Pendientes en rojo, En refuerzo en menta y Dominadas en blanco. En Persevera son naranja, azul y verde, que en Tests son el aviso y el acierto.
+- **5.3 (T16).** La nota de los simulacros en Progreso, ¿en lista o en gráfica? Puesto: una lista, cada uno con su fecha, una barra y su nota.
+- **6.2 (T5).** ¿Se queda el aviso «Incorrecto. La respuesta correcta era D» o bastan los rótulos de las opciones? Puesto: se queda, porque viene de Persevera.
+- **6.6 (T19).** Los motivos para reportar, que son nuevos porque Persevera no tiene. Puestos: «La respuesta correcta está mal», «El enunciado o las opciones tienen un error», «La explicación no cuadra», «La ley ha cambiado» y «Otro».
+- **6.7 (T18).** La etiqueta del supuesto adaptado, ¿larga («Supuesto de desarrollo adaptado a test») o corta («Adaptado a test»)? Puesto: la larga, que es la de esta hoja.
+- **6.8 (T6).** ¿Se ve el código del caso («HAC-OF-2023-S02») encima del contador? Puesto: sí, como en Persevera, porque sirve para decir qué caso se reporta.
+- **7.1 (T16 y T21).** «Borrar la cuenta», ¿en rojo o en el color del texto? Puesto: rojo, en la fila y en el botón de 7.6, como Oral y Persevera, aunque en Tests el rojo es el de las respuestas falladas.
+- **7.4 (T17).** ¿Se pide confirmar antes de cambiar de oposición? Puesto: sí.
+- **7.6 (T21).** ¿«Borrar» o «Eliminar»? Puesto: «Borrar», y la palabra para confirmar es BORRAR. Persevera dice «Eliminar cuenta» y pide ELIMINAR.
+
+### Fallos del motor encontrados al dibujarlas
+
+Comprobados en Persevera, `claude/dia-d` en `54e448e`. Como dice D7, se arreglan en Persevera y llegan con la copia siguiente. El detalle está en `persevera-tests/maquetas/fallos-motor-verificados.md`.
+
+Hacer un test (T5), en `src/components/views/TakeTest.tsx`:
+
+- El menú de la pulsación larga no sale en «Revisar respuestas», porque la revisión vuelve antes (517-645) y el menú solo está en la pantalla del test (1270-1333). Su id no se borra nunca, así que el menú sale encima del test nuevo tras «Repetir test» (843) o «Repasar fallos» (652-660).
+- En modo examen, «Salir» no guarda nada (282 y 398-400), pero el aviso de salir dice «Las preguntas que ya hayas respondido contarán para tu progreso» (1256).
+- «Repasar fallos» tras un test en modo examen sigue en modo examen, con el tiempo entero del examen (652-660), y vuelve a guardar las respuestas como `examen_real` (326-331).
+- Los blancos no se guardan pregunta a pregunta, solo su número en `metadata.en_blanco` (385-400 y 455). La página de progreso de T16 pide blancos por tema, así que hace falta guardarlos o quitar ese dato.
+- La rejilla dice «Quedan 1 sin contestar», sin singular (987-991).
+
+Simulacros (T8):
+
+- Hacienda: al entregar dice «No has elegido supuesto» aunque su simulacro no lleva supuesto (`SimulacroRunner.tsx`, 470-486).
+- Hacienda: el resultado dice «70 preguntas oficiales» sea cual sea el número (`SimulacroResultado.tsx`, 1131) y enseña el aviso de los cortes de la Comisión Permanente de Selección, que no es suyo (809-813).
+- Hacienda: el hub anuncia «80 preguntas» (`SimulacroHubModal.tsx`, 1551, 1573 y 1586), pero cinco de sus seis oficiales tienen entre 95 y 99 (`simulacroBuilder.ts`, 1085-1087).
+- Seguridad Social: «corte último con plaza: 50.00» es la suma de los dos mínimos, no un corte, y sale con punto decimal (`simulacroScoring.ts`, 298, y `SimulacroResultado.tsx`, 903-910).
+- Guardia Civil, psicotécnico: la intro dice que lo que quede en blanco cuenta como fallo y, justo debajo, que no penaliza (`SimulacroRunnerGCPsico.tsx`, 141-146). El resultado lo llama «bloque teórico» (`SimulacroResultadoGC.tsx`, 126-130).
+- Seguridad Social y Hacienda: el generado habla de «la distribución por bloques de esta convocatoria» sin nombrar ninguna (`SimulacroIntroPantalla.tsx`, 107-108).
+- Auxiliar: el simulacro no guarda la sesión ni las respuestas, así que sus fallos no llegan a Mis fallos (`SimulacroRunnerAuxiliar.tsx`).
+- Allí «preguntas originales» quiere decir las del examen (`SimulacroResultado.tsx`, 1128, y `SimulacroIntroPantalla.tsx`, 142). En Tests choca con la etiqueta «Original» de T18, así que se cambia al copiar, por ejemplo por «preguntas del examen», con el «banco PERSEVERA» de esos textos.
+
+Mis fallos (T7), en `src/components/views/MisFallosView.tsx`:
+
+- La pestaña Casos no se acota a la oposición (`src/lib/casosRepaso.ts`, 53-61), y la vista no trae la oposición para filtrarla aquí. Hasta que se arregle en Persevera, T7 no puede darse por hecha.
+- Por bloque y Por tema solo cuentan los temas de la oposición activa (222-239). En el Auxiliar salen casi a 0, y en Seguridad Social y Hacienda pierden la parte que comparten con el Administrativo.
+- El aviso de Casos habla del «mejor intento» (917), pero el porcentaje es el de la última respuesta.
+- El «% dominado» divide entre todas las preguntas vistas, también las que nunca se fallaron (325-327).
+- Los botones anuncian todos los fallos (503-505 y 702-703), pero el test se corta en 20 o en 30 (304 y 314).
+
+Entrar, cobro y cambio de oposición (T12, T14 y T17):
+
+- `public/confirmado.html` dice siempre «Email confirmado», también cuando el enlace ha caducado o ya se usó. La copia de Tests lo hereda. Oral ya lo resuelve (`src/lib/sesion.ts`, 142).
+- Hay dos textos para «no hay nada que restaurar» (`PaywallModal.tsx`, 462, y `textosDiaD.ts`, 183).
+- «Ya has cambiado de oposición este mes» (`flujoCompra.ts`, 691) y «una vez al mes» (`textosDiaD.ts`, 60), cuando la regla es de 30 días.
+- Si la activación tarda, dice «pulsa Restaurar», y el botón se llama «Restaurar compras» (`flujoCompra.ts`, 707).
+
+### Lo que piden las maquetas a sus tareas
+
+- **T14.** En Persevera, «Restaurar compras» solo sale en el móvil (`PaywallModal.tsx`, 403-405). Falta decidir qué hace en la web con RevenueCat Billing. En el móvil, la prueba que se ofrece sale de la tienda (`revenuecat.ts`, 206-215). En Tests la oferta (`default` o `sin_prueba`) se elige según `prueba_disponible()`, para no enseñar «Hoy 0 €» a quien ya gastó la prueba en la web.
+- **Al copiar.** Se quitan los nombres de Persevera: «elige Persevera» en los pasos para cancelar (`textosDiaD.ts`, 292-293) y sus fichas de tienda en `versionMinima.ts` (24-25).
+- **P4.** Los términos dicen que se cancela en App Store «al menos 24 horas antes de la renovación», pero durante la prueba el primer cobro no es una renovación. Lo mira el abogado.
