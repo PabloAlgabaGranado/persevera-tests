@@ -263,7 +263,7 @@ Todas las piezas de Persevera se copian del mismo commit. Es el de `claude/dia-d
 
   Hecho cuando, en la maqueta, una oposición añadida a `catalogo_tests` aparece sin tocar el código, y quien sigue con la muestra llega a Practicar con su oposición ya elegida.
 
-- [ ] **T16. Las cinco pestañas y Perfil.** El armazón es nuevo: `App.tsx` y la barra de abajo, con cinco pestañas: Practicar, Simulacros, Progreso, Descubrir (T24) y Perfil. Las eligió Blanca el 15-oct-2026; el nombre «Progreso» está por decidir. La barra se copia de `BottomNav.tsx` sin el botón central de Estudiar.
+- [ ] **T16. Las cinco pestañas y Perfil.** El armazón es nuevo: `App.tsx` y la barra de abajo, con cinco pestañas: Practicar, Simulacros, Progreso, Descubrir (T24) y Perfil. Las eligió Blanca el 15-oct-2026, y confirmó el nombre «Progreso» ese mismo día. La barra se copia de `BottomNav.tsx` sin el botón central de Estudiar.
   - Practicar: tests por tema y por bloque, exámenes oficiales, supuestos (no en el Auxiliar) y la Sesión exprés, más psicotécnicos en el Auxiliar y en Guardia Civil, e inglés, ortografía y gramática en Guardia Civil (maquetas, 15-oct-2026).
   - Simulacros: la pantalla de simulacros copiada en T8.
   - Progreso, con «Mis fallos» y «Tu progreso» arriba: T7 más una página de progreso nueva, con aciertos, fallos y blancos por tema y por bloque, los puntos débiles y la gráfica de los simulacros, copiada de Persevera (maquetas, 15-oct-2026). De `src/lib/userStats.ts` solo se aprovechan las consultas de tests y simulacros, unas 300 líneas. Nada de XP, retos, logros ni Dominio (`ProgresoView.tsx`, líneas 218-228).
@@ -649,7 +649,7 @@ En 3.2 Blanca eligió el candado. En los demás dejó elegir, con una regla: que
 - **7.1 (T16 y T21).** «Eliminar cuenta», en rojo. «Cerrar sesión», en el naranja de aviso con su icono, como en Persevera.
 - **7.4 (T17).** Se pide confirmar solo cuando el cambio cuenta: con pago y fuera de la prueba. En la prueba y sin suscripción se cambia con un toque, como en Persevera.
 - **7.6 (T21).** «Eliminar», y la palabra para confirmar es ELIMINAR, como en Persevera.
-- **3.1 (T16).** La barra de abajo, con cinco pestañas: Practicar, Simulacros, Progreso, Descubrir y Perfil. La eligió Blanca. Perfil es lo que antes era Tu cuenta, que ya no se abre desde la cabecera, y Descubrir va calcada a Persevera, porque Blanca quiere llevar a la gente a los recursos que da. Tres pestañas se llaman igual que en Persevera, y eso sube algo el riesgo con Apple (norma 4.3). Lo compensa que Tests no tiene Inicio ni el botón central de Estudiar, se abre en Practicar y las capturas enseñan los tests. La tercera se llama «Progreso» porque «Mis fallos y progreso» no cabe con cinco; el nombre, abajo, en «Por decidir».
+- **3.1 (T16).** La barra de abajo, con cinco pestañas: Practicar, Simulacros, Progreso, Descubrir y Perfil. La eligió Blanca. Perfil es lo que antes era Tu cuenta, que ya no se abre desde la cabecera, y Descubrir va calcada a Persevera, porque Blanca quiere llevar a la gente a los recursos que da. Tres pestañas se llaman igual que en Persevera, y eso sube algo el riesgo con Apple (norma 4.3). Lo compensa que Tests no tiene Inicio ni el botón central de Estudiar, se abre en Practicar y las capturas enseñan los tests. La tercera se llama «Progreso» porque «Mis fallos y progreso» no cabe con cinco; el nombre lo propuso este hilo y Blanca lo confirmó el mismo día.
 - **8.1 (T24).** Descubrir, calcada a Persevera: la corrección del mes, el temario, las noticias y el blog de perseveraoposiciones.com, el foro («Próximamente») y «Nuestros libros».
 - **8.3 (T24).** Los libros, solo en papel, también en la web: el PDF regala un mes de Persevera, no de Tests. Las portadas son las de Amazon, sin el sello del mes.
 - **7.1, la música.** Sin música: Tests no lleva el botón flotante ni las canciones de Persevera. Lo eligió Blanca. En una tarjeta pidió primero que entrara para el lanzamiento y, poco después, decidió que no.
@@ -667,7 +667,6 @@ Decidido el 15-oct-2026, a partir de lo que pidió Blanca. Tests se parece a Per
 
 Si Blanca no dice otra cosa, se quedan así.
 
-- **3.1 (T16).** ¿«Progreso» u otro nombre corto para la tercera pestaña? Puesto: «Progreso», porque «Mis fallos y progreso» no cabe con cinco pestañas a 13 px.
 - **A16.** Propuesto que entre para el lanzamiento: Persevera tiene Apple y Google en su pantalla de entrar, y la maqueta los dibuja, apagados hasta A16.
 
 ### Fallos del motor encontrados al dibujarlas
