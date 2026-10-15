@@ -263,12 +263,12 @@ Todas las piezas de Persevera se copian del mismo commit. Es el de `claude/dia-d
 
   Hecho cuando, en la maqueta, una oposición añadida a `catalogo_tests` aparece sin tocar el código, y quien sigue con la muestra llega a Practicar con su oposición ya elegida.
 
-- [ ] **T16. Las tres pestañas y Tu cuenta.** El armazón es nuevo: `App.tsx` y la barra de abajo, con tres pestañas (propuesto).
+- [ ] **T16. Las cinco pestañas y Perfil.** El armazón es nuevo: `App.tsx` y la barra de abajo, con cinco pestañas: Practicar, Simulacros, Progreso, Descubrir (T24) y Perfil. Las eligió Blanca el 15-oct-2026; el nombre «Progreso» está por decidir. La barra se copia de `BottomNav.tsx` sin el botón central de Estudiar.
   - Practicar: tests por tema y por bloque, exámenes oficiales, supuestos (no en el Auxiliar) y la Sesión exprés, más psicotécnicos en el Auxiliar y en Guardia Civil, e inglés, ortografía y gramática en Guardia Civil (maquetas, 15-oct-2026).
   - Simulacros: la pantalla de simulacros copiada en T8.
-  - Mis fallos y progreso: T7 más una página de progreso nueva, con aciertos, fallos y blancos por tema y por bloque, los puntos débiles y la gráfica de los simulacros, copiada de Persevera (maquetas, 15-oct-2026). De `src/lib/userStats.ts` solo se aprovechan las consultas de tests y simulacros, unas 300 líneas. Nada de XP, retos, logros ni Dominio (`ProgresoView.tsx`, líneas 218-228).
+  - Progreso, con «Mis fallos» y «Tu progreso» arriba: T7 más una página de progreso nueva, con aciertos, fallos y blancos por tema y por bloque, los puntos débiles y la gráfica de los simulacros, copiada de Persevera (maquetas, 15-oct-2026). De `src/lib/userStats.ts` solo se aprovechan las consultas de tests y simulacros, unas 300 líneas. Nada de XP, retos, logros ni Dominio (`ProgresoView.tsx`, líneas 218-228).
 
-  Tu cuenta se abre desde la cabecera, a pantalla completa y con las secciones de Persevera (maquetas, 15-oct-2026), y lleva:
+  Perfil, la quinta pestaña, es lo que antes era Tu cuenta, que ya no se abre desde la cabecera: el Perfil de Persevera sin gamificación, con las secciones de Persevera (maquetas, 15-oct-2026), y lleva:
   - el plan y su fecha (de `claude/dia-d`, `tarjetasPerfil.ts` y `textosDiaD.ts`, no de Oral);
   - la oposición con su cambio (T17);
   - «Gestionar suscripción» y «Restaurar compras» (T14);
@@ -277,13 +277,13 @@ Todas las piezas de Persevera se copian del mismo commit. Es el de `claude/dia-d
 
   Al abrirse, la app mira la versión mínima (T2), copiando `src/lib/versionMinima.ts` de `claude/dia-d`. Los colores salen de la paleta de T23.
 
-  Hecho cuando las tres pestañas y Tu cuenta funcionan en la maqueta. En el móvil: una columna, 16 px de margen y sin scroll horizontal. En escritorio también. Ningún texto visible baja de 13 px, tampoco en el motor tras el paso de tema de T23.
+  Hecho cuando las cinco pestañas y Perfil funcionan en la maqueta. En el móvil: una columna, 16 px de margen y sin scroll horizontal. En escritorio también. Ningún texto visible baja de 13 px, tampoco en el motor tras el paso de tema de T23.
 
 - [ ] **T17. Cambiar de oposición cada 30 días.** La función `cambiar_oposicion(p_oposicion)`, con las reglas en el servidor.
   - Es libre la primera elección, el cambio durante la prueba y el cambio sin suscripción (con la muestra).
   - Con pago, se puede cambiar una vez cada 30 días. Si aún no toca, devuelve la fecha desde la que se puede.
   - Se copia, simplificada (sin tramos, subidas ni bajadas), de `elegir_oposicion_suscripcion` (`claude/dia-d`, `20261005091000_cobro_2_rpc.sql`, líneas 216-287), con su `revoke` y su `grant`.
-  - En Tu cuenta, los botones «Cambiar ahora» o «Disponible el {fecha}», copiados de `claude/dia-d`, `src/components/Tarifas/cambioDeOposicion.ts`.
+  - En Perfil, los botones «Cambiar ahora» o «Disponible el {fecha}», copiados de `claude/dia-d`, `src/components/Tarifas/cambioDeOposicion.ts`.
   - El progreso no se toca. Las respuestas se guardan por pregunta y se acotan por contenido, así que lo común cuenta en las dos oposiciones. Ese común es el banco del Administrativo que comparten el Auxiliar, Seguridad Social y Hacienda.
 
   Hecho cuando las pruebas en PGlite cubren estos casos:
@@ -320,7 +320,7 @@ Todas las piezas de Persevera se copian del mismo commit. Es el de `claude/dia-d
 
   Hecho cuando las pruebas de los dos módulos pasan con los textos escritos a mano, y el ensayo del aviso, que no envía nada, lista a quién escribiría.
 
-- [ ] **T21. Borrar la cuenta.** Desde Tu cuenta, como pide Apple. En la app dice «Eliminar», como en Persevera (decidido el 15-oct-2026).
+- [ ] **T21. Borrar la cuenta.** Desde Perfil, como pide Apple. En la app dice «Eliminar», como en Persevera (decidido el 15-oct-2026).
   - Se copian de `claude/dia-d` `supabase/functions/delete-account/` (con `borrar.ts` y el contrato v2) y `src/components/Tarifas/borrarCuenta.ts`, y la hoja de `src/components/common/DeleteAccountModal.tsx`.
   - Si hay una suscripción de App Store o Google Play que sigue renovándose, la app avisa de que hay que cancelarla allí y pide confirmar.
   - La de la web se cancela al borrar. El `borrar.ts` de `claude/dia-d` la cancela con la API de Stripe (líneas 9-17 y 44-50), pero con RevenueCat Billing no hay suscripciones en Stripe. Aquí se cancela a través de RevenueCat, y se decide si se borra también el cliente de RevenueCat.
@@ -544,7 +544,7 @@ Es trabajo de datos. Lo que corrige preguntas se hace en Persevera, en su propia
 
 - [ ] **P8. La privacidad en las tiendas.** Las etiquetas de privacidad de App Store y la «Seguridad de los datos» de Google, coherentes con P2, y la clasificación por edad. Hecho cuando están rellenas en las dos consolas.
 
-- [ ] **P9. La nota al revisor de Apple (norma 4.3).** En inglés, como en `TEXTOS_APPSTORE.md` de Persevera.
+- [ ] **P9. La nota al revisor de Apple (norma 4.3).** En inglés, como en `TEXTOS_APPSTORE.md` de Persevera. Explica también Descubrir (T24): enlaza el temario gratis de la web y los libros en papel de Amazon (norma 3.1.3), sin PDF ni precios, y la corrección del mes abre una página sin compras.
   - Explica que Persevera es la plataforma completa de estudio y que Persevera Tests es otro producto: solo tests, una oposición, otra interfaz y otro precio.
   - Nombra también las otras apps de la misma cuenta: Eroodite (`TRAMITE_APPSTORE.md`, línea 8) y Persevera Oral.
   - Lleva una cuenta de prueba sin pago, para que el revisor vea el paywall. Esa cuenta está en `cuentas_de_prueba` y tiene el correo confirmado (`TEXTOS_APPSTORE.md`, línea 57).
@@ -597,7 +597,7 @@ Si Blanca no dice otra cosa, la hoja sigue esto. Cambiar uno es cambiar esta lis
 - **El subdominio es tests.perseveraoposiciones.com** (A8). Es el ejemplo de la guía (línea 79).
 - **Sin cookies de publicidad en la web de Tests** al lanzar (P11).
 - **Solo modo oscuro al lanzar** (T23), porque el modo claro está por diseñar.
-- **Lo propuesto.** Las tres pestañas, el onboarding de dos pasos, las etiquetas «Oficial» y «Original» y el botón de reportar salen de la recomendación de la guía (líneas 107-108), no de una decisión. El 15-oct-2026 se decidieron el texto de las etiquetas y el del reporte (sección «Maquetas de las pantallas»), y la barra de tres pestañas sigue propuesta.
+- **Lo propuesto.** Las tres pestañas, el onboarding de dos pasos, las etiquetas «Oficial» y «Original» y el botón de reportar salen de la recomendación de la guía (líneas 107-108), no de una decisión. El 15-oct-2026 se decidieron el texto de las etiquetas y el del reporte (sección «Maquetas de las pantallas»), y Blanca eligió la barra de cinco pestañas.
 
 ## Calendario (estimación)
 
@@ -626,7 +626,7 @@ Es una estimación, no un compromiso. Blanca decidió el 13-oct-2026 que Álvaro
 
 ## Maquetas de las pantallas
 
-15-oct-2026: hay una maqueta de cada pantalla, 62 en total, con Noche y menta: entrar, elegir oposición y plan, Practicar, Simulacros, Mis fallos y progreso, hacer un test y Tu cuenta. Está en https://claude.ai/artifact/9fcJ6B6M2BcZACFzpcSXaP, y sus fuentes en la carpeta del proyecto, `persevera-tests/maquetas/`, con un `LEEME.md`. La primera versión, de 49 pantallas, dejó 17 puntos para decidir. Blanca los contestó ese mismo día y pidió que Tests se parezca a Persevera todo lo posible, así que se rehízo con lo que eligió y con lo que se copia además de Persevera. Las tareas que hacen estas pantallas parten de ella. Lo que Blanca cambie se apunta aquí, con la fecha, y en la tarea que lo construye.
+15-oct-2026: hay una maqueta de cada pantalla, 65 en total, con Noche y menta: entrar, elegir oposición y plan, Practicar, Simulacros, Progreso (Mis fallos y Tu progreso), hacer un test, Perfil y Descubrir. Está en https://claude.ai/artifact/9fcJ6B6M2BcZACFzpcSXaP, y sus fuentes en la carpeta del proyecto, `persevera-tests/maquetas/`, con un `LEEME.md`. La primera versión, de 49 pantallas, dejó 17 puntos para decidir. Blanca los contestó ese mismo día y pidió que Tests se parezca a Persevera todo lo posible, así que se rehízo con lo que eligió y con lo que se copia además de Persevera. Después eligió la barra de abajo, con Descubrir y Perfil, y se dibujó con ellas. Las tareas que hacen estas pantallas parten de ella. Lo que Blanca cambie se apunta aquí, con la fecha, y en la tarea que lo construye.
 
 ### Decidido el 15-oct-2026
 
@@ -649,22 +649,25 @@ En 3.2 Blanca eligió el candado. En los demás dejó elegir, con una regla: que
 - **7.1 (T16 y T21).** «Eliminar cuenta», en rojo. «Cerrar sesión», en el naranja de aviso con su icono, como en Persevera.
 - **7.4 (T17).** Se pide confirmar solo cuando el cambio cuenta: con pago y fuera de la prueba. En la prueba y sin suscripción se cambia con un toque, como en Persevera.
 - **7.6 (T21).** «Eliminar», y la palabra para confirmar es ELIMINAR, como en Persevera.
+- **3.1 (T16).** La barra de abajo, con cinco pestañas: Practicar, Simulacros, Progreso, Descubrir y Perfil. La eligió Blanca. Perfil es lo que antes era Tu cuenta, que ya no se abre desde la cabecera, y Descubrir va calcada a Persevera, porque Blanca quiere llevar a la gente a los recursos que da. Tres pestañas se llaman igual que en Persevera, y eso sube algo el riesgo con Apple (norma 4.3). Lo compensa que Tests no tiene Inicio ni el botón central de Estudiar, se abre en Practicar y las capturas enseñan los tests. La tercera se llama «Progreso» porque «Mis fallos y progreso» no cabe con cinco; el nombre, abajo, en «Por decidir».
+- **8.1 (T24).** Descubrir, calcada a Persevera: la corrección del mes, el temario, las noticias y el blog de perseveraoposiciones.com, el foro («Próximamente») y «Nuestros libros».
+- **8.3 (T24).** Los libros, solo en papel, también en la web: el PDF regala un mes de Persevera, no de Tests. Las portadas son las de Amazon, sin el sello del mes.
 - **7.1, la música.** Sin música: Tests no lleva el botón flotante ni las canciones de Persevera. Lo eligió Blanca. En una tarjeta pidió primero que entrara para el lanzamiento y, poco después, decidió que no.
 
 ### Lo que se copia además de Persevera
 
-Decidido el 15-oct-2026, a partir de lo que pidió Blanca. Tests se parece a Persevera por dentro: los textos, los flujos, el orden, la vibración, los sonidos y los movimientos. Se queda distinto lo que Apple compara primero (norma 4.3): los colores, el icono, la barra de abajo y el Inicio. Y no lleva nada que no sea de tests. Blanca señaló que InnoTest tiene una app por oposición con el mismo motor. Tests, además, lleva las mismas cinco oposiciones y el mismo banco que Persevera, así que ante Apple lo distinguen que es solo de tests, su precio y su propia cara.
+Decidido el 15-oct-2026, a partir de lo que pidió Blanca. Tests se parece a Persevera por dentro: los textos, los flujos, el orden, la vibración, los sonidos y los movimientos. Se queda distinto lo que Apple compara primero (norma 4.3): los colores, el icono y el Inicio. La barra empieza por Practicar y Simulacros, sin Inicio ni el botón central de Estudiar. Y no lleva nada que no sea de tests. Blanca señaló que InnoTest tiene una app por oposición con el mismo motor. Tests, además, lleva las mismas cinco oposiciones y el mismo banco que Persevera, así que ante Apple lo distinguen que es solo de tests, su precio y su propia cara.
 
-- **Entra:** el test entero, con el aviso «¡Dominada!»; Mis fallos, y un progreso con cifras, puntos débiles y la gráfica de los simulacros; la vibración y los sonidos, con sus interruptores en Tu cuenta; los movimientos de Persevera; la Sesión exprés; la bienvenida y la ficha de la oposición; los recordatorios, «Cambiar contraseña» y «Valora la app»; y entrar con Apple y Google, si A16 entra para el lanzamiento.
-- **Más adelante, cuando Apple haya aprobado Tests:** el Pomodoro, el mapa de días, el tutorial guiado, Descubrir, «Exportar mis datos» y «Reiniciar progreso». No están en ninguna tarea.
-- **No entra:** el tutor, el plan de estudio, las flashcards, los mapas mentales, el temario, la corrección con IA, la gamificación (XP, niveles, logros, retos, racha y tienda), «¿Aprobarías hoy?» y la música, que decidió Blanca.
+- **Entra:** el test entero, con el aviso «¡Dominada!»; Mis fallos, y un progreso con cifras, puntos débiles y la gráfica de los simulacros; la vibración y los sonidos, con sus interruptores en Perfil; los movimientos de Persevera; la Sesión exprés; la bienvenida y la ficha de la oposición; los recordatorios, «Cambiar contraseña» y «Valora la app»; Descubrir, calcada, con los libros solo en papel; y entrar con Apple y Google, si A16 entra para el lanzamiento.
+- **Más adelante, cuando Apple haya aprobado Tests:** el Pomodoro, el mapa de días, el tutorial guiado, «Exportar mis datos» y «Reiniciar progreso». No están en ninguna tarea.
+- **No entra:** el tutor, el plan de estudio, las flashcards, los mapas mentales, el temario para leer dentro de la app (Descubrir enlaza el de la web), la corrección con IA, la gamificación (XP, niveles, logros, retos, racha y tienda), «¿Aprobarías hoy?» y la música, que decidió Blanca.
 - **Distinto a propósito:** el onboarding conserva el paso de elegir plan. En Persevera el muro no sale al empezar y casi nadie empieza la prueba (2 activas frente a 892 clientes nuevos en 28 días, `guia-decisiones.md`), y Tests tiene que medir la conversión de la prueba desde el primer día.
 
 ### Por decidir
 
 Si Blanca no dice otra cosa, se quedan así.
 
-- **3.1 (T16).** ¿Tres pestañas propias o la barra de Persevera? Puesto: tres pestañas (Practicar, Simulacros, Mis fallos y progreso), porque la barra y el Inicio son lo primero que compara Apple, y el Inicio de Persevera está hecho sobre el plan de estudio, que Tests no tiene.
+- **3.1 (T16).** ¿«Progreso» u otro nombre corto para la tercera pestaña? Puesto: «Progreso», porque «Mis fallos y progreso» no cabe con cinco pestañas a 13 px.
 - **A16.** Propuesto que entre para el lanzamiento: Persevera tiene Apple y Google en su pantalla de entrar, y la maqueta los dibuja, apagados hasta A16.
 
 ### Fallos del motor encontrados al dibujarlas
@@ -699,6 +702,11 @@ Mis fallos (T7), en `src/components/views/MisFallosView.tsx`:
 - El «% dominado» divide entre todas las preguntas vistas, también las que nunca se fallaron (325-327).
 - Los botones anuncian todos los fallos (503-505 y 702-703), pero el test se corta en 20 o en 30 (304 y 314).
 
+Descubrir (T24):
+
+- El catálogo de libros pone «Otras oposiciones» en todos los grupos si `catalogo` llega vacío (`CatalogoLibrosView.tsx`, 29-32).
+- Si falla la lectura de la oposición, `loading` pasa a falso con el Administrativo (`oposicionActivaContext.tsx`, 126-130), y Descubrir enseñaría su corrección del mes a quien prepara otra.
+
 Entrar, cobro y cambio de oposición (T12, T14 y T17):
 
 - `public/confirmado.html` dice siempre «Email confirmado», también cuando el enlace ha caducado o ya se usó. La copia de Tests lo hereda. Oral ya lo resuelve (`src/lib/sesion.ts`, 142).
@@ -721,7 +729,7 @@ Lo que añaden las maquetas a cada tarea, con lo decidido el 15-oct-2026. Las l�
 - **T12.** Los textos de entrar son los de Persevera: las pestañas «Iniciar sesión» y «Crear cuenta», «¿Olvidaste tu contraseña?», «Enviar enlace» y «Volver al inicio de sesión». «Revisa tu correo» es una pantalla propia, con el reenvío y su cuenta atrás de 60 segundos. Los errores llevan los textos de Persevera, y la contraseña pide 8 caracteres como mínimo. Se copian `passwordStrength.ts` y `PasswordStrengthMeter.tsx`, con la barra en menta, y se añade «Confirmar contraseña». La nueva contraseña lleva los textos de `ResetPasswordScreen.tsx`. En el ordenador, dos paneles, como en Persevera. La aceptación de los términos se apunta al crear la cuenta, copiando `aceptacionTerminos.ts` (origen «registro»). Apple y Google van encima de los campos, apagados hasta A16, y Apple solo en iOS.
 - **T14.** El orden y la marca de 2.2. Debajo de los planes va la tarjeta del plan marcado, con su importe, la prueba, la renovación, cómo se cancela, el desistimiento y los términos. «Continuar» vibra fuerte. Abierto desde un candado, el muro sube como una hoja, con su línea de por qué y sin «Seguir con la muestra gratis». La aceptación se apunta otra vez antes de pagar (origen «muro»). Si «Activando…» tarda en la web, dice «Tu pago está hecho y lo estamos activando. Si en unos minutos no se abre, recarga la página o escríbenos.». En Persevera, «Restaurar compras» solo sale en el móvil (`PaywallModal.tsx`, 403-405), y falta decidir qué hace en la web con RevenueCat Billing. En el móvil, la prueba que se ofrece sale de la tienda (`revenuecat.ts`, 206-215). En Tests la oferta (`default` o `sin_prueba`) se elige según `prueba_disponible()`, para no enseñar «Hoy 0 €» a quien ya gastó la prueba en la web.
 - **T15.** Empieza con la bienvenida de Persevera (`BienvenidaScreen.tsx`), sin «Solo quiero ver los cursos». El paso 1 es el selector de Persevera, agrupado por organismo (`seccionesSelector.ts` e `iconoOrganismo.ts`), y cada oposición abre su ficha. Se copia `src/lib/fichaOposicion.ts`, que entra en la prueba de paridad, y la pantalla de la ficha se escribe nueva, sin tarifas, herramientas ni cursos. Con la lista y la tarjeta, el muro no cabe entero en un iPhone, y «Seguir con la muestra gratis» queda un poco más abajo, como en Persevera.
-- **T16.** Practicar lleva «Sesiones cortas»: la Sesión exprés, copiada de `EstudiarView.tsx` (306-519 y 1110-1170) a un fichero propio, y Mis fallos. Cada puerta lleva la etiqueta corta de Persevera. Progreso lleva la fila de cifras (preguntas, aciertos, simulacros y aprobados, sin racha), «Tus puntos débiles» y la gráfica de los simulacros. Tocar un tema empieza un test de 15 preguntas. Tu cuenta pasa a pantalla completa, con las secciones de Persevera en su orden (`PerfilView.tsx`, 995-1281): Sonidos y Vibración; los recordatorios, que necesitan `@capacitor/local-notifications` y `notificaciones.ts` sin el plan; «Cambiar contraseña» (`ChangePasswordModal.tsx`); «Valora la app»; «Tu oposición», con su ficha; y, a quien no paga, «Suscríbete a {oposición}». «Cerrar sesión» pide confirmar con `ConfirmActionModal`.
+- **T16.** Practicar lleva «Sesiones cortas»: la Sesión exprés, copiada de `EstudiarView.tsx` (306-519 y 1110-1170) a un fichero propio, y Mis fallos. Cada puerta lleva la etiqueta corta de Persevera. Progreso lleva la fila de cifras (preguntas, aciertos, simulacros y aprobados, sin racha), «Tus puntos débiles» y la gráfica de los simulacros. Tocar un tema empieza un test de 15 preguntas. Perfil es la quinta pestaña: arriba, el nombre con su lápiz (`EditNameModal.tsx`, sin avatar) y el correo, sin nada de gamificación (`PerfilView.tsx`, 453-569 y 282-312), y debajo las secciones de Persevera en su orden (995-1281): Sonidos y Vibración; los recordatorios, que necesitan `@capacitor/local-notifications` y `notificaciones.ts` sin el plan; «Cambiar contraseña» (`ChangePasswordModal.tsx`); «Valora la app»; «Tu oposición», con su ficha; y, a quien no paga, «Suscríbete a {oposición}». «Cerrar sesión» pide confirmar con `ConfirmActionModal`. Las pantallas interiores vuelven con el botón de Persevera, «Volver a …» (`BotonVolver.tsx`). La barra lleva los nombres a 13 px, más grandes que en Persevera: por debajo de 360 px de ancho hay que medir «Simulacros» con SF Pro y con Roboto, y si no cabe se quita el margen de los lados de la barra, nunca la letra.
 - **T17.** La confirmación de 7.4, con `ConfirmActionModal`. La frase de los 30 días va en la ficha, encima de «Estudiar esta oposición».
 - **T18.** «Oficial» lleva el icono de portapapeles de Persevera, y la convocatoria va sin «Examen» delante. «Original» se explica así: «No sale de un examen oficial. Es una pregunta propia de Persevera Tests.». Dentro de Tests se dice «Persevera Tests» y no «Persevera», como en 4.1.
 - **T19.** En el menú de pulsación larga, «Reportar esta pregunta», junto a «Copiar enunciado». La hoja del reporte lleva los cinco motivos, ninguno marcado, un texto opcional de hasta 500 letras y «Enviar reporte». Se guarda también la opción marcada, y una pregunta ya reportada no se puede reportar otra vez.
@@ -729,3 +737,15 @@ Lo que añaden las maquetas a cada tarea, con lo decidido el 15-oct-2026. Las l�
 - **T23.** `paleta.md` y `paleta.ts` apuntan que el rojo de fallo vale también para los errores de los formularios y para «Eliminar cuenta», siempre con su icono y su frase. «¡Correcto!» va en el verde del acierto, no en la menta, y «¡Dominada!», en menta con el texto oscuro. Las flechas, los signos y los emojis del motor pasan a iconos de Phosphor. Es un cambio fuera del paso de tema, así que lleva su bloque en la prueba de paridad. Se copia la pantalla de arranque (`SplashScreen.tsx` y su `.css`) con el flexo de Tests.
 - **Al copiar.** Se quitan los nombres de Persevera: «elige Persevera» en los pasos para cancelar (`textosDiaD.ts`, 292-293) y sus fichas de tienda en `versionMinima.ts` (24-25).
 - **P4.** Los términos dicen que se cancela en App Store «al menos 24 horas antes de la renovación», pero durante la prueba el primer cobro no es una renovación. Lo mira el abogado.
+
+## Tareas añadidas después
+
+- [ ] **T24. Descubrir y los libros.** La cuarta pestaña, calcada a Persevera (decidido por Blanca el 15-oct-2026, para llevar a la gente a los recursos que da). Va con T16 y espera a T3, T4 y T23. Maquetas 8.1 a 8.3.
+  - Se copian de `claude/dia-d` (`54e448e`), con su cabecera: `src/lib/libros.ts` y `src/lib/correccionDelMes.ts`, con sus pruebas, tal cual; `DescubrirView.tsx` y `CatalogoLibrosView.tsx`, con cambios; y el plugin `@capacitor/browser`.
+  - Los libros, solo en papel en todas partes: `PERMITIR_PDF = false` en un envoltorio propio y las 23 portadas sin «-web», porque las «-web» llevan «Un mes de la app incluido», que es de Persevera. Los títulos van sin «·», con «Edición 2026» debajo.
+  - La corrección del mes busca la entrega por el id de la oposición. Vale en Tests, que copia las oposiciones con los mismos id (`20261013200000_comun_y_contenido.sql`, 11-13). El contexto de la oposición (T3) no puede dar `loading` falso con la oposición por defecto si falla la lectura.
+  - Antes de darla por hecha: que `https://perseveraoposiciones.com/correccion-del-mes/entregas.json` deje pasar los orígenes de Tests (`https://tests.perseveraoposiciones.com`, `https://localhost` y `capacitor://localhost`); si no, sus pasos van a `guia-consolas.md`. Y mirar si /temario, /noticias y /blog llevan «Probar la app» o precios de Persevera: si los llevan, se pide a la web una variante /app/, como la de la corrección del mes, o se acepta el riesgo por escrito.
+  - La tarjeta del foro, «Próximamente», es lo que más se parece a contenido a medias (norma 2.1). Si Apple pone pegas, se quitan la tarjeta y la palabra «comunidad» de arriba.
+  - En la paridad de T4 entran `libros.ts` y `correccionDelMes.ts`, y los cambios de las dos vistas.
+
+  Hecho cuando las tres pantallas de la maqueta funcionan en iOS, Android y web, los enlaces se abren en el navegador de la app y la corrección del mes sale para el Administrativo y la Seguridad Social.
