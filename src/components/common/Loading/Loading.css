@@ -1,0 +1,106 @@
+/*
+   Copiado de Persevera (src/components/common/Loading/Loading.css) el
+   15-oct-2026, rama claude/dia-d en 54e448e. Copiar, nunca mover: el original
+   sigue en Persevera. Tal cual: el color y la letra de la etiqueta (Cormorant
+   Garamond) son los de Persevera hasta el paso de tema de T23.
+*/
+
+/* ===================================================================
+ * Loading.css
+ * Sistema de loading de Persevera — tres variantes en bucle
+ * =================================================================== */
+
+.persevera-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.persevera-loading--flexo {
+  flex-direction: column;
+  gap: 16px;
+}
+
+.persevera-loading--line {
+  flex-direction: column;
+  gap: 12px;
+}
+
+.persevera-loading--dots {
+  flex-direction: row;
+  gap: 12px;
+}
+
+.persevera-loading__label {
+  margin: 0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 16px;
+  color: #0D7C66;
+  text-align: center;
+}
+
+.persevera-loading__inline-label {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 14px;
+  color: #0D7C66;
+}
+
+/* === Variante flexo: la luz parpadea irregular === */
+.persevera-loading__flexo-light {
+  animation: persevera-flexo-flicker 2.4s ease-in-out infinite;
+}
+
+@keyframes persevera-flexo-flicker {
+  0%, 100% { opacity: 0.08; }
+  20% { opacity: 0.35; }
+  25% { opacity: 0.18; }
+  30% { opacity: 0.40; }
+  50% { opacity: 0.40; }
+  52% { opacity: 0.20; }
+  54% { opacity: 0.40; }
+  80% { opacity: 0.30; }
+}
+
+/* === Variante dots: tres puntos con pulse en secuencia === */
+.persevera-loading__dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: persevera-dot-pulse 1.4s ease-in-out infinite;
+}
+
+.persevera-loading__dot--1 { animation-delay: 0s; }
+.persevera-loading__dot--2 { animation-delay: 0.18s; }
+.persevera-loading__dot--3 { animation-delay: 0.36s; }
+
+@keyframes persevera-dot-pulse {
+  0%, 70%, 100% { opacity: 0.25; transform: translateY(0); }
+  35% { opacity: 1; transform: translateY(-2px); }
+}
+
+/* === Variante line: línea que se dibuja como pluma === */
+.persevera-loading__line-stroke {
+  stroke-dasharray: 136;
+  animation: persevera-line-draw 2.2s ease-in-out infinite;
+}
+
+@keyframes persevera-line-draw {
+  0% { stroke-dashoffset: 136; }
+  45%, 55% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -136; }
+}
+
+/* === Respeto a prefers-reduced-motion === */
+@media (prefers-reduced-motion: reduce) {
+  .persevera-loading__flexo-light {
+    animation: none;
+    opacity: 0.25;
+  }
+  .persevera-loading__dot {
+    animation: none;
+    opacity: 0.6;
+  }
+  .persevera-loading__line-stroke {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}

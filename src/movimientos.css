@@ -1,0 +1,245 @@
+/*
+   Copiado de Persevera (src/index.css) el 15-oct-2026, rama claude/dia-d en
+   54e448e. Copiar, nunca mover: el original sigue en Persevera. Son los
+   movimientos de Persevera (el hundimiento de los botones, el rebote del
+   scroll en iOS, el rebote del acierto, el temblor del fallo, el fundido de
+   las cifras, la entrada de los modales y las hojas) y lo que piden los
+   componentes copiados en T3 (Collapse, ContextMenu y LoadingOverlay), en
+   trozos tal cual; cada uno lleva delante las líneas de las que sale.
+   Cambiado aquí: de :root solo van las dos curvas de animación, y el trozo de
+   escritorio va dentro de su @media, como allí. El resto de index.css no está
+   aquí: la maquetación del test, de los supuestos y de los modales a pantalla
+   completa la copia la tarea de cada componente (hoja de ruta, «Lo que deja
+   T3 a otras tareas»).
+*/
+
+
+/* Persevera, src/index.css, líneas 679-681, dentro de su :root */
+:root {
+  /* Curvas de animación */
+  --pv-ease-out:     cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --pv-ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+
+/* Persevera, src/index.css, líneas 685-734 */
+/* ─────────────────────────────────────────────────────────────────
+   3 · PRESS STATES — el "hundimiento" al pulsar
+   ─────────────────────────────────────────────────────────────────
+   Funciona automáticamente en TODO `<button>`. Para que un `<div>`
+   con onClick también se hunda, añade el atributo data-pressable:
+       <div data-pressable onClick={...}>...</div>
+   Variantes:
+       data-pressable="subtle"  → hundimiento muy ligero (cards grandes)
+       data-pressable           → hundimiento estándar (default 0.97)
+       data-pressable="strong"  → hundimiento marcado (iconos, FAB)
+   ───────────────────────────────────────────────────────────────── */
+
+button,
+[data-pressable] {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 0.18s var(--pv-ease-out),
+              box-shadow 0.18s var(--pv-ease-out),
+              opacity 0.18s var(--pv-ease-out);
+}
+
+button:active:not(:disabled),
+[data-pressable]:active {
+  transform: scale(0.97);
+  transition: transform 0.08s ease-out;
+}
+
+[data-pressable="subtle"]:active {
+  transform: scale(0.985);
+}
+
+[data-pressable="strong"]:active {
+  transform: scale(0.92);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Inputs/áreas de texto SIEMPRE seleccionables y editables, aunque un
+   contenedor padre desactive la selección (p. ej. la lectura de cursos, que
+   la desactiva para que no salte el menú de copiar al mantener pulsado). */
+input,
+textarea,
+[contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+
+/* Persevera, src/index.css, líneas 737-758 */
+/* ─────────────────────────────────────────────────────────────────
+   4 · OVERSCROLL BOUNCE — el "rebote" iOS al final del scroll
+   ─────────────────────────────────────────────────────────────────
+   Se activa añadiendo data-scroll a un contenedor con scroll vertical:
+       <div data-scroll style={{ flex: 1, overflowY: 'auto' }}>...</div>
+   En iOS (Capacitor con contentInset: 'never') esto activa el rubber
+   band nativo. En Android se usa overscroll-behavior contain para
+   evitar que se desplace la página padre.
+   ───────────────────────────────────────────────────────────────── */
+
+[data-scroll] {
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* iOS — fuerza scroll para activar el rubber band cuando el contenido
+   no llena la altura. @supports detecta Safari/WebKit móvil. */
+@supports (-webkit-touch-callout: none) {
+  [data-scroll] {
+    overflow-y: scroll;
+  }
+}
+
+
+/* Persevera, src/index.css, líneas 814-847 */
+/* ─────────────────────────────────────────────────────────────────
+   6 · ANIMACIONES DE ENTRADA — fade-slide unificado (sin cascada)
+   ─────────────────────────────────────────────────────────────────
+   Aplica .pv-fade-in al contenedor o a los hijos directos.
+   Decisión de marca: el contenido de una vista entra TODO A LA VEZ
+   y suave (un único fundido), no en cascada. Por eso ya NO hay
+   animation-delay escalonado por nth-child — evita el "pop-in" a
+   destiempo. Que cada vista aparezca junta lo garantiza su propio
+   gate de carga (esperar a tener los datos antes de pintar).
+   ───────────────────────────────────────────────────────────────── */
+
+.pv-fade-in {
+  animation: pv-fade-slide-in 0.42s var(--pv-ease-out) both;
+}
+
+
+@keyframes pv-fade-slide-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Variante sin desplazamiento, solo opacity (para overlays/modales) */
+.pv-fade-in-quick {
+  animation: pv-fade-quick 0.22s ease-out both;
+}
+/* Fade-in suave para entradas de pantalla completa (login, etc.) — un pelín
+   más largo que -quick para que la transición desde el splash no sea brusca. */
+.pv-fade-in-soft {
+  animation: pv-fade-quick 0.55s ease both;
+}
+@keyframes pv-fade-quick {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+
+/* Persevera, src/index.css, líneas 874-894 */
+/* Accesibilidad: con "menos movimiento" las entradas son instantáneas
+   (sin deslizamiento) y el shimmer del skeleton se detiene. */
+@media (prefers-reduced-motion: reduce) {
+  .pv-fade-in,
+  .pv-fade-in-quick,
+  .pv-fade-in-soft,
+  .pv-count-up,
+  .pv-bola-sale,
+  .pv-mano-busca {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .pv-skeleton {
+    animation: none !important;
+  }
+  /* El acordeón animado (Collapse) salta directo a su estado final. */
+  .pv-collapse {
+    transition: none !important;
+  }
+}
+
+
+/* Persevera, src/index.css, líneas 897-945 */
+/* ─────────────────────────────────────────────────────────────────
+   7 · MICRO-FEEDBACK — success, error, count-up, modal pop
+   ───────────────────────────────────────────────────────────────── */
+
+/* Check de respuesta correcta */
+.pv-success-pop {
+  animation: pv-success-pop 0.42s var(--pv-ease-spring);
+}
+@keyframes pv-success-pop {
+  0%   { transform: scale(0); }
+  60%  { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+/* Shake de respuesta incorrecta o input inválido */
+.pv-shake {
+  animation: pv-shake 0.42s ease;
+}
+@keyframes pv-shake {
+  0%, 100%  { transform: translateX(0); }
+  20%, 60%  { transform: translateX(-4px); }
+  40%, 80%  { transform: translateX(4px); }
+}
+
+/* Aparición suave de números (resultados, contadores) */
+.pv-count-up {
+  animation: pv-count-up 0.5s var(--pv-ease-out) both;
+}
+@keyframes pv-count-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Modal pop — para HubModal, TestSelectorModal, etc. */
+.pv-modal-overlay  { animation: pv-fade-quick 0.18s ease-out both; }
+.pv-modal-content  { animation: pv-modal-pop  0.28s var(--pv-ease-spring) both; }
+@keyframes pv-modal-pop {
+  from { opacity: 0; transform: scale(0.94) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Action sheet desde abajo (para Capacitor mobile pattern) */
+.pv-sheet-up {
+  animation: pv-sheet-up 0.32s var(--pv-ease-out) both;
+}
+@keyframes pv-sheet-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+
+/* Persevera, src/index.css, líneas 1031-1039 */
+/* ── Bottom sheet contextual — sube desde abajo con spring ── */
+.pv-context-menu-up {
+  animation: pv-context-menu-up 0.32s cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+@keyframes pv-context-menu-up {
+  from { transform: translateY(100%); opacity: 0.6; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+
+/* Persevera, src/index.css, líneas 188-202, dentro de su @media (min-width: 1024px) */
+@media (min-width: 1024px) {
+  /* BOTTOM SHEETS → MODAL CENTRADO en escritorio.
+     En móvil son hojas pegadas abajo (.pv-sheet-panel con borderRadius
+     superior + alignItems:flex-end del overlay). En escritorio se veían
+     como una hoja de 600px descolgada abajo → pequeña. Aquí las centramos
+     verticalmente (vía :has sobre el overlay) y les redondeamos las 4
+     esquinas, convirtiéndolas en un modal centrado clásico. La rayita de
+     arrastre se queda (inofensiva). */
+  div:has(> .pv-sheet-panel) {
+    align-items: center !important;
+  }
+  .pv-sheet-panel {
+    border-radius: 20px !important;
+    max-width: 720px !important;
+    max-height: 86vh !important;
+  }
+}

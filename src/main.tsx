@@ -1,6 +1,9 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
+// Los movimientos de Persevera: el hundimiento de los botones, el rebote, el
+// temblor y el fundido de las cifras (T3).
+import './movimientos.css'
 import App from './App.tsx'
 
 // Sello del paquete, como el `__PERSEVERA_BUILD__` de Persevera (claude/dia-d
