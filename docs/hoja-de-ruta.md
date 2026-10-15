@@ -649,14 +649,15 @@ En 3.2 Blanca eligió el candado. En los demás dejó elegir, con una regla: que
 - **7.1 (T16 y T21).** «Eliminar cuenta», en rojo. «Cerrar sesión», en el naranja de aviso con su icono, como en Persevera.
 - **7.4 (T17).** Se pide confirmar solo cuando el cambio cuenta: con pago y fuera de la prueba. En la prueba y sin suscripción se cambia con un toque, como en Persevera.
 - **7.6 (T21).** «Eliminar», y la palabra para confirmar es ELIMINAR, como en Persevera.
+- **7.1, la música.** Sin música: Tests no lleva el botón flotante ni las canciones de Persevera. Lo eligió Blanca. En una tarjeta pidió primero que entrara para el lanzamiento y, poco después, decidió que no.
 
 ### Lo que se copia además de Persevera
 
 Decidido el 15-oct-2026, a partir de lo que pidió Blanca. Tests se parece a Persevera por dentro: los textos, los flujos, el orden, la vibración, los sonidos y los movimientos. Se queda distinto lo que Apple compara primero (norma 4.3): los colores, el icono, la barra de abajo y el Inicio. Y no lleva nada que no sea de tests. Blanca señaló que InnoTest tiene una app por oposición con el mismo motor. Tests, además, lleva las mismas cinco oposiciones y el mismo banco que Persevera, así que ante Apple lo distinguen que es solo de tests, su precio y su propia cara.
 
 - **Entra:** el test entero, con el aviso «¡Dominada!»; Mis fallos, y un progreso con cifras, puntos débiles y la gráfica de los simulacros; la vibración y los sonidos, con sus interruptores en Tu cuenta; los movimientos de Persevera; la Sesión exprés; la bienvenida y la ficha de la oposición; los recordatorios, «Cambiar contraseña» y «Valora la app»; y entrar con Apple y Google, si A16 entra para el lanzamiento.
-- **Más adelante, cuando Apple haya aprobado Tests:** la música, el Pomodoro, el mapa de días, el tutorial guiado, Descubrir, «Exportar mis datos» y «Reiniciar progreso». No están en ninguna tarea.
-- **No entra:** el tutor, el plan de estudio, las flashcards, los mapas mentales, el temario, la corrección con IA, la gamificación (XP, niveles, logros, retos, racha y tienda) y «¿Aprobarías hoy?».
+- **Más adelante, cuando Apple haya aprobado Tests:** el Pomodoro, el mapa de días, el tutorial guiado, Descubrir, «Exportar mis datos» y «Reiniciar progreso». No están en ninguna tarea.
+- **No entra:** el tutor, el plan de estudio, las flashcards, los mapas mentales, el temario, la corrección con IA, la gamificación (XP, niveles, logros, retos, racha y tienda), «¿Aprobarías hoy?» y la música, que decidió Blanca.
 - **Distinto a propósito:** el onboarding conserva el paso de elegir plan. En Persevera el muro no sale al empezar y casi nadie empieza la prueba (2 activas frente a 892 clientes nuevos en 28 días, `guia-decisiones.md`), y Tests tiene que medir la conversión de la prueba desde el primer día.
 
 ### Por decidir
@@ -664,7 +665,6 @@ Decidido el 15-oct-2026, a partir de lo que pidió Blanca. Tests se parece a Per
 Si Blanca no dice otra cosa, se quedan así.
 
 - **3.1 (T16).** ¿Tres pestañas propias o la barra de Persevera? Puesto: tres pestañas (Practicar, Simulacros, Mis fallos y progreso), porque la barra y el Inicio son lo primero que compara Apple, y el Inicio de Persevera está hecho sobre el plan de estudio, que Tests no tiene.
-- **7.1 (más adelante).** ¿Se añade la música de Persevera? Puesto: más adelante. Sus 120 canciones están en el almacén de Eroodite: hay que pasarlas a uno de Tests y comprobar la licencia, y serían el mismo contenido en una tercera app de la cuenta, que es lo que Apple mira.
 - **A16.** Propuesto que entre para el lanzamiento: Persevera tiene Apple y Google en su pantalla de entrar, y la maqueta los dibuja, apagados hasta A16.
 
 ### Fallos del motor encontrados al dibujarlas
